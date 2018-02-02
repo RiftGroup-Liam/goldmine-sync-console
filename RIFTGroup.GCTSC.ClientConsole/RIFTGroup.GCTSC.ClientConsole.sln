@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.ClientConsole", "RIFTGroup.GCTSC.ClientConsole\RIFTGroup.GCTSC.ClientConsole.csproj", "{C2E957B8-58A3-4218-8032-B39EB1DDFF59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Core", "..\RIFTGroup.GCTSC.Core\RIFTGroup.GCTSC.Core.csproj", "{899F81AE-EFB3-4984-ACC2-15BB59C261A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Business", "..\RIFTGroup.GCTSC.Business\RIFTGroup.GCTSC.Business.csproj", "{4723C95E-D781-42A0-A00E-76AFED7AF47E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Core.EntityFramework", "..\RIFTGroup.GCTSC.Core.EntityFramework\RIFTGroup.GCTSC.Core.EntityFramework.csproj", "{393F1DC3-1711-4FBA-8227-C1032FEAB636}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2E957B8-58A3-4218-8032-B39EB1DDFF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E957B8-58A3-4218-8032-B39EB1DDFF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E957B8-58A3-4218-8032-B39EB1DDFF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E957B8-58A3-4218-8032-B39EB1DDFF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{899F81AE-EFB3-4984-ACC2-15BB59C261A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{899F81AE-EFB3-4984-ACC2-15BB59C261A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{899F81AE-EFB3-4984-ACC2-15BB59C261A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{899F81AE-EFB3-4984-ACC2-15BB59C261A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4723C95E-D781-42A0-A00E-76AFED7AF47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4723C95E-D781-42A0-A00E-76AFED7AF47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4723C95E-D781-42A0-A00E-76AFED7AF47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4723C95E-D781-42A0-A00E-76AFED7AF47E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{393F1DC3-1711-4FBA-8227-C1032FEAB636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{393F1DC3-1711-4FBA-8227-C1032FEAB636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{393F1DC3-1711-4FBA-8227-C1032FEAB636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{393F1DC3-1711-4FBA-8227-C1032FEAB636}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://rift-dev-2k8:8080/tfs/goldmine%20change%20tracking%20sync%20console
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\RIFTGroup.GCTSC.Business\\RIFTGroup.GCTSC.Business.csproj
+		SccProjectName1 = ../RIFTGroup.GCTSC.Business
+		SccLocalPath1 = ..\\RIFTGroup.GCTSC.Business
+		SccProjectUniqueName2 = RIFTGroup.GCTSC.ClientConsole\\RIFTGroup.GCTSC.ClientConsole.csproj
+		SccProjectName2 = RIFTGroup.GCTSC.ClientConsole
+		SccLocalPath2 = RIFTGroup.GCTSC.ClientConsole
+		SccProjectUniqueName3 = ..\\RIFTGroup.GCTSC.Core.EntityFramework\\RIFTGroup.GCTSC.Core.EntityFramework.csproj
+		SccProjectName3 = ../RIFTGroup.GCTSC.Core.EntityFramework
+		SccLocalPath3 = ..\\RIFTGroup.GCTSC.Core.EntityFramework
+		SccProjectUniqueName4 = ..\\RIFTGroup.GCTSC.Core\\RIFTGroup.GCTSC.Core.csproj
+		SccProjectName4 = ../RIFTGroup.GCTSC.Core
+		SccLocalPath4 = ..\\RIFTGroup.GCTSC.Core
+	EndGlobalSection
+EndGlobal
