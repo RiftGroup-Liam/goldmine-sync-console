@@ -44,6 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CONTACT1ChangeTracking_Result.cs">
+      <DependentUpon>GoldmineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CONTACT2ChangeTracking_Result.cs">
+      <DependentUpon>GoldmineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CONTSUPPChangeTracking_Result.cs">
+      <DependentUpon>GoldmineModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\GoldmineModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -52,13 +61,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SQL Scripts\" />
+    <Folder Include="SQL Scripts\Console scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\GoldmineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GoldmineModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL Scripts\CT SQL Scripts\Check Change tracking DBs and Tables.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes - contact 2.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes - contsupp.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Set CONTACT1 PK.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Set Contact2 PK.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Set Contsupp PK.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\SET CT off for Database.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Set CT off for Table.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\SET CT on for Database.sql" />
+    <Content Include="SQL Scripts\CT SQL Scripts\Set CT on for Table.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

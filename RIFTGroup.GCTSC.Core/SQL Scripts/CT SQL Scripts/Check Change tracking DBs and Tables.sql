@@ -1,0 +1,1 @@
+select * from  sys.change_tracking_tables
