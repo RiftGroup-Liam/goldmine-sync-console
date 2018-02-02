@@ -5,6 +5,7 @@ using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Core.EntityFramework;
 using System.Linq;
 using System.Collections.Generic;
+using RIFTGroup.GCTSC.Business.Tests.Helpers;
 
 namespace RIFTGroup.GCTSC.Business.Tests
 {
@@ -12,6 +13,8 @@ namespace RIFTGroup.GCTSC.Business.Tests
     public class ChangeTrackingProcess_Tests
     {
         ChangeTrackingProcess _changeTrackingProcess;
+        LastVersionNumberHelper _lastVersionNumberHelper;
+        CreateChangeHelper _createChangeHelper;
         string _testAccountno;
         int _contact1StartVersionNumber;
         int _contact2StartVersionNumber;
@@ -21,19 +24,21 @@ namespace RIFTGroup.GCTSC.Business.Tests
         {
             _changeTrackingProcess = new ChangeTrackingProcess();
             _testAccountno = "B5040182438 F[6CPLia";
+            _lastVersionNumberHelper = new LastVersionNumberHelper();
+            _createChangeHelper = new CreateChangeHelper(_testAccountno);
         }
 
         [TestInitialize]
         public void DoInit()
         {
-            _contact1StartVersionNumber = GetContact1StartVersionNumber();
-            _contact2StartVersionNumber = GetContact2StartVersionNumber();
-            _contsupStartVersionNumber = GetContSuppStartVersionNumber();
-            CreateContact1Change();
-            CreateContact2Change();
-            CreateContSuppChange();
+            _contact1StartVersionNumber = _lastVersionNumberHelper.Contact1StartVersionNumber;
+            _contact2StartVersionNumber = _lastVersionNumberHelper.Contact2StartVersionNumber;
+            _contsupStartVersionNumber = _lastVersionNumberHelper.ContsuppStartVersionsNumber;
+            _createChangeHelper.CreateContact1Change();
+            _createChangeHelper.CreateContact2Change();
+            _createChangeHelper.CreateContSuppChange();
         }
-        
+
         [TestMethod]
         public void CONTACT1ChangeTracking_ReturnsResults()
         {
@@ -54,84 +59,5 @@ namespace RIFTGroup.GCTSC.Business.Tests
             List<CONTSUPPChangeTracking_Result> results = _changeTrackingProcess.GetContSuppChangeTrackingResults(_contsupStartVersionNumber);
             Assert.IsTrue(results.Count > 0);
         }
-
-        // Helpers
-        #region Helpers
-
-        private void CreateContSuppChange()
-        {
-            using (GoldmineEntities context = new GoldmineEntities())
-            {
-                int result = context.TESTS_CreateContsuppChange(_testAccountno);
-                if (result <= 0)
-                {
-                    throw new Exception("Can't create contsupp change");
-                }
-            }
-        }
-        private void CreateContact2Change()
-        {
-            using (GoldmineEntities context = new GoldmineEntities())
-            {
-                int result = context.TESTS_CreateContact2Change(_testAccountno);
-                if (result <= 0)
-                {
-                    throw new Exception("Can't create contact2 change");
-                }
-            }
-        }
-        private void CreateContact1Change()
-        {
-            using (GoldmineEntities context = new GoldmineEntities())
-            {
-                int result = context.TESTS_CreateContact1Change(_testAccountno);
-                if(result <= 0)
-                {
-                    throw new Exception("Can't create contact1 change");
-                }
-            }
-        }
-
-        private int GetContact1StartVersionNumber()
-        {
-            int contact1StartVersionNumber = 1;
-            try
-            {
-                using (GoldmineEntities context = new GoldmineEntities())
-                {
-                    contact1StartVersionNumber = int.Parse((from c in context.CONTACT1ChangeTracking(1) select c.SYS_CHANGE_VERSION).ToList().OrderByDescending(c => c.Value).First().Value.ToString());
-                }
-            }
-            catch(Exception) { return contact1StartVersionNumber;  }
-            return contact1StartVersionNumber;
-        }
-        private int GetContSuppStartVersionNumber()
-        {
-            int contSuppStartVersionNumber = 1;
-            try
-            {
-                using (GoldmineEntities context = new GoldmineEntities())
-                {
-                    contSuppStartVersionNumber = int.Parse((from c in context.CONTSUPPChangeTracking(1) select c.SYS_CHANGE_VERSION).ToList().OrderByDescending(c => c.Value).First().Value.ToString());
-                }
-            }
-            catch (Exception) { return contSuppStartVersionNumber;  }
-            return contSuppStartVersionNumber;
-        }
-        private int GetContact2StartVersionNumber()
-        {
-            int contact2StartVersionNumber = 1;
-            try
-            {
-                using (GoldmineEntities context = new GoldmineEntities())
-                {
-                    contact2StartVersionNumber = int.Parse((from c in context.CONTACT2ChangeTracking(1) select c.SYS_CHANGE_VERSION).ToList().OrderByDescending(c => c.Value).First().Value.ToString());
-                }
-            }
-            catch (Exception) { return contact2StartVersionNumber; }
-            return contact2StartVersionNumber;
-        }
-
-        #endregion
     }
 }

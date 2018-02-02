@@ -66,6 +66,16 @@
       <DependentUpon>GoldmineModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RiftModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiftModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RiftModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiftModel.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="GoldmineModel.edmx">
@@ -79,12 +89,24 @@
       <DependentUpon>GoldmineModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <EntityDeploy Include="RiftModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RiftModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RiftModel.edmx.diagram">
+      <DependentUpon>RiftModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="GoldmineModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GoldmineModel.edmx</DependentUpon>
       <LastGenOutput>GoldmineModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="RiftModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RiftModel.edmx</DependentUpon>
+      <LastGenOutput>RiftModel.Context.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -58,6 +58,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GoldmineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\RiftModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SystemKey.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +75,10 @@
     <Content Include="Model\GoldmineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GoldmineModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\RiftModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RiftModel.cs</LastGenOutput>
     </Content>
     <Content Include="SQL Scripts\CT SQL Scripts\Check Change tracking DBs and Tables.sql" />
     <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes - contact 2.sql" />
