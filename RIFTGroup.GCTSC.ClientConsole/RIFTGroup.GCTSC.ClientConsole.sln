@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Core.Entity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Business.Tests", "..\RIFTGroup.GCTSC.Business\RIFTGroup.GCTSC.Business.TEsts\RIFTGroup.GCTSC.Business.Tests.csproj", "{5B14F8B2-38E3-4770-923D-22D8DE7A7FC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RIFTGroup.GCTSC.Core.Tests", "..\RIFTGroup.GCTSC.Core\RIFTGroup.GCTSC.Core.Tests\RIFTGroup.GCTSC.Core.Tests.csproj", "{E297BCD0-2A4C-43D4-8844-4B4F13B7EEB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,12 +41,16 @@ Global
 		{5B14F8B2-38E3-4770-923D-22D8DE7A7FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B14F8B2-38E3-4770-923D-22D8DE7A7FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B14F8B2-38E3-4770-923D-22D8DE7A7FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E297BCD0-2A4C-43D4-8844-4B4F13B7EEB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E297BCD0-2A4C-43D4-8844-4B4F13B7EEB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E297BCD0-2A4C-43D4-8844-4B4F13B7EEB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E297BCD0-2A4C-43D4-8844-4B4F13B7EEB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://rift-dev-2k8:8080/tfs/goldmine%20change%20tracking%20sync%20console
 		SccLocalPath0 = .
@@ -60,8 +66,11 @@ Global
 		SccProjectUniqueName4 = ..\\RIFTGroup.GCTSC.Core\\RIFTGroup.GCTSC.Core.csproj
 		SccProjectName4 = ../RIFTGroup.GCTSC.Core
 		SccLocalPath4 = ..\\RIFTGroup.GCTSC.Core
-		SccProjectUniqueName5 = ..\\RIFTGroup.GCTSC.Business\\RIFTGroup.GCTSC.Business.TEsts\\RIFTGroup.GCTSC.Business.TEsts.csproj
+		SccProjectUniqueName5 = ..\\RIFTGroup.GCTSC.Business\\RIFTGroup.GCTSC.Business.TEsts\\RIFTGroup.GCTSC.Business.Tests.csproj
 		SccProjectName5 = ../RIFTGroup.GCTSC.Business/RIFTGroup.GCTSC.Business.TEsts
 		SccLocalPath5 = ..\\RIFTGroup.GCTSC.Business\\RIFTGroup.GCTSC.Business.TEsts
+		SccProjectUniqueName6 = ..\\RIFTGroup.GCTSC.Core\\RIFTGroup.GCTSC.Core.Tests\\RIFTGroup.GCTSC.Core.Tests.csproj
+		SccProjectName6 = ../RIFTGroup.GCTSC.Core/RIFTGroup.GCTSC.Core.Tests
+		SccLocalPath6 = ..\\RIFTGroup.GCTSC.Core\\RIFTGroup.GCTSC.Core.Tests
 	EndGlobalSection
 EndGlobal

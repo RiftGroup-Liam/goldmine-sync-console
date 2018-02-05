@@ -25,7 +25,7 @@ namespace RIFTGroup.GCTSC.Business
                 ro = _gm_repo.GetReferenceNumberFromRecid(ctResult.recid, ro);
                 ro = _gm_repo.GetAccountnoFromRecid(ctResult.recid, ro);
                 ro.ChangedValue = _gm_repo.GetContsupref(ctResult.recid);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.CONTSUPREF, ro.ChangedValue);
+                ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.CONTSUPREF, ro);
             }
             return ro;
         }
@@ -38,12 +38,12 @@ namespace RIFTGroup.GCTSC.Business
             if (ctResult.uemailaddrChanged_bool)
             {
                 ro.ChangedValue = _gm_repo.GetUclientsta(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.UEMAILADDR, ro.ChangedValue);
+                ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.UEMAILADDR, ro);
             }
             if(ctResult.uclientstaChanged_bool)
             {
                 ro.ChangedValue = _gm_repo.GetUclientsta(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.UCLIENTSTA, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.UCLIENTSTA, ro);
             }
             return ro;
         }
@@ -56,42 +56,42 @@ namespace RIFTGroup.GCTSC.Business
             if (ctResult.key5Changed_bool)
             {
                 ro.ChangedValue = _gm_repo.GetKey5(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.KEY5, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.KEY5, ro);
             }
             if(ctResult.contactChanged_bool)
             {
                 ro.ChangedValue = _gm_repo.GetContact(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.CONTACT, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.CONTACT, ro);
             }
             if(ctResult.secrChanged_bool)
             {
                 ro.ChangedValue = _gm_repo.GetSecr(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.SECR, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.SECR, ro);
             }
             if(ctResult.LastnameChanged_bool)
             {
                 ro.ChangedValue = _gm_repo.GetLastname(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.LASTNAME, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.LASTNAME, ro);
             }
             if(ctResult.phone1Changed_bool)
             {
                 ro.ChangedValue = _gm_repo.GetPhone1(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.PHONE1, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE1, ro);
             }
             if(ctResult.phone2Changed_bool)
             {
                 ro.ChangedValue = _gm_repo.GetPhone2(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.PHONE2, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE2, ro);
             }
             if(ctResult.phone3Changed_bool)
             {
                 ro.ChangedValue = _gm_repo.GetPhone3(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.PHONE3, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE3, ro);
             }
             if(ctResult.key2Changed_bool)
             {
                 ro.ChangedValue = _gm_repo.GetKey2(ctResult.ACCOUNTNO);
-                ro = _apiClient.SendDataApiRequest(Enums.SendRequest.KEY2, ro.ChangedValue);
+                ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.KEY2, ro);
             }
             return ro;
 
