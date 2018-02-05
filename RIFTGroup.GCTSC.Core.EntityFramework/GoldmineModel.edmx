@@ -4,7 +4,660 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GoldmineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GoldmineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONTACT1">
+          <Key>
+            <PropertyRef Name="ACCOUNTNO" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="COMPANY" Type="varchar" MaxLength="40" />
+          <Property Name="CONTACT" Type="varchar" MaxLength="40" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="15" />
+          <Property Name="DEPARTMENT" Type="varchar" MaxLength="35" />
+          <Property Name="TITLE" Type="varchar" MaxLength="35" />
+          <Property Name="SECR" Type="varchar" MaxLength="20" />
+          <Property Name="PHONE1" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PHONE2" Type="varchar" MaxLength="25" />
+          <Property Name="PHONE3" Type="varchar" MaxLength="25" />
+          <Property Name="FAX" Type="varchar" MaxLength="25" />
+          <Property Name="EXT1" Type="varchar" MaxLength="6" />
+          <Property Name="EXT2" Type="varchar" MaxLength="6" />
+          <Property Name="EXT3" Type="varchar" MaxLength="6" />
+          <Property Name="EXT4" Type="varchar" MaxLength="6" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="40" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="40" />
+          <Property Name="ADDRESS3" Type="varchar" MaxLength="40" />
+          <Property Name="CITY" Type="varchar" MaxLength="30" />
+          <Property Name="STATE" Type="varchar" MaxLength="20" />
+          <Property Name="ZIP" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="COUNTRY" Type="varchar" MaxLength="20" />
+          <Property Name="DEAR" Type="varchar" MaxLength="20" />
+          <Property Name="SOURCE" Type="varchar" MaxLength="20" />
+          <Property Name="KEY1" Type="varchar" MaxLength="20" />
+          <Property Name="KEY2" Type="varchar" MaxLength="20" />
+          <Property Name="KEY3" Type="varchar" MaxLength="20" />
+          <Property Name="KEY4" Type="varchar" MaxLength="20" />
+          <Property Name="KEY5" Type="varchar" MaxLength="20" />
+          <Property Name="STATUS" Type="varchar" MaxLength="3" />
+          <Property Name="NOTES" Type="text" />
+          <Property Name="MERGECODES" Type="varchar" MaxLength="20" />
+          <Property Name="CREATEBY" Type="varchar" MaxLength="8" />
+          <Property Name="CREATEON" Type="datetime" />
+          <Property Name="CREATEAT" Type="varchar" MaxLength="5" />
+          <Property Name="OWNER" Type="varchar" MaxLength="8" />
+          <Property Name="LASTUSER" Type="varchar" MaxLength="8" />
+          <Property Name="LASTDATE" Type="datetime" />
+          <Property Name="LASTTIME" Type="varchar" MaxLength="8" />
+          <Property Name="U_COMPANY" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="U_CONTACT" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="U_LASTNAME" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="U_CITY" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="U_STATE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_COUNTRY" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_KEY1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_KEY2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_KEY3" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_KEY4" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_KEY5" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTACT2">
+          <Key>
+            <PropertyRef Name="ACCOUNTNO" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CALLBACKON" Type="datetime" />
+          <Property Name="CALLBACKAT" Type="varchar" MaxLength="8" />
+          <Property Name="CALLBKFREQ" Type="smallint" />
+          <Property Name="LASTCONTON" Type="datetime" />
+          <Property Name="LASTCONTAT" Type="varchar" MaxLength="8" />
+          <Property Name="LASTATMPON" Type="datetime" />
+          <Property Name="LASTATMPAT" Type="varchar" MaxLength="8" />
+          <Property Name="MEETDATEON" Type="datetime" />
+          <Property Name="MEETTIMEAT" Type="varchar" MaxLength="8" />
+          <Property Name="COMMENTS" Type="varchar" MaxLength="65" />
+          <Property Name="PREVRESULT" Type="varchar" MaxLength="65" />
+          <Property Name="NEXTACTION" Type="varchar" MaxLength="65" />
+          <Property Name="ACTIONON" Type="datetime" />
+          <Property Name="CLOSEDATE" Type="datetime" />
+          <Property Name="UDOB" Type="datetime" />
+          <Property Name="UIRSUBMIT" Type="datetime" />
+          <Property Name="UPACKSENT" Type="datetime" />
+          <Property Name="USERDEF01" Type="varchar" MaxLength="10" />
+          <Property Name="USERDEF02" Type="varchar" MaxLength="12" />
+          <Property Name="USIGNDATE" Type="datetime" />
+          <Property Name="UTRVLODEXP" Type="varchar" MaxLength="100" />
+          <Property Name="UVERIFYDTE" Type="datetime" />
+          <Property Name="UY10ACTFEE" Type="float" />
+          <Property Name="UY10ACTREF" Type="float" />
+          <Property Name="UY10COM" Type="datetime" />
+          <Property Name="UY10EXPFEE" Type="float" />
+          <Property Name="UY10EXPREF" Type="float" />
+          <Property Name="UY11ACTFEE" Type="float" />
+          <Property Name="UY11ACTREF" Type="float" />
+          <Property Name="UY11COM" Type="datetime" />
+          <Property Name="UY11EXPFEE" Type="float" />
+          <Property Name="UY11EXPREF" Type="float" />
+          <Property Name="UY12ACTFEE" Type="float" />
+          <Property Name="UY12ACTREF" Type="float" />
+          <Property Name="UY12COM" Type="datetime" />
+          <Property Name="UY12EXPFEE" Type="float" />
+          <Property Name="UY12EXPREF" Type="float" />
+          <Property Name="UYR1COM" Type="datetime" />
+          <Property Name="UYR1DATERD" Type="datetime" />
+          <Property Name="UYR2ACTFEE" Type="float" />
+          <Property Name="UYR2COM" Type="datetime" />
+          <Property Name="UYR2EXPECT" Type="float" />
+          <Property Name="UYR2EXPFEE" Type="float" />
+          <Property Name="UYR2RECVD" Type="float" />
+          <Property Name="UYR3ACTFEE" Type="float" />
+          <Property Name="UYR3COM" Type="datetime" />
+          <Property Name="UYR3EXPECT" Type="float" />
+          <Property Name="UYR3EXPFEE" Type="float" />
+          <Property Name="UYR3RECVD" Type="float" />
+          <Property Name="UYR4ACTFEE" Type="float" />
+          <Property Name="UYR4COM" Type="datetime" />
+          <Property Name="UYR4EXPECT" Type="float" />
+          <Property Name="UYR4EXPFEE" Type="float" />
+          <Property Name="UYR4RECVD" Type="float" />
+          <Property Name="UYR5ACTFEE" Type="float" />
+          <Property Name="UYR5COM" Type="datetime" />
+          <Property Name="UYR5EXPECT" Type="float" />
+          <Property Name="UYR5EXPFEE" Type="float" />
+          <Property Name="UYR5RECVD" Type="float" />
+          <Property Name="UYR6ACTFEE" Type="float" />
+          <Property Name="UYR6COM" Type="datetime" />
+          <Property Name="UYR6EXPECT" Type="float" />
+          <Property Name="UYR6EXPFEE" Type="float" />
+          <Property Name="UYR6RECVD" Type="float" />
+          <Property Name="UYR7ACTFEE" Type="float" />
+          <Property Name="UYR7COM" Type="datetime" />
+          <Property Name="UYR7EXPECT" Type="float" />
+          <Property Name="UYR7EXPFEE" Type="float" />
+          <Property Name="UYR7RECVD" Type="float" />
+          <Property Name="UYR8ACTFEE" Type="float" />
+          <Property Name="UYR8COM" Type="datetime" />
+          <Property Name="UYR8EXPECT" Type="float" />
+          <Property Name="UYR8EXPFEE" Type="float" />
+          <Property Name="UYR8RECVD" Type="float" />
+          <Property Name="UYR9ACTFEE" Type="float" />
+          <Property Name="UYR9COM" Type="datetime" />
+          <Property Name="UYR9EXPECT" Type="float" />
+          <Property Name="UYR9EXPFEE" Type="float" />
+          <Property Name="UYR9RECVD" Type="float" />
+          <Property Name="UPROCDATE" Type="datetime" />
+          <Property Name="UONLINDATE" Type="datetime" />
+          <Property Name="UYR6USER" Type="varchar" MaxLength="8" />
+          <Property Name="UYR7USER" Type="varchar" MaxLength="8" />
+          <Property Name="UYR8USER" Type="varchar" MaxLength="8" />
+          <Property Name="UYR9USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY10USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY11USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY12USER" Type="varchar" MaxLength="8" />
+          <Property Name="UYR6FEEDAT" Type="datetime" />
+          <Property Name="UYR7FEEDAT" Type="datetime" />
+          <Property Name="UYR8FEEDAT" Type="datetime" />
+          <Property Name="UYR9FEEDAT" Type="datetime" />
+          <Property Name="UY10FEEDAT" Type="datetime" />
+          <Property Name="UY11FEEDAT" Type="datetime" />
+          <Property Name="UY12FEEDAT" Type="datetime" />
+          <Property Name="UYR6TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UYR7TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UYR8TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UYR9TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY10TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY11TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY12TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="ULOCATION2" Type="varchar" MaxLength="22" />
+          <Property Name="UREFERRAL" Type="varchar" MaxLength="15" />
+          <Property Name="UALERT2" Type="varchar" MaxLength="200" />
+          <Property Name="UTRADE" Type="varchar" MaxLength="40" />
+          <Property Name="UCALLTIME" Type="varchar" MaxLength="30" />
+          <Property Name="UY10SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="UY11SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="UY12SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="USOURCTYPE" Type="varchar" MaxLength="30" />
+          <Property Name="USA1FORM" Type="datetime" />
+          <Property Name="UEMAILADDR" Type="varchar" MaxLength="40" />
+          <Property Name="UY13TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY14TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY15TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="UY13EXPREF" Type="float" />
+          <Property Name="UY14EXPREF" Type="float" />
+          <Property Name="UY15EXPREF" Type="float" />
+          <Property Name="UY13EXPFEE" Type="float" />
+          <Property Name="UY14EXPFEE" Type="float" />
+          <Property Name="UY15EXPFEE" Type="float" />
+          <Property Name="UY13USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY14USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY15USER" Type="varchar" MaxLength="8" />
+          <Property Name="UY13FEEDAT" Type="datetime" />
+          <Property Name="UY14FEEDAT" Type="datetime" />
+          <Property Name="UY15FEEDAT" Type="datetime" />
+          <Property Name="UY13SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="UY14SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="UY15SIGNED" Type="varchar" MaxLength="3" />
+          <Property Name="UY13ACTREF" Type="float" />
+          <Property Name="UY14ACTREF" Type="float" />
+          <Property Name="UY15ACTREF" Type="float" />
+          <Property Name="UY13ACTFEE" Type="float" />
+          <Property Name="UY14ACTFEE" Type="float" />
+          <Property Name="UY15ACTFEE" Type="float" />
+          <Property Name="UY14EXPVAT" Type="float" />
+          <Property Name="UY14ACTVAT" Type="float" />
+          <Property Name="UY13COM" Type="datetime" />
+          <Property Name="UY14COM" Type="datetime" />
+          <Property Name="UY15COM" Type="datetime" />
+          <Property Name="UISMART" Type="varchar" MaxLength="15" />
+          <Property Name="UPREFUP" Type="varchar" MaxLength="15" />
+          <Property Name="UCONVDATE" Type="datetime" />
+          <Property Name="UINITCONT" Type="datetime" />
+          <Property Name="U4WILLDIST" Type="datetime" />
+          <Property Name="URIFTWILLS" Type="varchar" MaxLength="50" />
+          <Property Name="URAPREFUND" Type="varchar" MaxLength="50" />
+          <Property Name="URAPREFRES" Type="varchar" MaxLength="200" />
+          <Property Name="UREFDATE" Type="datetime" />
+          <Property Name="UREFID" Type="varchar" MaxLength="10" />
+          <Property Name="UHOLDPAY" Type="varchar" MaxLength="20" />
+          <Property Name="UHOLDDATE" Type="datetime" />
+          <Property Name="UPOSITION" Type="varchar" MaxLength="25" />
+          <Property Name="USURVEY" Type="varchar" MaxLength="25" />
+          <Property Name="UACCOUNT" Type="varchar" MaxLength="25" />
+          <Property Name="UPATENTATT" Type="varchar" MaxLength="25" />
+          <Property Name="UPROJECTST" Type="varchar" MaxLength="30" />
+          <Property Name="USOURCENAM" Type="varchar" MaxLength="20" />
+          <Property Name="U15ADPKSNT" Type="datetime" />
+          <Property Name="U15ADPKREC" Type="datetime" />
+          <Property Name="U15ADPKRDY" Type="datetime" />
+          <Property Name="U16EXPREF" Type="float" />
+          <Property Name="U16TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="U16EXPFEE" Type="float" />
+          <Property Name="U16USER" Type="varchar" MaxLength="10" />
+          <Property Name="UCATTREF" Type="varchar" MaxLength="10" />
+          <Property Name="U12RRDSUB" Type="datetime" />
+          <Property Name="U13RRDSUB" Type="datetime" />
+          <Property Name="U14RRDSUB" Type="datetime" />
+          <Property Name="U15RRDSUB" Type="datetime" />
+          <Property Name="U12RRHMRC" Type="datetime" />
+          <Property Name="U13RRHMRC" Type="datetime" />
+          <Property Name="U14RRHMRC" Type="datetime" />
+          <Property Name="U15RRHMRC" Type="datetime" />
+          <Property Name="U12RRPAID" Type="float" />
+          <Property Name="UJIBPAID" Type="datetime" />
+          <Property Name="ULOASNT" Type="datetime" />
+          <Property Name="ULOALOG" Type="datetime" />
+          <Property Name="U13RRPAID" Type="float" />
+          <Property Name="U14RRPAID" Type="float" />
+          <Property Name="U15RRPAID" Type="float" />
+          <Property Name="U12RRFEE" Type="float" />
+          <Property Name="U13RRFEE" Type="float" />
+          <Property Name="U14RRFEE" Type="float" />
+          <Property Name="U15RRFEE" Type="float" />
+          <Property Name="U12RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="U13RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="U14RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="U15RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="URRSDATE" Type="datetime" />
+          <Property Name="UCOMPLNT" Type="varchar" MaxLength="10" />
+          <Property Name="UBANKNAME" Type="varchar" MaxLength="21" />
+          <Property Name="UACCHOLDER" Type="varchar" MaxLength="25" />
+          <Property Name="USORTNUMB" Type="varchar" MaxLength="6" />
+          <Property Name="UACCNUMBER" Type="varchar" MaxLength="8" />
+          <Property Name="URRRTERMS" Type="varchar" MaxLength="5" />
+          <Property Name="UOFPMNT" Type="varchar" MaxLength="10" />
+          <Property Name="U15PAIDTO" Type="varchar" MaxLength="10" />
+          <Property Name="U16PAIDTO" Type="varchar" MaxLength="10" />
+          <Property Name="UOFRATE" Type="varchar" MaxLength="10" />
+          <Property Name="U15RATE" Type="varchar" MaxLength="10" />
+          <Property Name="U16RATE" Type="varchar" MaxLength="10" />
+          <Property Name="UOFDATPAID" Type="datetime" />
+          <Property Name="U15DATPAID" Type="datetime" />
+          <Property Name="U16DATPAID" Type="datetime" />
+          <Property Name="U16FEEDAT" Type="datetime" />
+          <Property Name="U16SIGNED" Type="varchar" MaxLength="8" />
+          <Property Name="UY16ACTREF" Type="float" />
+          <Property Name="UY16ACTFEE" Type="float" />
+          <Property Name="UY16COM" Type="datetime" />
+          <Property Name="UBNKUPDAT" Type="datetime" />
+          <Property Name="U16ADPKSNT" Type="datetime" />
+          <Property Name="U16ADPKREC" Type="datetime" />
+          <Property Name="U16ADPKRDY" Type="datetime" />
+          <Property Name="U16RRPAID" Type="float" />
+          <Property Name="U16RRFEE" Type="float" />
+          <Property Name="U16RRDSUB" Type="datetime" />
+          <Property Name="U16HMRC" Type="datetime" />
+          <Property Name="U16RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="UACINSURAN" Type="varchar" MaxLength="10" />
+          <Property Name="ULOA2SNT" Type="datetime" />
+          <Property Name="ULOA2LOG" Type="datetime" />
+          <Property Name="URRR2TERMS" Type="varchar" MaxLength="10" />
+          <Property Name="UCLIENTSTA" Type="varchar" MaxLength="30" />
+          <Property Name="UACCLANG" Type="varchar" MaxLength="50" />
+          <Property Name="UACCLANG2" Type="varchar" MaxLength="50" />
+          <Property Name="UC2NAME" Type="varchar" MaxLength="50" />
+          <Property Name="UC2PHONE" Type="varchar" MaxLength="15" />
+          <Property Name="UACCSTAGE" Type="varchar" MaxLength="50" />
+          <Property Name="UINCDATE" Type="datetime" />
+          <Property Name="UACCYE" Type="datetime" />
+          <Property Name="UACCYECH" Type="datetime" />
+          <Property Name="UACCYEIR" Type="datetime" />
+          <Property Name="UPAYEREF" Type="varchar" MaxLength="20" />
+          <Property Name="UPAYEEMP" Type="varchar" MaxLength="20" />
+          <Property Name="UACCVATNO" Type="varchar" MaxLength="20" />
+          <Property Name="UACCVAT1Q" Type="float" />
+          <Property Name="UACCVAT2Q" Type="float" />
+          <Property Name="UACCVAT3Q" Type="float" />
+          <Property Name="UACCVAT4Q" Type="float" />
+          <Property Name="UCOTAXREF" Type="varchar" MaxLength="20" />
+          <Property Name="UACCACTIVI" Type="varchar" MaxLength="20" />
+          <Property Name="UCOHOUSE" Type="varchar" MaxLength="20" />
+          <Property Name="UACCVATID" Type="varchar" MaxLength="20" />
+          <Property Name="UACCVATPAS" Type="varchar" MaxLength="20" />
+          <Property Name="UACCCOUTR" Type="varchar" MaxLength="20" />
+          <Property Name="UACCCISREF" Type="varchar" MaxLength="20" />
+          <Property Name="UACCOFADD1" Type="varchar" MaxLength="50" />
+          <Property Name="UACCOFADD2" Type="varchar" MaxLength="50" />
+          <Property Name="UACCOFADD3" Type="varchar" MaxLength="50" />
+          <Property Name="UACCOFPOST" Type="varchar" MaxLength="10" />
+          <Property Name="UACCOFTOWN" Type="varchar" MaxLength="50" />
+          <Property Name="UOFCOUNTY" Type="varchar" MaxLength="50" />
+          <Property Name="UOFCOUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="UACCBANK" Type="varchar" MaxLength="50" />
+          <Property Name="USSORTCODE" Type="varchar" MaxLength="10" />
+          <Property Name="USACCOUNTN" Type="varchar" MaxLength="30" />
+          <Property Name="USIBAN" Type="varchar" MaxLength="50" />
+          <Property Name="USBIC" Type="varchar" MaxLength="30" />
+          <Property Name="UBSORTCODE" Type="varchar" MaxLength="10" />
+          <Property Name="UBACCOUNTN" Type="varchar" MaxLength="30" />
+          <Property Name="UBIBAN" Type="varchar" MaxLength="30" />
+          <Property Name="UBBIC" Type="varchar" MaxLength="30" />
+          <Property Name="UD1NAME" Type="varchar" MaxLength="50" />
+          <Property Name="UD1ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="UD1ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="UD1ADD3" Type="varchar" MaxLength="50" />
+          <Property Name="UD1TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="UD1POST" Type="varchar" MaxLength="10" />
+          <Property Name="UD1COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="UD1NATIO" Type="varchar" MaxLength="50" />
+          <Property Name="UD1OCCU" Type="varchar" MaxLength="50" />
+          <Property Name="UD1DOB" Type="datetime" />
+          <Property Name="UD1APDATE" Type="datetime" />
+          <Property Name="UD1SHARENO" Type="int" />
+          <Property Name="UD2NAME" Type="varchar" MaxLength="50" />
+          <Property Name="UD2ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="UD2ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="UD2ADD3" Type="varchar" MaxLength="10" />
+          <Property Name="UD2TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="UD2POST" Type="varchar" MaxLength="10" />
+          <Property Name="UD2COUNTRY" Type="varchar" MaxLength="15" />
+          <Property Name="UD2NATIO" Type="varchar" MaxLength="50" />
+          <Property Name="UD2OCC" Type="varchar" MaxLength="50" />
+          <Property Name="UD2DOB" Type="datetime" />
+          <Property Name="UD2APDATE" Type="datetime" />
+          <Property Name="UD2SHARENO" Type="int" />
+          <Property Name="UD3NAME" Type="varchar" MaxLength="50" />
+          <Property Name="UD3ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="UD3ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="UD3ADD3" Type="varchar" MaxLength="50" />
+          <Property Name="UD3TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="UD3POST" Type="varchar" MaxLength="10" />
+          <Property Name="UD3COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="UD3NATIO" Type="varchar" MaxLength="50" />
+          <Property Name="UD3OCCU" Type="varchar" MaxLength="50" />
+          <Property Name="UD3DOB" Type="datetime" />
+          <Property Name="UD3APDATE" Type="datetime" />
+          <Property Name="UD3REDATE" Type="datetime" />
+          <Property Name="US1NAME" Type="varchar" MaxLength="50" />
+          <Property Name="US1ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="US1ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="US1ADD3" Type="varchar" MaxLength="50" />
+          <Property Name="US1POST" Type="varchar" MaxLength="10" />
+          <Property Name="US1TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="US1COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="US1SHARENO" Type="int" />
+          <Property Name="US1ALDATE" Type="datetime" />
+          <Property Name="US2NAME" Type="varchar" MaxLength="50" />
+          <Property Name="US2ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="US2ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="US2ADD3" Type="varchar" MaxLength="50" />
+          <Property Name="US2POST" Type="varchar" MaxLength="10" />
+          <Property Name="US2TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="US2COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="US2SHARENO" Type="int" />
+          <Property Name="US2ALDATE" Type="datetime" />
+          <Property Name="US3NAME" Type="varchar" MaxLength="50" />
+          <Property Name="US3ADD1" Type="varchar" MaxLength="50" />
+          <Property Name="US3ADD2" Type="varchar" MaxLength="50" />
+          <Property Name="US3ADD3" Type="varchar" MaxLength="50" />
+          <Property Name="US3POST" Type="varchar" MaxLength="10" />
+          <Property Name="US3TOWN" Type="varchar" MaxLength="50" />
+          <Property Name="US3COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="US3SHARENO" Type="int" />
+          <Property Name="US3ALDATE" Type="datetime" />
+          <Property Name="UCOMPNO" Type="varchar" MaxLength="50" />
+          <Property Name="UD1NINO" Type="varchar" MaxLength="50" />
+          <Property Name="UD1UTR" Type="varchar" MaxLength="50" />
+          <Property Name="UD2NINO" Type="varchar" MaxLength="50" />
+          <Property Name="UD2UTR" Type="varchar" MaxLength="50" />
+          <Property Name="UD3NINO" Type="varchar" MaxLength="50" />
+          <Property Name="UD3UTR" Type="varchar" MaxLength="50" />
+          <Property Name="UACCNATURE" Type="varchar" MaxLength="50" />
+          <Property Name="UACCCURSTA" Type="varchar" MaxLength="50" />
+          <Property Name="UACCWHY" Type="varchar" MaxLength="50" />
+          <Property Name="UPASTBUSI" Type="varchar" MaxLength="20" />
+          <Property Name="UTWITTER" Type="varchar" MaxLength="30" />
+          <Property Name="ULINKEDIN" Type="varchar" MaxLength="30" />
+          <Property Name="UFACEBOOK" Type="varchar" MaxLength="30" />
+          <Property Name="ULTDDIR" Type="varchar" MaxLength="10" />
+          <Property Name="ULTSSHA" Type="varchar" MaxLength="10" />
+          <Property Name="UACCSUB" Type="varchar" MaxLength="10" />
+          <Property Name="UACCESTTO" Type="varchar" MaxLength="50" />
+          <Property Name="UACCVATREG" Type="varchar" MaxLength="10" />
+          <Property Name="UACCWORKFO" Type="varchar" MaxLength="50" />
+          <Property Name="UACCESTCLI" Type="varchar" MaxLength="50" />
+          <Property Name="UACCCOMLIT" Type="varchar" MaxLength="50" />
+          <Property Name="UACCNOTES" Type="varchar" MaxLength="100" />
+          <Property Name="UACCACC" Type="varchar" MaxLength="20" />
+          <Property Name="UEMPSTAFF" Type="varchar" MaxLength="40" />
+          <Property Name="UMONFEE" Type="varchar" MaxLength="50" />
+          <Property Name="UPRICEB" Type="varchar" MaxLength="50" />
+          <Property Name="UC2EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="U01BDATE" Type="datetime" />
+          <Property Name="U01DATE" Type="datetime" />
+          <Property Name="U02DATE" Type="datetime" />
+          <Property Name="U03DATE" Type="datetime" />
+          <Property Name="U04BDATE" Type="datetime" />
+          <Property Name="U04DATE" Type="datetime" />
+          <Property Name="U06DATE" Type="datetime" />
+          <Property Name="U07DATE" Type="datetime" />
+          <Property Name="U08DATE" Type="datetime" />
+          <Property Name="U010DATE" Type="datetime" />
+          <Property Name="UPPACTDATE" Type="datetime" />
+          <Property Name="UC1NAME" Type="varchar" MaxLength="50" />
+          <Property Name="UTEMPRA" Type="varchar" MaxLength="50" />
+          <Property Name="UACONVDATE" Type="datetime" />
+          <Property Name="UREFCHQNO" Type="varchar" MaxLength="10" />
+          <Property Name="UREFSAGEPR" Type="datetime" />
+          <Property Name="UBCASEOWN" Type="varchar" MaxLength="25" />
+          <Property Name="U17EXPREF" Type="float" />
+          <Property Name="U17TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="U18TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="U18EXPREF" Type="float" />
+          <Property Name="U17EXPFEE" Type="float" />
+          <Property Name="U18EXPFEE" Type="float" />
+          <Property Name="U17USER" Type="varchar" MaxLength="10" />
+          <Property Name="U18USER" Type="varchar" MaxLength="10" />
+          <Property Name="U17FEEDAT" Type="datetime" />
+          <Property Name="U18FEEDAT" Type="datetime" />
+          <Property Name="U17SIGNED" Type="varchar" MaxLength="8" />
+          <Property Name="U18SIGNED" Type="varchar" MaxLength="8" />
+          <Property Name="UY17ACTREF" Type="float" />
+          <Property Name="UY18ACTREF" Type="float" />
+          <Property Name="UY17ACTFEE" Type="float" />
+          <Property Name="UY18ACTFEE" Type="float" />
+          <Property Name="UY17COM" Type="datetime" />
+          <Property Name="UY18COM" Type="datetime" />
+          <Property Name="U17ADPKSNT" Type="datetime" />
+          <Property Name="U18ADPKSNT" Type="datetime" />
+          <Property Name="U17ADPKREC" Type="datetime" />
+          <Property Name="U18ADPKREC" Type="datetime" />
+          <Property Name="U17ADPKRDY" Type="datetime" />
+          <Property Name="U18ADPKRDY" Type="datetime" />
+          <Property Name="U17RRPAID" Type="float" />
+          <Property Name="U18RRPAID" Type="float" />
+          <Property Name="U17RRFEE" Type="float" />
+          <Property Name="U18RRFEE" Type="float" />
+          <Property Name="U17RRDSUB" Type="datetime" />
+          <Property Name="U18RRDSUB" Type="datetime" />
+          <Property Name="U17HMRC" Type="datetime" />
+          <Property Name="U18HMRC" Type="datetime" />
+          <Property Name="U17RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="UY18RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="UACTO" Type="varchar" MaxLength="10" />
+          <Property Name="UACPAYROLL" Type="varchar" MaxLength="10" />
+          <Property Name="UACVAT" Type="varchar" MaxLength="10" />
+          <Property Name="UACYEACC" Type="varchar" MaxLength="10" />
+          <Property Name="UACSA" Type="varchar" MaxLength="10" />
+          <Property Name="UACCIS300" Type="varchar" MaxLength="10" />
+          <Property Name="UACCISEPS" Type="varchar" MaxLength="10" />
+          <Property Name="UACCLEAR" Type="varchar" MaxLength="10" />
+          <Property Name="UACRROFF" Type="varchar" MaxLength="10" />
+          <Property Name="UACP11DS" Type="varchar" MaxLength="10" />
+          <Property Name="UACBKK" Type="varchar" MaxLength="10" />
+          <Property Name="UACMIND" Type="varchar" MaxLength="50" />
+          <Property Name="UACMGRADE" Type="varchar" MaxLength="50" />
+          <Property Name="UACMSOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="UACMSOURCT" Type="varchar" MaxLength="50" />
+          <Property Name="UACPAPAYRO" Type="varchar" MaxLength="100" />
+          <Property Name="UACPAVAT" Type="varchar" MaxLength="100" />
+          <Property Name="UACPAYEAC" Type="varchar" MaxLength="100" />
+          <Property Name="UACPASA" Type="varchar" MaxLength="100" />
+          <Property Name="UACPACIS30" Type="varchar" MaxLength="100" />
+          <Property Name="UACPAEPS" Type="varchar" MaxLength="100" />
+          <Property Name="UACPACB" Type="varchar" MaxLength="100" />
+          <Property Name="UACPATO" Type="varchar" MaxLength="100" />
+          <Property Name="UACPARRO" Type="varchar" MaxLength="100" />
+          <Property Name="UACPAP11D" Type="varchar" MaxLength="100" />
+          <Property Name="UACPABKK" Type="varchar" MaxLength="100" />
+          <Property Name="UACAGSHARE" Type="varchar" MaxLength="30" />
+          <Property Name="U17ASPKTYP" Type="varchar" MaxLength="30" />
+          <Property Name="U17ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U17BOXNO" Type="varchar" MaxLength="30" />
+          <Property Name="U17LOGBOOK" Type="varchar" MaxLength="30" />
+          <Property Name="U17PCKGRAD" Type="datetime" />
+          <Property Name="UIBDTCONV" Type="varchar" MaxLength="10" />
+          <Property Name="U17PAIDTO" Type="varchar" MaxLength="10" />
+          <Property Name="U18PAIDTO" Type="varchar" MaxLength="10" />
+          <Property Name="U17RATE" Type="varchar" MaxLength="10" />
+          <Property Name="U18RATE" Type="varchar" MaxLength="10" />
+          <Property Name="U17DATPAID" Type="datetime" />
+          <Property Name="U18DATPAID" Type="datetime" />
+          <Property Name="UALLOCDATE" Type="datetime" />
+          <Property Name="UREJDATE" Type="datetime" />
+          <Property Name="UCONVMET" Type="varchar" MaxLength="50" />
+          <Property Name="USTADATE" Type="datetime" />
+          <Property Name="UREPEATCLA" Type="varchar" MaxLength="50" />
+          <Property Name="UINVOICEA" Type="varchar" MaxLength="50" />
+          <Property Name="UINVOICEN" Type="varchar" MaxLength="50" />
+          <Property Name="UEXISTINGR" Type="varchar" MaxLength="10" />
+          <Property Name="U01DDATE" Type="datetime" />
+          <Property Name="USTAGE1DAT" Type="datetime" />
+          <Property Name="UACPAYRONT" Type="varchar" MaxLength="10" />
+          <Property Name="UACP11D" Type="varchar" MaxLength="10" />
+          <Property Name="UACVATO" Type="varchar" MaxLength="10" />
+          <Property Name="UACQUARTR" Type="varchar" MaxLength="10" />
+          <Property Name="UACUSV" Type="varchar" MaxLength="10" />
+          <Property Name="UACTPV" Type="varchar" MaxLength="10" />
+          <Property Name="UACTPVV" Type="varchar" MaxLength="10" />
+          <Property Name="UCATEGORY" Type="varchar" MaxLength="30" />
+          <Property Name="USAREQUEST" Type="datetime" />
+          <Property Name="UACD1NOS" Type="varchar" MaxLength="10" />
+          <Property Name="UACD2NOS" Type="varchar" MaxLength="10" />
+          <Property Name="UACD3NOS" Type="varchar" MaxLength="10" />
+          <Property Name="UACLPR" Type="datetime" />
+          <Property Name="USECTOR" Type="varchar" MaxLength="50" />
+          <Property Name="UOGRADE" Type="varchar" MaxLength="50" />
+          <Property Name="UNADUE" Type="datetime" />
+          <Property Name="UNSOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="UNMEDIUM" Type="varchar" MaxLength="50" />
+          <Property Name="UNCAMPIAGN" Type="varchar" MaxLength="50" />
+          <Property Name="U19EXPREF" Type="float" />
+          <Property Name="U19TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="U19EXPFEE" Type="float" />
+          <Property Name="U19USER" Type="varchar" MaxLength="20" />
+          <Property Name="U19FEEDAT" Type="datetime" />
+          <Property Name="U19SIGNED" Type="varchar" MaxLength="10" />
+          <Property Name="UY19ACTREF" Type="float" />
+          <Property Name="UY19ACTFEE" Type="float" />
+          <Property Name="UY19COM" Type="datetime" />
+          <Property Name="U19RRPAID" Type="float" />
+          <Property Name="U19RRFEE" Type="float" />
+          <Property Name="U19RRDSUB" Type="datetime" />
+          <Property Name="U19HMRC" Type="datetime" />
+          <Property Name="UY19RRCOM" Type="varchar" MaxLength="3" />
+          <Property Name="U19ADPKSNT" Type="datetime" />
+          <Property Name="U18ASPKTYP" Type="varchar" MaxLength="50" />
+          <Property Name="U19ADPKREC" Type="datetime" />
+          <Property Name="U19ASPKTYP" Type="varchar" MaxLength="50" />
+          <Property Name="U18LOGBOOK" Type="varchar" MaxLength="10" />
+          <Property Name="U19LOGBOOK" Type="varchar" MaxLength="10" />
+          <Property Name="U18PCKGRAD" Type="datetime" />
+          <Property Name="U19PCKGRAD" Type="datetime" />
+          <Property Name="U18BOXNO" Type="varchar" MaxLength="30" />
+          <Property Name="U19ADPKRDY" Type="datetime" />
+          <Property Name="U19BOXNO" Type="varchar" MaxLength="30" />
+          <Property Name="U18ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U19ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U19INCOME" Type="varchar" MaxLength="30" />
+          <Property Name="U16EXPVAT" Type="float" />
+          <Property Name="U15EXPVAT" Type="float" />
+          <Property Name="U17EXPVAT" Type="float" />
+          <Property Name="U18EXPVAT" Type="float" />
+          <Property Name="U19EXPVAT" Type="float" />
+          <Property Name="U16ACTVAT" Type="float" />
+          <Property Name="U17ACTVAT" Type="float" />
+          <Property Name="U18ACTVAT" Type="float" />
+          <Property Name="U15ACTVAT" Type="float" />
+          <Property Name="U19ACTVAT" Type="float" />
+          <Property Name="U15REFAC" Type="float" />
+          <Property Name="U15REFEC" Type="float" />
+          <Property Name="U14REFAC" Type="float" />
+          <Property Name="U14REFEC" Type="float" />
+          <Property Name="U16REFAC" Type="float" />
+          <Property Name="U16REFEC" Type="float" />
+          <Property Name="U17REFAC" Type="float" />
+          <Property Name="U17REFEC" Type="float" />
+          <Property Name="U18REFAC" Type="float" />
+          <Property Name="U18REFEC" Type="float" />
+          <Property Name="U19REFAC" Type="float" />
+          <Property Name="U19REFEC" Type="float" />
+          <Property Name="UREJREASON" Type="varchar" MaxLength="50" />
+          <Property Name="URDINTSOUR" Type="varchar" MaxLength="50" />
+          <Property Name="URDSOUTYPE" Type="varchar" MaxLength="50" />
+          <Property Name="USERVTYPE" Type="varchar" MaxLength="50" />
+          <Property Name="U13SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U14SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U15SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U16SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U17SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U18SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U19SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="UORIGINVOI" Type="datetime" />
+          <Property Name="UIDEBTVAL" Type="float" />
+          <Property Name="UOUTAMOUNT" Type="float" />
+          <Property Name="UFINSTATUS" Type="varchar" MaxLength="40" />
+          <Property Name="UIFINNAD" Type="datetime" />
+          <Property Name="UDEBTREASO" Type="varchar" MaxLength="50" />
+          <Property Name="UCCOMPLET" Type="datetime" />
+          <Property Name="UTYPE" Type="varchar" MaxLength="30" />
+          <Property Name="U20SERVT" Type="varchar" MaxLength="30" />
+          <Property Name="U20TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="URACASEO" Type="varchar" MaxLength="25" />
+          <Property Name="U19PAIDTO" Type="varchar" MaxLength="10" />
+          <Property Name="U19RATE" Type="varchar" MaxLength="10" />
+          <Property Name="U19DATPAID" Type="datetime" />
+          <Property Name="UNITREF" Type="varchar" MaxLength="6" />
+          <Property Name="UNITNAME" Type="varchar" MaxLength="20" />
+          <Property Name="URANK" Type="varchar" MaxLength="10" />
+          <Property Name="UCONTTIME" Type="varchar" MaxLength="10" />
+          <Property Name="USTA1CALLS" Type="int" />
+          <Property Name="USTA2CALLS" Type="int" />
+          <Property Name="U4WILLSTAT" Type="varchar" MaxLength="20" />
+          <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTSUPP">
+          <Key>
+            <PropertyRef Name="recid" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RECTYPE" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CONTACT" Type="varchar" MaxLength="40" />
+          <Property Name="TITLE" Type="varchar" MaxLength="35" />
+          <Property Name="CONTSUPREF" Type="varchar" MaxLength="35" />
+          <Property Name="DEAR" Type="varchar" MaxLength="20" />
+          <Property Name="PHONE" Type="varchar" MaxLength="20" />
+          <Property Name="EXT" Type="varchar" MaxLength="6" />
+          <Property Name="FAX" Type="varchar" MaxLength="20" />
+          <Property Name="LINKACCT" Type="varchar" MaxLength="20" />
+          <Property Name="NOTES" Type="text" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="40" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="40" />
+          <Property Name="ADDRESS3" Type="varchar" MaxLength="40" />
+          <Property Name="CITY" Type="varchar" MaxLength="30" />
+          <Property Name="STATE" Type="varchar" MaxLength="20" />
+          <Property Name="ZIP" Type="varchar" MaxLength="10" />
+          <Property Name="COUNTRY" Type="varchar" MaxLength="20" />
+          <Property Name="MERGECODES" Type="varchar" MaxLength="20" />
+          <Property Name="STATUS" Type="varchar" MaxLength="4" />
+          <Property Name="LINKEDDOC" Type="text" />
+          <Property Name="LASTUSER" Type="varchar" MaxLength="8" />
+          <Property Name="LASTDATE" Type="datetime" />
+          <Property Name="LASTTIME" Type="varchar" MaxLength="5" />
+          <Property Name="U_CONTACT" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="U_CONTSUPREF" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="U_ADDRESS1" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
         <Function Name="CONTACT1ChangeTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LastVersionNumber" Type="int" Mode="In" />
         </Function>
@@ -23,7 +676,11 @@
         <Function Name="TESTS_CreateContsuppChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accountno" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="GoldmineModelStoreContainer" />
+        <EntityContainer Name="GoldmineModelStoreContainer">
+          <EntitySet Name="CONTACT1" EntityType="Self.CONTACT1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTACT2" EntityType="Self.CONTACT2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONTSUPP" EntityType="Self.CONTSUPP" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -45,8 +702,11 @@
           <Parameter Name="accountno" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CONTSUPPChangeTracking" ReturnType="Collection(GoldmineModel.CONTSUPPChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="CONTACT1" EntityType="GoldmineModel.CONTACT1" />
+          <EntitySet Name="CONTACT2" EntityType="GoldmineModel.CONTACT2" />
+          <EntitySet Name="CONTSUPPs" EntityType="GoldmineModel.CONTSUPP" />
         </EntityContainer>
         <ComplexType Name="CONTACT1ChangeTracking_Result">
           <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
@@ -83,6 +743,659 @@
           <Property Type="String" Name="recid" Nullable="false" MaxLength="15" />
           <Property Type="Int32" Name="contsuprefChanged" Nullable="true" />
         </ComplexType>
+        <EntityType Name="CONTACT1">
+          <Key>
+            <PropertyRef Name="ACCOUNTNO" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANY" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTMENT" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="TITLE" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="SECR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE1" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE2" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE3" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="EXT1" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="EXT2" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="EXT3" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="EXT4" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS3" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ZIP" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DEAR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOURCE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KEY1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KEY2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KEY3" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KEY4" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KEY5" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MERGECODES" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEBY" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEON" Type="DateTime" Precision="3" />
+          <Property Name="CREATEAT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="OWNER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LASTUSER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LASTDATE" Type="DateTime" Precision="3" />
+          <Property Name="LASTTIME" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="U_COMPANY" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="U_CONTACT" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="U_LASTNAME" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="U_CITY" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U_STATE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_COUNTRY" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_KEY1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_KEY2" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_KEY3" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_KEY4" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U_KEY5" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CONTACT2">
+          <Key>
+            <PropertyRef Name="ACCOUNTNO" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CALLBACKON" Type="DateTime" Precision="3" />
+          <Property Name="CALLBACKAT" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CALLBKFREQ" Type="Int16" />
+          <Property Name="LASTCONTON" Type="DateTime" Precision="3" />
+          <Property Name="LASTCONTAT" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LASTATMPON" Type="DateTime" Precision="3" />
+          <Property Name="LASTATMPAT" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="MEETDATEON" Type="DateTime" Precision="3" />
+          <Property Name="MEETTIMEAT" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="COMMENTS" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="PREVRESULT" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="NEXTACTION" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIONON" Type="DateTime" Precision="3" />
+          <Property Name="CLOSEDATE" Type="DateTime" Precision="3" />
+          <Property Name="UDOB" Type="DateTime" Precision="3" />
+          <Property Name="UIRSUBMIT" Type="DateTime" Precision="3" />
+          <Property Name="UPACKSENT" Type="DateTime" Precision="3" />
+          <Property Name="USERDEF01" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USERDEF02" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="USIGNDATE" Type="DateTime" Precision="3" />
+          <Property Name="UTRVLODEXP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UVERIFYDTE" Type="DateTime" Precision="3" />
+          <Property Name="UY10ACTFEE" Type="Double" />
+          <Property Name="UY10ACTREF" Type="Double" />
+          <Property Name="UY10COM" Type="DateTime" Precision="3" />
+          <Property Name="UY10EXPFEE" Type="Double" />
+          <Property Name="UY10EXPREF" Type="Double" />
+          <Property Name="UY11ACTFEE" Type="Double" />
+          <Property Name="UY11ACTREF" Type="Double" />
+          <Property Name="UY11COM" Type="DateTime" Precision="3" />
+          <Property Name="UY11EXPFEE" Type="Double" />
+          <Property Name="UY11EXPREF" Type="Double" />
+          <Property Name="UY12ACTFEE" Type="Double" />
+          <Property Name="UY12ACTREF" Type="Double" />
+          <Property Name="UY12COM" Type="DateTime" Precision="3" />
+          <Property Name="UY12EXPFEE" Type="Double" />
+          <Property Name="UY12EXPREF" Type="Double" />
+          <Property Name="UYR1COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR1DATERD" Type="DateTime" Precision="3" />
+          <Property Name="UYR2ACTFEE" Type="Double" />
+          <Property Name="UYR2COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR2EXPECT" Type="Double" />
+          <Property Name="UYR2EXPFEE" Type="Double" />
+          <Property Name="UYR2RECVD" Type="Double" />
+          <Property Name="UYR3ACTFEE" Type="Double" />
+          <Property Name="UYR3COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR3EXPECT" Type="Double" />
+          <Property Name="UYR3EXPFEE" Type="Double" />
+          <Property Name="UYR3RECVD" Type="Double" />
+          <Property Name="UYR4ACTFEE" Type="Double" />
+          <Property Name="UYR4COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR4EXPECT" Type="Double" />
+          <Property Name="UYR4EXPFEE" Type="Double" />
+          <Property Name="UYR4RECVD" Type="Double" />
+          <Property Name="UYR5ACTFEE" Type="Double" />
+          <Property Name="UYR5COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR5EXPECT" Type="Double" />
+          <Property Name="UYR5EXPFEE" Type="Double" />
+          <Property Name="UYR5RECVD" Type="Double" />
+          <Property Name="UYR6ACTFEE" Type="Double" />
+          <Property Name="UYR6COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR6EXPECT" Type="Double" />
+          <Property Name="UYR6EXPFEE" Type="Double" />
+          <Property Name="UYR6RECVD" Type="Double" />
+          <Property Name="UYR7ACTFEE" Type="Double" />
+          <Property Name="UYR7COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR7EXPECT" Type="Double" />
+          <Property Name="UYR7EXPFEE" Type="Double" />
+          <Property Name="UYR7RECVD" Type="Double" />
+          <Property Name="UYR8ACTFEE" Type="Double" />
+          <Property Name="UYR8COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR8EXPECT" Type="Double" />
+          <Property Name="UYR8EXPFEE" Type="Double" />
+          <Property Name="UYR8RECVD" Type="Double" />
+          <Property Name="UYR9ACTFEE" Type="Double" />
+          <Property Name="UYR9COM" Type="DateTime" Precision="3" />
+          <Property Name="UYR9EXPECT" Type="Double" />
+          <Property Name="UYR9EXPFEE" Type="Double" />
+          <Property Name="UYR9RECVD" Type="Double" />
+          <Property Name="UPROCDATE" Type="DateTime" Precision="3" />
+          <Property Name="UONLINDATE" Type="DateTime" Precision="3" />
+          <Property Name="UYR6USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UYR7USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UYR8USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UYR9USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY10USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY11USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY12USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UYR6FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UYR7FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UYR8FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UYR9FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY10FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY11FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY12FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UYR6TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UYR7TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UYR8TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UYR9TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY10TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY11TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY12TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ULOCATION2" Type="String" MaxLength="22" FixedLength="false" Unicode="false" />
+          <Property Name="UREFERRAL" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UALERT2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UTRADE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UCALLTIME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UY10SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY11SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY12SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="USOURCTYPE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="USA1FORM" Type="DateTime" Precision="3" />
+          <Property Name="UEMAILADDR" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UY13TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY14TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY15TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY13EXPREF" Type="Double" />
+          <Property Name="UY14EXPREF" Type="Double" />
+          <Property Name="UY15EXPREF" Type="Double" />
+          <Property Name="UY13EXPFEE" Type="Double" />
+          <Property Name="UY14EXPFEE" Type="Double" />
+          <Property Name="UY15EXPFEE" Type="Double" />
+          <Property Name="UY13USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY14USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY15USER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY13FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY14FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY15FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="UY13SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY14SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY15SIGNED" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY13ACTREF" Type="Double" />
+          <Property Name="UY14ACTREF" Type="Double" />
+          <Property Name="UY15ACTREF" Type="Double" />
+          <Property Name="UY13ACTFEE" Type="Double" />
+          <Property Name="UY14ACTFEE" Type="Double" />
+          <Property Name="UY15ACTFEE" Type="Double" />
+          <Property Name="UY14EXPVAT" Type="Double" />
+          <Property Name="UY14ACTVAT" Type="Double" />
+          <Property Name="UY13COM" Type="DateTime" Precision="3" />
+          <Property Name="UY14COM" Type="DateTime" Precision="3" />
+          <Property Name="UY15COM" Type="DateTime" Precision="3" />
+          <Property Name="UISMART" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UPREFUP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UCONVDATE" Type="DateTime" Precision="3" />
+          <Property Name="UINITCONT" Type="DateTime" Precision="3" />
+          <Property Name="U4WILLDIST" Type="DateTime" Precision="3" />
+          <Property Name="URIFTWILLS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URAPREFUND" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URAPREFRES" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UREFDATE" Type="DateTime" Precision="3" />
+          <Property Name="UREFID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UHOLDPAY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UHOLDDATE" Type="DateTime" Precision="3" />
+          <Property Name="UPOSITION" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="USURVEY" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOUNT" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UPATENTATT" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="UPROJECTST" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="USOURCENAM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U15ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U15ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U15ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U16EXPREF" Type="Double" />
+          <Property Name="U16TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U16EXPFEE" Type="Double" />
+          <Property Name="U16USER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UCATTREF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U12RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U13RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U14RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U15RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U12RRHMRC" Type="DateTime" Precision="3" />
+          <Property Name="U13RRHMRC" Type="DateTime" Precision="3" />
+          <Property Name="U14RRHMRC" Type="DateTime" Precision="3" />
+          <Property Name="U15RRHMRC" Type="DateTime" Precision="3" />
+          <Property Name="U12RRPAID" Type="Double" />
+          <Property Name="UJIBPAID" Type="DateTime" Precision="3" />
+          <Property Name="ULOASNT" Type="DateTime" Precision="3" />
+          <Property Name="ULOALOG" Type="DateTime" Precision="3" />
+          <Property Name="U13RRPAID" Type="Double" />
+          <Property Name="U14RRPAID" Type="Double" />
+          <Property Name="U15RRPAID" Type="Double" />
+          <Property Name="U12RRFEE" Type="Double" />
+          <Property Name="U13RRFEE" Type="Double" />
+          <Property Name="U14RRFEE" Type="Double" />
+          <Property Name="U15RRFEE" Type="Double" />
+          <Property Name="U12RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U13RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U14RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U15RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="URRSDATE" Type="DateTime" Precision="3" />
+          <Property Name="UCOMPLNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UBANKNAME" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="UACCHOLDER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="USORTNUMB" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="UACCNUMBER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="URRRTERMS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="UOFPMNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U15PAIDTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U16PAIDTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UOFRATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U15RATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U16RATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UOFDATPAID" Type="DateTime" Precision="3" />
+          <Property Name="U15DATPAID" Type="DateTime" Precision="3" />
+          <Property Name="U16DATPAID" Type="DateTime" Precision="3" />
+          <Property Name="U16FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="U16SIGNED" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY16ACTREF" Type="Double" />
+          <Property Name="UY16ACTFEE" Type="Double" />
+          <Property Name="UY16COM" Type="DateTime" Precision="3" />
+          <Property Name="UBNKUPDAT" Type="DateTime" Precision="3" />
+          <Property Name="U16ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U16ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U16ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U16RRPAID" Type="Double" />
+          <Property Name="U16RRFEE" Type="Double" />
+          <Property Name="U16RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U16HMRC" Type="DateTime" Precision="3" />
+          <Property Name="U16RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UACINSURAN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ULOA2SNT" Type="DateTime" Precision="3" />
+          <Property Name="ULOA2LOG" Type="DateTime" Precision="3" />
+          <Property Name="URRR2TERMS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UCLIENTSTA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UACCLANG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCLANG2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UC2NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UC2PHONE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UACCSTAGE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UINCDATE" Type="DateTime" Precision="3" />
+          <Property Name="UACCYE" Type="DateTime" Precision="3" />
+          <Property Name="UACCYECH" Type="DateTime" Precision="3" />
+          <Property Name="UACCYEIR" Type="DateTime" Precision="3" />
+          <Property Name="UPAYEREF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UPAYEEMP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCVATNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCVAT1Q" Type="Double" />
+          <Property Name="UACCVAT2Q" Type="Double" />
+          <Property Name="UACCVAT3Q" Type="Double" />
+          <Property Name="UACCVAT4Q" Type="Double" />
+          <Property Name="UCOTAXREF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCACTIVI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UCOHOUSE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCVATID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCVATPAS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCCOUTR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCCISREF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOFADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOFADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOFADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOFPOST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCOFTOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UOFCOUNTY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UOFCOUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCBANK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USSORTCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USACCOUNTN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="USIBAN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USBIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UBSORTCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UBACCOUNTN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UBIBAN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UBBIC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UD1NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1ADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UD1COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1NATIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1OCCU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1DOB" Type="DateTime" Precision="3" />
+          <Property Name="UD1APDATE" Type="DateTime" Precision="3" />
+          <Property Name="UD1SHARENO" Type="Int32" />
+          <Property Name="UD2NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2ADD3" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UD2TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UD2COUNTRY" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UD2NATIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2OCC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2DOB" Type="DateTime" Precision="3" />
+          <Property Name="UD2APDATE" Type="DateTime" Precision="3" />
+          <Property Name="UD2SHARENO" Type="Int32" />
+          <Property Name="UD3NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3ADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UD3COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3NATIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3OCCU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3DOB" Type="DateTime" Precision="3" />
+          <Property Name="UD3APDATE" Type="DateTime" Precision="3" />
+          <Property Name="UD3REDATE" Type="DateTime" Precision="3" />
+          <Property Name="US1NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1ADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="US1TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US1SHARENO" Type="Int32" />
+          <Property Name="US1ALDATE" Type="DateTime" Precision="3" />
+          <Property Name="US2NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2ADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="US2TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US2SHARENO" Type="Int32" />
+          <Property Name="US2ALDATE" Type="DateTime" Precision="3" />
+          <Property Name="US3NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3ADD1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3ADD2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3ADD3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3POST" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="US3TOWN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="US3SHARENO" Type="Int32" />
+          <Property Name="US3ALDATE" Type="DateTime" Precision="3" />
+          <Property Name="UCOMPNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1NINO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD1UTR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2NINO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD2UTR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3NINO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UD3UTR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCNATURE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCCURSTA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCWHY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPASTBUSI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UTWITTER" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ULINKEDIN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UFACEBOOK" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ULTDDIR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ULTSSHA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCSUB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCESTTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCVATREG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCWORKFO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCESTCLI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCCOMLIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACCNOTES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACCACC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UEMPSTAFF" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UMONFEE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UPRICEB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UC2EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U01BDATE" Type="DateTime" Precision="3" />
+          <Property Name="U01DATE" Type="DateTime" Precision="3" />
+          <Property Name="U02DATE" Type="DateTime" Precision="3" />
+          <Property Name="U03DATE" Type="DateTime" Precision="3" />
+          <Property Name="U04BDATE" Type="DateTime" Precision="3" />
+          <Property Name="U04DATE" Type="DateTime" Precision="3" />
+          <Property Name="U06DATE" Type="DateTime" Precision="3" />
+          <Property Name="U07DATE" Type="DateTime" Precision="3" />
+          <Property Name="U08DATE" Type="DateTime" Precision="3" />
+          <Property Name="U010DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPPACTDATE" Type="DateTime" Precision="3" />
+          <Property Name="UC1NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UTEMPRA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACONVDATE" Type="DateTime" Precision="3" />
+          <Property Name="UREFCHQNO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UREFSAGEPR" Type="DateTime" Precision="3" />
+          <Property Name="UBCASEOWN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="U17EXPREF" Type="Double" />
+          <Property Name="U17TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U18TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U18EXPREF" Type="Double" />
+          <Property Name="U17EXPFEE" Type="Double" />
+          <Property Name="U18EXPFEE" Type="Double" />
+          <Property Name="U17USER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U18USER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U17FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="U18FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="U17SIGNED" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="U18SIGNED" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UY17ACTREF" Type="Double" />
+          <Property Name="UY18ACTREF" Type="Double" />
+          <Property Name="UY17ACTFEE" Type="Double" />
+          <Property Name="UY18ACTFEE" Type="Double" />
+          <Property Name="UY17COM" Type="DateTime" Precision="3" />
+          <Property Name="UY18COM" Type="DateTime" Precision="3" />
+          <Property Name="U17ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U18ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U17ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U18ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U17ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U18ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U17RRPAID" Type="Double" />
+          <Property Name="U18RRPAID" Type="Double" />
+          <Property Name="U17RRFEE" Type="Double" />
+          <Property Name="U18RRFEE" Type="Double" />
+          <Property Name="U17RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U18RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U17HMRC" Type="DateTime" Precision="3" />
+          <Property Name="U18HMRC" Type="DateTime" Precision="3" />
+          <Property Name="U17RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UY18RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="UACTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAYROLL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACVAT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACYEACC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACSA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCIS300" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCISEPS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACCLEAR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACRROFF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACP11DS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACBKK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACMIND" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACMGRADE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACMSOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACMSOURCT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAPAYRO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAVAT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAYEAC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPASA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPACIS30" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAEPS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPACB" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPATO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPARRO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPAP11D" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACPABKK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UACAGSHARE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17ASPKTYP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17ADPKISS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17BOXNO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17LOGBOOK" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17PCKGRAD" Type="DateTime" Precision="3" />
+          <Property Name="UIBDTCONV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U17PAIDTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U18PAIDTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U17RATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U18RATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U17DATPAID" Type="DateTime" Precision="3" />
+          <Property Name="U18DATPAID" Type="DateTime" Precision="3" />
+          <Property Name="UALLOCDATE" Type="DateTime" Precision="3" />
+          <Property Name="UREJDATE" Type="DateTime" Precision="3" />
+          <Property Name="UCONVMET" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USTADATE" Type="DateTime" Precision="3" />
+          <Property Name="UREPEATCLA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UINVOICEA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UINVOICEN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UEXISTINGR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U01DDATE" Type="DateTime" Precision="3" />
+          <Property Name="USTAGE1DAT" Type="DateTime" Precision="3" />
+          <Property Name="UACPAYRONT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACP11D" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACVATO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACQUARTR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACUSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACTPV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACTPVV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UCATEGORY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="USAREQUEST" Type="DateTime" Precision="3" />
+          <Property Name="UACD1NOS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACD2NOS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACD3NOS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UACLPR" Type="DateTime" Precision="3" />
+          <Property Name="USECTOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UOGRADE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNADUE" Type="DateTime" Precision="3" />
+          <Property Name="UNSOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNMEDIUM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UNCAMPIAGN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U19EXPREF" Type="Double" />
+          <Property Name="U19TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U19EXPFEE" Type="Double" />
+          <Property Name="U19USER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="U19FEEDAT" Type="DateTime" Precision="3" />
+          <Property Name="U19SIGNED" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UY19ACTREF" Type="Double" />
+          <Property Name="UY19ACTFEE" Type="Double" />
+          <Property Name="UY19COM" Type="DateTime" Precision="3" />
+          <Property Name="U19RRPAID" Type="Double" />
+          <Property Name="U19RRFEE" Type="Double" />
+          <Property Name="U19RRDSUB" Type="DateTime" Precision="3" />
+          <Property Name="U19HMRC" Type="DateTime" Precision="3" />
+          <Property Name="UY19RRCOM" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="U19ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U18ASPKTYP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U19ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U19ASPKTYP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U18LOGBOOK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U19LOGBOOK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U18PCKGRAD" Type="DateTime" Precision="3" />
+          <Property Name="U19PCKGRAD" Type="DateTime" Precision="3" />
+          <Property Name="U18BOXNO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U19ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U19BOXNO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U18ADPKISS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U19ADPKISS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U19INCOME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U16EXPVAT" Type="Double" />
+          <Property Name="U15EXPVAT" Type="Double" />
+          <Property Name="U17EXPVAT" Type="Double" />
+          <Property Name="U18EXPVAT" Type="Double" />
+          <Property Name="U19EXPVAT" Type="Double" />
+          <Property Name="U16ACTVAT" Type="Double" />
+          <Property Name="U17ACTVAT" Type="Double" />
+          <Property Name="U18ACTVAT" Type="Double" />
+          <Property Name="U15ACTVAT" Type="Double" />
+          <Property Name="U19ACTVAT" Type="Double" />
+          <Property Name="U15REFAC" Type="Double" />
+          <Property Name="U15REFEC" Type="Double" />
+          <Property Name="U14REFAC" Type="Double" />
+          <Property Name="U14REFEC" Type="Double" />
+          <Property Name="U16REFAC" Type="Double" />
+          <Property Name="U16REFEC" Type="Double" />
+          <Property Name="U17REFAC" Type="Double" />
+          <Property Name="U17REFEC" Type="Double" />
+          <Property Name="U18REFAC" Type="Double" />
+          <Property Name="U18REFEC" Type="Double" />
+          <Property Name="U19REFAC" Type="Double" />
+          <Property Name="U19REFEC" Type="Double" />
+          <Property Name="UREJREASON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URDINTSOUR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="URDSOUTYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERVTYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U13SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U14SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U15SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U16SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U17SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U18SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U19SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UORIGINVOI" Type="DateTime" Precision="3" />
+          <Property Name="UIDEBTVAL" Type="Double" />
+          <Property Name="UOUTAMOUNT" Type="Double" />
+          <Property Name="UFINSTATUS" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UIFINNAD" Type="DateTime" Precision="3" />
+          <Property Name="UDEBTREASO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UCCOMPLET" Type="DateTime" Precision="3" />
+          <Property Name="UTYPE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U20SERVT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U20TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="URACASEO" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="U19PAIDTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U19RATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U19DATPAID" Type="DateTime" Precision="3" />
+          <Property Name="UNITREF" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="UNITNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="URANK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UCONTTIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USTA1CALLS" Type="Int32" />
+          <Property Name="USTA2CALLS" Type="Int32" />
+          <Property Name="U4WILLSTAT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CONTSUPP">
+          <Key>
+            <PropertyRef Name="recid" />
+          </Key>
+          <Property Name="ACCOUNTNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RECTYPE" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TITLE" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="CONTSUPREF" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="DEAR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EXT" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="FAX" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LINKACCT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS3" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ZIP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MERGECODES" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="LINKEDDOC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LASTUSER" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="LASTDATE" Type="DateTime" Precision="3" />
+          <Property Name="LASTTIME" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="U_CONTACT" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="U_CONTSUPREF" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="U_ADDRESS1" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -139,6 +1452,662 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CONTACT1">
+            <EntityTypeMapping TypeName="GoldmineModel.CONTACT1">
+              <MappingFragment StoreEntitySet="CONTACT1">
+                <ScalarProperty Name="recid" ColumnName="recid" />
+                <ScalarProperty Name="U_KEY5" ColumnName="U_KEY5" />
+                <ScalarProperty Name="U_KEY4" ColumnName="U_KEY4" />
+                <ScalarProperty Name="U_KEY3" ColumnName="U_KEY3" />
+                <ScalarProperty Name="U_KEY2" ColumnName="U_KEY2" />
+                <ScalarProperty Name="U_KEY1" ColumnName="U_KEY1" />
+                <ScalarProperty Name="U_COUNTRY" ColumnName="U_COUNTRY" />
+                <ScalarProperty Name="U_STATE" ColumnName="U_STATE" />
+                <ScalarProperty Name="U_CITY" ColumnName="U_CITY" />
+                <ScalarProperty Name="U_LASTNAME" ColumnName="U_LASTNAME" />
+                <ScalarProperty Name="U_CONTACT" ColumnName="U_CONTACT" />
+                <ScalarProperty Name="U_COMPANY" ColumnName="U_COMPANY" />
+                <ScalarProperty Name="LASTTIME" ColumnName="LASTTIME" />
+                <ScalarProperty Name="LASTDATE" ColumnName="LASTDATE" />
+                <ScalarProperty Name="LASTUSER" ColumnName="LASTUSER" />
+                <ScalarProperty Name="OWNER" ColumnName="OWNER" />
+                <ScalarProperty Name="CREATEAT" ColumnName="CREATEAT" />
+                <ScalarProperty Name="CREATEON" ColumnName="CREATEON" />
+                <ScalarProperty Name="CREATEBY" ColumnName="CREATEBY" />
+                <ScalarProperty Name="MERGECODES" ColumnName="MERGECODES" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="KEY5" ColumnName="KEY5" />
+                <ScalarProperty Name="KEY4" ColumnName="KEY4" />
+                <ScalarProperty Name="KEY3" ColumnName="KEY3" />
+                <ScalarProperty Name="KEY2" ColumnName="KEY2" />
+                <ScalarProperty Name="KEY1" ColumnName="KEY1" />
+                <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+                <ScalarProperty Name="DEAR" ColumnName="DEAR" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="EXT4" ColumnName="EXT4" />
+                <ScalarProperty Name="EXT3" ColumnName="EXT3" />
+                <ScalarProperty Name="EXT2" ColumnName="EXT2" />
+                <ScalarProperty Name="EXT1" ColumnName="EXT1" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="PHONE3" ColumnName="PHONE3" />
+                <ScalarProperty Name="PHONE2" ColumnName="PHONE2" />
+                <ScalarProperty Name="PHONE1" ColumnName="PHONE1" />
+                <ScalarProperty Name="SECR" ColumnName="SECR" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTACT2">
+            <EntityTypeMapping TypeName="GoldmineModel.CONTACT2">
+              <MappingFragment StoreEntitySet="CONTACT2">
+                <ScalarProperty Name="recid" ColumnName="recid" />
+                <ScalarProperty Name="U4WILLSTAT" ColumnName="U4WILLSTAT" />
+                <ScalarProperty Name="USTA2CALLS" ColumnName="USTA2CALLS" />
+                <ScalarProperty Name="USTA1CALLS" ColumnName="USTA1CALLS" />
+                <ScalarProperty Name="UCONTTIME" ColumnName="UCONTTIME" />
+                <ScalarProperty Name="URANK" ColumnName="URANK" />
+                <ScalarProperty Name="UNITNAME" ColumnName="UNITNAME" />
+                <ScalarProperty Name="UNITREF" ColumnName="UNITREF" />
+                <ScalarProperty Name="U19DATPAID" ColumnName="U19DATPAID" />
+                <ScalarProperty Name="U19RATE" ColumnName="U19RATE" />
+                <ScalarProperty Name="U19PAIDTO" ColumnName="U19PAIDTO" />
+                <ScalarProperty Name="URACASEO" ColumnName="URACASEO" />
+                <ScalarProperty Name="U20TYPE" ColumnName="U20TYPE" />
+                <ScalarProperty Name="U20SERVT" ColumnName="U20SERVT" />
+                <ScalarProperty Name="UTYPE" ColumnName="UTYPE" />
+                <ScalarProperty Name="UCCOMPLET" ColumnName="UCCOMPLET" />
+                <ScalarProperty Name="UDEBTREASO" ColumnName="UDEBTREASO" />
+                <ScalarProperty Name="UIFINNAD" ColumnName="UIFINNAD" />
+                <ScalarProperty Name="UFINSTATUS" ColumnName="UFINSTATUS" />
+                <ScalarProperty Name="UOUTAMOUNT" ColumnName="UOUTAMOUNT" />
+                <ScalarProperty Name="UIDEBTVAL" ColumnName="UIDEBTVAL" />
+                <ScalarProperty Name="UORIGINVOI" ColumnName="UORIGINVOI" />
+                <ScalarProperty Name="U19SERVT" ColumnName="U19SERVT" />
+                <ScalarProperty Name="U18SERVT" ColumnName="U18SERVT" />
+                <ScalarProperty Name="U17SERVT" ColumnName="U17SERVT" />
+                <ScalarProperty Name="U16SERVT" ColumnName="U16SERVT" />
+                <ScalarProperty Name="U15SERVT" ColumnName="U15SERVT" />
+                <ScalarProperty Name="U14SERVT" ColumnName="U14SERVT" />
+                <ScalarProperty Name="U13SERVT" ColumnName="U13SERVT" />
+                <ScalarProperty Name="USERVTYPE" ColumnName="USERVTYPE" />
+                <ScalarProperty Name="URDSOUTYPE" ColumnName="URDSOUTYPE" />
+                <ScalarProperty Name="URDINTSOUR" ColumnName="URDINTSOUR" />
+                <ScalarProperty Name="UREJREASON" ColumnName="UREJREASON" />
+                <ScalarProperty Name="U19REFEC" ColumnName="U19REFEC" />
+                <ScalarProperty Name="U19REFAC" ColumnName="U19REFAC" />
+                <ScalarProperty Name="U18REFEC" ColumnName="U18REFEC" />
+                <ScalarProperty Name="U18REFAC" ColumnName="U18REFAC" />
+                <ScalarProperty Name="U17REFEC" ColumnName="U17REFEC" />
+                <ScalarProperty Name="U17REFAC" ColumnName="U17REFAC" />
+                <ScalarProperty Name="U16REFEC" ColumnName="U16REFEC" />
+                <ScalarProperty Name="U16REFAC" ColumnName="U16REFAC" />
+                <ScalarProperty Name="U14REFEC" ColumnName="U14REFEC" />
+                <ScalarProperty Name="U14REFAC" ColumnName="U14REFAC" />
+                <ScalarProperty Name="U15REFEC" ColumnName="U15REFEC" />
+                <ScalarProperty Name="U15REFAC" ColumnName="U15REFAC" />
+                <ScalarProperty Name="U19ACTVAT" ColumnName="U19ACTVAT" />
+                <ScalarProperty Name="U15ACTVAT" ColumnName="U15ACTVAT" />
+                <ScalarProperty Name="U18ACTVAT" ColumnName="U18ACTVAT" />
+                <ScalarProperty Name="U17ACTVAT" ColumnName="U17ACTVAT" />
+                <ScalarProperty Name="U16ACTVAT" ColumnName="U16ACTVAT" />
+                <ScalarProperty Name="U19EXPVAT" ColumnName="U19EXPVAT" />
+                <ScalarProperty Name="U18EXPVAT" ColumnName="U18EXPVAT" />
+                <ScalarProperty Name="U17EXPVAT" ColumnName="U17EXPVAT" />
+                <ScalarProperty Name="U15EXPVAT" ColumnName="U15EXPVAT" />
+                <ScalarProperty Name="U16EXPVAT" ColumnName="U16EXPVAT" />
+                <ScalarProperty Name="U19INCOME" ColumnName="U19INCOME" />
+                <ScalarProperty Name="U19ADPKISS" ColumnName="U19ADPKISS" />
+                <ScalarProperty Name="U18ADPKISS" ColumnName="U18ADPKISS" />
+                <ScalarProperty Name="U19BOXNO" ColumnName="U19BOXNO" />
+                <ScalarProperty Name="U19ADPKRDY" ColumnName="U19ADPKRDY" />
+                <ScalarProperty Name="U18BOXNO" ColumnName="U18BOXNO" />
+                <ScalarProperty Name="U19PCKGRAD" ColumnName="U19PCKGRAD" />
+                <ScalarProperty Name="U18PCKGRAD" ColumnName="U18PCKGRAD" />
+                <ScalarProperty Name="U19LOGBOOK" ColumnName="U19LOGBOOK" />
+                <ScalarProperty Name="U18LOGBOOK" ColumnName="U18LOGBOOK" />
+                <ScalarProperty Name="U19ASPKTYP" ColumnName="U19ASPKTYP" />
+                <ScalarProperty Name="U19ADPKREC" ColumnName="U19ADPKREC" />
+                <ScalarProperty Name="U18ASPKTYP" ColumnName="U18ASPKTYP" />
+                <ScalarProperty Name="U19ADPKSNT" ColumnName="U19ADPKSNT" />
+                <ScalarProperty Name="UY19RRCOM" ColumnName="UY19RRCOM" />
+                <ScalarProperty Name="U19HMRC" ColumnName="U19HMRC" />
+                <ScalarProperty Name="U19RRDSUB" ColumnName="U19RRDSUB" />
+                <ScalarProperty Name="U19RRFEE" ColumnName="U19RRFEE" />
+                <ScalarProperty Name="U19RRPAID" ColumnName="U19RRPAID" />
+                <ScalarProperty Name="UY19COM" ColumnName="UY19COM" />
+                <ScalarProperty Name="UY19ACTFEE" ColumnName="UY19ACTFEE" />
+                <ScalarProperty Name="UY19ACTREF" ColumnName="UY19ACTREF" />
+                <ScalarProperty Name="U19SIGNED" ColumnName="U19SIGNED" />
+                <ScalarProperty Name="U19FEEDAT" ColumnName="U19FEEDAT" />
+                <ScalarProperty Name="U19USER" ColumnName="U19USER" />
+                <ScalarProperty Name="U19EXPFEE" ColumnName="U19EXPFEE" />
+                <ScalarProperty Name="U19TYPE" ColumnName="U19TYPE" />
+                <ScalarProperty Name="U19EXPREF" ColumnName="U19EXPREF" />
+                <ScalarProperty Name="UNCAMPIAGN" ColumnName="UNCAMPIAGN" />
+                <ScalarProperty Name="UNMEDIUM" ColumnName="UNMEDIUM" />
+                <ScalarProperty Name="UNSOURCE" ColumnName="UNSOURCE" />
+                <ScalarProperty Name="UNADUE" ColumnName="UNADUE" />
+                <ScalarProperty Name="UOGRADE" ColumnName="UOGRADE" />
+                <ScalarProperty Name="USECTOR" ColumnName="USECTOR" />
+                <ScalarProperty Name="UACLPR" ColumnName="UACLPR" />
+                <ScalarProperty Name="UACD3NOS" ColumnName="UACD3NOS" />
+                <ScalarProperty Name="UACD2NOS" ColumnName="UACD2NOS" />
+                <ScalarProperty Name="UACD1NOS" ColumnName="UACD1NOS" />
+                <ScalarProperty Name="USAREQUEST" ColumnName="USAREQUEST" />
+                <ScalarProperty Name="UCATEGORY" ColumnName="UCATEGORY" />
+                <ScalarProperty Name="UACTPVV" ColumnName="UACTPVV" />
+                <ScalarProperty Name="UACTPV" ColumnName="UACTPV" />
+                <ScalarProperty Name="UACUSV" ColumnName="UACUSV" />
+                <ScalarProperty Name="UACQUARTR" ColumnName="UACQUARTR" />
+                <ScalarProperty Name="UACVATO" ColumnName="UACVATO" />
+                <ScalarProperty Name="UACP11D" ColumnName="UACP11D" />
+                <ScalarProperty Name="UACPAYRONT" ColumnName="UACPAYRONT" />
+                <ScalarProperty Name="USTAGE1DAT" ColumnName="USTAGE1DAT" />
+                <ScalarProperty Name="U01DDATE" ColumnName="U01DDATE" />
+                <ScalarProperty Name="UEXISTINGR" ColumnName="UEXISTINGR" />
+                <ScalarProperty Name="UINVOICEN" ColumnName="UINVOICEN" />
+                <ScalarProperty Name="UINVOICEA" ColumnName="UINVOICEA" />
+                <ScalarProperty Name="UREPEATCLA" ColumnName="UREPEATCLA" />
+                <ScalarProperty Name="USTADATE" ColumnName="USTADATE" />
+                <ScalarProperty Name="UCONVMET" ColumnName="UCONVMET" />
+                <ScalarProperty Name="UREJDATE" ColumnName="UREJDATE" />
+                <ScalarProperty Name="UALLOCDATE" ColumnName="UALLOCDATE" />
+                <ScalarProperty Name="U18DATPAID" ColumnName="U18DATPAID" />
+                <ScalarProperty Name="U17DATPAID" ColumnName="U17DATPAID" />
+                <ScalarProperty Name="U18RATE" ColumnName="U18RATE" />
+                <ScalarProperty Name="U17RATE" ColumnName="U17RATE" />
+                <ScalarProperty Name="U18PAIDTO" ColumnName="U18PAIDTO" />
+                <ScalarProperty Name="U17PAIDTO" ColumnName="U17PAIDTO" />
+                <ScalarProperty Name="UIBDTCONV" ColumnName="UIBDTCONV" />
+                <ScalarProperty Name="U17PCKGRAD" ColumnName="U17PCKGRAD" />
+                <ScalarProperty Name="U17LOGBOOK" ColumnName="U17LOGBOOK" />
+                <ScalarProperty Name="U17BOXNO" ColumnName="U17BOXNO" />
+                <ScalarProperty Name="U17ADPKISS" ColumnName="U17ADPKISS" />
+                <ScalarProperty Name="U17ASPKTYP" ColumnName="U17ASPKTYP" />
+                <ScalarProperty Name="UACAGSHARE" ColumnName="UACAGSHARE" />
+                <ScalarProperty Name="UACPABKK" ColumnName="UACPABKK" />
+                <ScalarProperty Name="UACPAP11D" ColumnName="UACPAP11D" />
+                <ScalarProperty Name="UACPARRO" ColumnName="UACPARRO" />
+                <ScalarProperty Name="UACPATO" ColumnName="UACPATO" />
+                <ScalarProperty Name="UACPACB" ColumnName="UACPACB" />
+                <ScalarProperty Name="UACPAEPS" ColumnName="UACPAEPS" />
+                <ScalarProperty Name="UACPACIS30" ColumnName="UACPACIS30" />
+                <ScalarProperty Name="UACPASA" ColumnName="UACPASA" />
+                <ScalarProperty Name="UACPAYEAC" ColumnName="UACPAYEAC" />
+                <ScalarProperty Name="UACPAVAT" ColumnName="UACPAVAT" />
+                <ScalarProperty Name="UACPAPAYRO" ColumnName="UACPAPAYRO" />
+                <ScalarProperty Name="UACMSOURCT" ColumnName="UACMSOURCT" />
+                <ScalarProperty Name="UACMSOURCE" ColumnName="UACMSOURCE" />
+                <ScalarProperty Name="UACMGRADE" ColumnName="UACMGRADE" />
+                <ScalarProperty Name="UACMIND" ColumnName="UACMIND" />
+                <ScalarProperty Name="UACBKK" ColumnName="UACBKK" />
+                <ScalarProperty Name="UACP11DS" ColumnName="UACP11DS" />
+                <ScalarProperty Name="UACRROFF" ColumnName="UACRROFF" />
+                <ScalarProperty Name="UACCLEAR" ColumnName="UACCLEAR" />
+                <ScalarProperty Name="UACCISEPS" ColumnName="UACCISEPS" />
+                <ScalarProperty Name="UACCIS300" ColumnName="UACCIS300" />
+                <ScalarProperty Name="UACSA" ColumnName="UACSA" />
+                <ScalarProperty Name="UACYEACC" ColumnName="UACYEACC" />
+                <ScalarProperty Name="UACVAT" ColumnName="UACVAT" />
+                <ScalarProperty Name="UACPAYROLL" ColumnName="UACPAYROLL" />
+                <ScalarProperty Name="UACTO" ColumnName="UACTO" />
+                <ScalarProperty Name="UY18RRCOM" ColumnName="UY18RRCOM" />
+                <ScalarProperty Name="U17RRCOM" ColumnName="U17RRCOM" />
+                <ScalarProperty Name="U18HMRC" ColumnName="U18HMRC" />
+                <ScalarProperty Name="U17HMRC" ColumnName="U17HMRC" />
+                <ScalarProperty Name="U18RRDSUB" ColumnName="U18RRDSUB" />
+                <ScalarProperty Name="U17RRDSUB" ColumnName="U17RRDSUB" />
+                <ScalarProperty Name="U18RRFEE" ColumnName="U18RRFEE" />
+                <ScalarProperty Name="U17RRFEE" ColumnName="U17RRFEE" />
+                <ScalarProperty Name="U18RRPAID" ColumnName="U18RRPAID" />
+                <ScalarProperty Name="U17RRPAID" ColumnName="U17RRPAID" />
+                <ScalarProperty Name="U18ADPKRDY" ColumnName="U18ADPKRDY" />
+                <ScalarProperty Name="U17ADPKRDY" ColumnName="U17ADPKRDY" />
+                <ScalarProperty Name="U18ADPKREC" ColumnName="U18ADPKREC" />
+                <ScalarProperty Name="U17ADPKREC" ColumnName="U17ADPKREC" />
+                <ScalarProperty Name="U18ADPKSNT" ColumnName="U18ADPKSNT" />
+                <ScalarProperty Name="U17ADPKSNT" ColumnName="U17ADPKSNT" />
+                <ScalarProperty Name="UY18COM" ColumnName="UY18COM" />
+                <ScalarProperty Name="UY17COM" ColumnName="UY17COM" />
+                <ScalarProperty Name="UY18ACTFEE" ColumnName="UY18ACTFEE" />
+                <ScalarProperty Name="UY17ACTFEE" ColumnName="UY17ACTFEE" />
+                <ScalarProperty Name="UY18ACTREF" ColumnName="UY18ACTREF" />
+                <ScalarProperty Name="UY17ACTREF" ColumnName="UY17ACTREF" />
+                <ScalarProperty Name="U18SIGNED" ColumnName="U18SIGNED" />
+                <ScalarProperty Name="U17SIGNED" ColumnName="U17SIGNED" />
+                <ScalarProperty Name="U18FEEDAT" ColumnName="U18FEEDAT" />
+                <ScalarProperty Name="U17FEEDAT" ColumnName="U17FEEDAT" />
+                <ScalarProperty Name="U18USER" ColumnName="U18USER" />
+                <ScalarProperty Name="U17USER" ColumnName="U17USER" />
+                <ScalarProperty Name="U18EXPFEE" ColumnName="U18EXPFEE" />
+                <ScalarProperty Name="U17EXPFEE" ColumnName="U17EXPFEE" />
+                <ScalarProperty Name="U18EXPREF" ColumnName="U18EXPREF" />
+                <ScalarProperty Name="U18TYPE" ColumnName="U18TYPE" />
+                <ScalarProperty Name="U17TYPE" ColumnName="U17TYPE" />
+                <ScalarProperty Name="U17EXPREF" ColumnName="U17EXPREF" />
+                <ScalarProperty Name="UBCASEOWN" ColumnName="UBCASEOWN" />
+                <ScalarProperty Name="UREFSAGEPR" ColumnName="UREFSAGEPR" />
+                <ScalarProperty Name="UREFCHQNO" ColumnName="UREFCHQNO" />
+                <ScalarProperty Name="UACONVDATE" ColumnName="UACONVDATE" />
+                <ScalarProperty Name="UTEMPRA" ColumnName="UTEMPRA" />
+                <ScalarProperty Name="UC1NAME" ColumnName="UC1NAME" />
+                <ScalarProperty Name="UPPACTDATE" ColumnName="UPPACTDATE" />
+                <ScalarProperty Name="U010DATE" ColumnName="U010DATE" />
+                <ScalarProperty Name="U08DATE" ColumnName="U08DATE" />
+                <ScalarProperty Name="U07DATE" ColumnName="U07DATE" />
+                <ScalarProperty Name="U06DATE" ColumnName="U06DATE" />
+                <ScalarProperty Name="U04DATE" ColumnName="U04DATE" />
+                <ScalarProperty Name="U04BDATE" ColumnName="U04BDATE" />
+                <ScalarProperty Name="U03DATE" ColumnName="U03DATE" />
+                <ScalarProperty Name="U02DATE" ColumnName="U02DATE" />
+                <ScalarProperty Name="U01DATE" ColumnName="U01DATE" />
+                <ScalarProperty Name="U01BDATE" ColumnName="U01BDATE" />
+                <ScalarProperty Name="UC2EMAIL" ColumnName="UC2EMAIL" />
+                <ScalarProperty Name="UPRICEB" ColumnName="UPRICEB" />
+                <ScalarProperty Name="UMONFEE" ColumnName="UMONFEE" />
+                <ScalarProperty Name="UEMPSTAFF" ColumnName="UEMPSTAFF" />
+                <ScalarProperty Name="UACCACC" ColumnName="UACCACC" />
+                <ScalarProperty Name="UACCNOTES" ColumnName="UACCNOTES" />
+                <ScalarProperty Name="UACCCOMLIT" ColumnName="UACCCOMLIT" />
+                <ScalarProperty Name="UACCESTCLI" ColumnName="UACCESTCLI" />
+                <ScalarProperty Name="UACCWORKFO" ColumnName="UACCWORKFO" />
+                <ScalarProperty Name="UACCVATREG" ColumnName="UACCVATREG" />
+                <ScalarProperty Name="UACCESTTO" ColumnName="UACCESTTO" />
+                <ScalarProperty Name="UACCSUB" ColumnName="UACCSUB" />
+                <ScalarProperty Name="ULTSSHA" ColumnName="ULTSSHA" />
+                <ScalarProperty Name="ULTDDIR" ColumnName="ULTDDIR" />
+                <ScalarProperty Name="UFACEBOOK" ColumnName="UFACEBOOK" />
+                <ScalarProperty Name="ULINKEDIN" ColumnName="ULINKEDIN" />
+                <ScalarProperty Name="UTWITTER" ColumnName="UTWITTER" />
+                <ScalarProperty Name="UPASTBUSI" ColumnName="UPASTBUSI" />
+                <ScalarProperty Name="UACCWHY" ColumnName="UACCWHY" />
+                <ScalarProperty Name="UACCCURSTA" ColumnName="UACCCURSTA" />
+                <ScalarProperty Name="UACCNATURE" ColumnName="UACCNATURE" />
+                <ScalarProperty Name="UD3UTR" ColumnName="UD3UTR" />
+                <ScalarProperty Name="UD3NINO" ColumnName="UD3NINO" />
+                <ScalarProperty Name="UD2UTR" ColumnName="UD2UTR" />
+                <ScalarProperty Name="UD2NINO" ColumnName="UD2NINO" />
+                <ScalarProperty Name="UD1UTR" ColumnName="UD1UTR" />
+                <ScalarProperty Name="UD1NINO" ColumnName="UD1NINO" />
+                <ScalarProperty Name="UCOMPNO" ColumnName="UCOMPNO" />
+                <ScalarProperty Name="US3ALDATE" ColumnName="US3ALDATE" />
+                <ScalarProperty Name="US3SHARENO" ColumnName="US3SHARENO" />
+                <ScalarProperty Name="US3COUNTRY" ColumnName="US3COUNTRY" />
+                <ScalarProperty Name="US3TOWN" ColumnName="US3TOWN" />
+                <ScalarProperty Name="US3POST" ColumnName="US3POST" />
+                <ScalarProperty Name="US3ADD3" ColumnName="US3ADD3" />
+                <ScalarProperty Name="US3ADD2" ColumnName="US3ADD2" />
+                <ScalarProperty Name="US3ADD1" ColumnName="US3ADD1" />
+                <ScalarProperty Name="US3NAME" ColumnName="US3NAME" />
+                <ScalarProperty Name="US2ALDATE" ColumnName="US2ALDATE" />
+                <ScalarProperty Name="US2SHARENO" ColumnName="US2SHARENO" />
+                <ScalarProperty Name="US2COUNTRY" ColumnName="US2COUNTRY" />
+                <ScalarProperty Name="US2TOWN" ColumnName="US2TOWN" />
+                <ScalarProperty Name="US2POST" ColumnName="US2POST" />
+                <ScalarProperty Name="US2ADD3" ColumnName="US2ADD3" />
+                <ScalarProperty Name="US2ADD2" ColumnName="US2ADD2" />
+                <ScalarProperty Name="US2ADD1" ColumnName="US2ADD1" />
+                <ScalarProperty Name="US2NAME" ColumnName="US2NAME" />
+                <ScalarProperty Name="US1ALDATE" ColumnName="US1ALDATE" />
+                <ScalarProperty Name="US1SHARENO" ColumnName="US1SHARENO" />
+                <ScalarProperty Name="US1COUNTRY" ColumnName="US1COUNTRY" />
+                <ScalarProperty Name="US1TOWN" ColumnName="US1TOWN" />
+                <ScalarProperty Name="US1POST" ColumnName="US1POST" />
+                <ScalarProperty Name="US1ADD3" ColumnName="US1ADD3" />
+                <ScalarProperty Name="US1ADD2" ColumnName="US1ADD2" />
+                <ScalarProperty Name="US1ADD1" ColumnName="US1ADD1" />
+                <ScalarProperty Name="US1NAME" ColumnName="US1NAME" />
+                <ScalarProperty Name="UD3REDATE" ColumnName="UD3REDATE" />
+                <ScalarProperty Name="UD3APDATE" ColumnName="UD3APDATE" />
+                <ScalarProperty Name="UD3DOB" ColumnName="UD3DOB" />
+                <ScalarProperty Name="UD3OCCU" ColumnName="UD3OCCU" />
+                <ScalarProperty Name="UD3NATIO" ColumnName="UD3NATIO" />
+                <ScalarProperty Name="UD3COUNTRY" ColumnName="UD3COUNTRY" />
+                <ScalarProperty Name="UD3POST" ColumnName="UD3POST" />
+                <ScalarProperty Name="UD3TOWN" ColumnName="UD3TOWN" />
+                <ScalarProperty Name="UD3ADD3" ColumnName="UD3ADD3" />
+                <ScalarProperty Name="UD3ADD2" ColumnName="UD3ADD2" />
+                <ScalarProperty Name="UD3ADD1" ColumnName="UD3ADD1" />
+                <ScalarProperty Name="UD3NAME" ColumnName="UD3NAME" />
+                <ScalarProperty Name="UD2SHARENO" ColumnName="UD2SHARENO" />
+                <ScalarProperty Name="UD2APDATE" ColumnName="UD2APDATE" />
+                <ScalarProperty Name="UD2DOB" ColumnName="UD2DOB" />
+                <ScalarProperty Name="UD2OCC" ColumnName="UD2OCC" />
+                <ScalarProperty Name="UD2NATIO" ColumnName="UD2NATIO" />
+                <ScalarProperty Name="UD2COUNTRY" ColumnName="UD2COUNTRY" />
+                <ScalarProperty Name="UD2POST" ColumnName="UD2POST" />
+                <ScalarProperty Name="UD2TOWN" ColumnName="UD2TOWN" />
+                <ScalarProperty Name="UD2ADD3" ColumnName="UD2ADD3" />
+                <ScalarProperty Name="UD2ADD2" ColumnName="UD2ADD2" />
+                <ScalarProperty Name="UD2ADD1" ColumnName="UD2ADD1" />
+                <ScalarProperty Name="UD2NAME" ColumnName="UD2NAME" />
+                <ScalarProperty Name="UD1SHARENO" ColumnName="UD1SHARENO" />
+                <ScalarProperty Name="UD1APDATE" ColumnName="UD1APDATE" />
+                <ScalarProperty Name="UD1DOB" ColumnName="UD1DOB" />
+                <ScalarProperty Name="UD1OCCU" ColumnName="UD1OCCU" />
+                <ScalarProperty Name="UD1NATIO" ColumnName="UD1NATIO" />
+                <ScalarProperty Name="UD1COUNTRY" ColumnName="UD1COUNTRY" />
+                <ScalarProperty Name="UD1POST" ColumnName="UD1POST" />
+                <ScalarProperty Name="UD1TOWN" ColumnName="UD1TOWN" />
+                <ScalarProperty Name="UD1ADD3" ColumnName="UD1ADD3" />
+                <ScalarProperty Name="UD1ADD2" ColumnName="UD1ADD2" />
+                <ScalarProperty Name="UD1ADD1" ColumnName="UD1ADD1" />
+                <ScalarProperty Name="UD1NAME" ColumnName="UD1NAME" />
+                <ScalarProperty Name="UBBIC" ColumnName="UBBIC" />
+                <ScalarProperty Name="UBIBAN" ColumnName="UBIBAN" />
+                <ScalarProperty Name="UBACCOUNTN" ColumnName="UBACCOUNTN" />
+                <ScalarProperty Name="UBSORTCODE" ColumnName="UBSORTCODE" />
+                <ScalarProperty Name="USBIC" ColumnName="USBIC" />
+                <ScalarProperty Name="USIBAN" ColumnName="USIBAN" />
+                <ScalarProperty Name="USACCOUNTN" ColumnName="USACCOUNTN" />
+                <ScalarProperty Name="USSORTCODE" ColumnName="USSORTCODE" />
+                <ScalarProperty Name="UACCBANK" ColumnName="UACCBANK" />
+                <ScalarProperty Name="UOFCOUNTRY" ColumnName="UOFCOUNTRY" />
+                <ScalarProperty Name="UOFCOUNTY" ColumnName="UOFCOUNTY" />
+                <ScalarProperty Name="UACCOFTOWN" ColumnName="UACCOFTOWN" />
+                <ScalarProperty Name="UACCOFPOST" ColumnName="UACCOFPOST" />
+                <ScalarProperty Name="UACCOFADD3" ColumnName="UACCOFADD3" />
+                <ScalarProperty Name="UACCOFADD2" ColumnName="UACCOFADD2" />
+                <ScalarProperty Name="UACCOFADD1" ColumnName="UACCOFADD1" />
+                <ScalarProperty Name="UACCCISREF" ColumnName="UACCCISREF" />
+                <ScalarProperty Name="UACCCOUTR" ColumnName="UACCCOUTR" />
+                <ScalarProperty Name="UACCVATPAS" ColumnName="UACCVATPAS" />
+                <ScalarProperty Name="UACCVATID" ColumnName="UACCVATID" />
+                <ScalarProperty Name="UCOHOUSE" ColumnName="UCOHOUSE" />
+                <ScalarProperty Name="UACCACTIVI" ColumnName="UACCACTIVI" />
+                <ScalarProperty Name="UCOTAXREF" ColumnName="UCOTAXREF" />
+                <ScalarProperty Name="UACCVAT4Q" ColumnName="UACCVAT4Q" />
+                <ScalarProperty Name="UACCVAT3Q" ColumnName="UACCVAT3Q" />
+                <ScalarProperty Name="UACCVAT2Q" ColumnName="UACCVAT2Q" />
+                <ScalarProperty Name="UACCVAT1Q" ColumnName="UACCVAT1Q" />
+                <ScalarProperty Name="UACCVATNO" ColumnName="UACCVATNO" />
+                <ScalarProperty Name="UPAYEEMP" ColumnName="UPAYEEMP" />
+                <ScalarProperty Name="UPAYEREF" ColumnName="UPAYEREF" />
+                <ScalarProperty Name="UACCYEIR" ColumnName="UACCYEIR" />
+                <ScalarProperty Name="UACCYECH" ColumnName="UACCYECH" />
+                <ScalarProperty Name="UACCYE" ColumnName="UACCYE" />
+                <ScalarProperty Name="UINCDATE" ColumnName="UINCDATE" />
+                <ScalarProperty Name="UACCSTAGE" ColumnName="UACCSTAGE" />
+                <ScalarProperty Name="UC2PHONE" ColumnName="UC2PHONE" />
+                <ScalarProperty Name="UC2NAME" ColumnName="UC2NAME" />
+                <ScalarProperty Name="UACCLANG2" ColumnName="UACCLANG2" />
+                <ScalarProperty Name="UACCLANG" ColumnName="UACCLANG" />
+                <ScalarProperty Name="UCLIENTSTA" ColumnName="UCLIENTSTA" />
+                <ScalarProperty Name="URRR2TERMS" ColumnName="URRR2TERMS" />
+                <ScalarProperty Name="ULOA2LOG" ColumnName="ULOA2LOG" />
+                <ScalarProperty Name="ULOA2SNT" ColumnName="ULOA2SNT" />
+                <ScalarProperty Name="UACINSURAN" ColumnName="UACINSURAN" />
+                <ScalarProperty Name="U16RRCOM" ColumnName="U16RRCOM" />
+                <ScalarProperty Name="U16HMRC" ColumnName="U16HMRC" />
+                <ScalarProperty Name="U16RRDSUB" ColumnName="U16RRDSUB" />
+                <ScalarProperty Name="U16RRFEE" ColumnName="U16RRFEE" />
+                <ScalarProperty Name="U16RRPAID" ColumnName="U16RRPAID" />
+                <ScalarProperty Name="U16ADPKRDY" ColumnName="U16ADPKRDY" />
+                <ScalarProperty Name="U16ADPKREC" ColumnName="U16ADPKREC" />
+                <ScalarProperty Name="U16ADPKSNT" ColumnName="U16ADPKSNT" />
+                <ScalarProperty Name="UBNKUPDAT" ColumnName="UBNKUPDAT" />
+                <ScalarProperty Name="UY16COM" ColumnName="UY16COM" />
+                <ScalarProperty Name="UY16ACTFEE" ColumnName="UY16ACTFEE" />
+                <ScalarProperty Name="UY16ACTREF" ColumnName="UY16ACTREF" />
+                <ScalarProperty Name="U16SIGNED" ColumnName="U16SIGNED" />
+                <ScalarProperty Name="U16FEEDAT" ColumnName="U16FEEDAT" />
+                <ScalarProperty Name="U16DATPAID" ColumnName="U16DATPAID" />
+                <ScalarProperty Name="U15DATPAID" ColumnName="U15DATPAID" />
+                <ScalarProperty Name="UOFDATPAID" ColumnName="UOFDATPAID" />
+                <ScalarProperty Name="U16RATE" ColumnName="U16RATE" />
+                <ScalarProperty Name="U15RATE" ColumnName="U15RATE" />
+                <ScalarProperty Name="UOFRATE" ColumnName="UOFRATE" />
+                <ScalarProperty Name="U16PAIDTO" ColumnName="U16PAIDTO" />
+                <ScalarProperty Name="U15PAIDTO" ColumnName="U15PAIDTO" />
+                <ScalarProperty Name="UOFPMNT" ColumnName="UOFPMNT" />
+                <ScalarProperty Name="URRRTERMS" ColumnName="URRRTERMS" />
+                <ScalarProperty Name="UACCNUMBER" ColumnName="UACCNUMBER" />
+                <ScalarProperty Name="USORTNUMB" ColumnName="USORTNUMB" />
+                <ScalarProperty Name="UACCHOLDER" ColumnName="UACCHOLDER" />
+                <ScalarProperty Name="UBANKNAME" ColumnName="UBANKNAME" />
+                <ScalarProperty Name="UCOMPLNT" ColumnName="UCOMPLNT" />
+                <ScalarProperty Name="URRSDATE" ColumnName="URRSDATE" />
+                <ScalarProperty Name="U15RRCOM" ColumnName="U15RRCOM" />
+                <ScalarProperty Name="U14RRCOM" ColumnName="U14RRCOM" />
+                <ScalarProperty Name="U13RRCOM" ColumnName="U13RRCOM" />
+                <ScalarProperty Name="U12RRCOM" ColumnName="U12RRCOM" />
+                <ScalarProperty Name="U15RRFEE" ColumnName="U15RRFEE" />
+                <ScalarProperty Name="U14RRFEE" ColumnName="U14RRFEE" />
+                <ScalarProperty Name="U13RRFEE" ColumnName="U13RRFEE" />
+                <ScalarProperty Name="U12RRFEE" ColumnName="U12RRFEE" />
+                <ScalarProperty Name="U15RRPAID" ColumnName="U15RRPAID" />
+                <ScalarProperty Name="U14RRPAID" ColumnName="U14RRPAID" />
+                <ScalarProperty Name="U13RRPAID" ColumnName="U13RRPAID" />
+                <ScalarProperty Name="ULOALOG" ColumnName="ULOALOG" />
+                <ScalarProperty Name="ULOASNT" ColumnName="ULOASNT" />
+                <ScalarProperty Name="UJIBPAID" ColumnName="UJIBPAID" />
+                <ScalarProperty Name="U12RRPAID" ColumnName="U12RRPAID" />
+                <ScalarProperty Name="U15RRHMRC" ColumnName="U15RRHMRC" />
+                <ScalarProperty Name="U14RRHMRC" ColumnName="U14RRHMRC" />
+                <ScalarProperty Name="U13RRHMRC" ColumnName="U13RRHMRC" />
+                <ScalarProperty Name="U12RRHMRC" ColumnName="U12RRHMRC" />
+                <ScalarProperty Name="U15RRDSUB" ColumnName="U15RRDSUB" />
+                <ScalarProperty Name="U14RRDSUB" ColumnName="U14RRDSUB" />
+                <ScalarProperty Name="U13RRDSUB" ColumnName="U13RRDSUB" />
+                <ScalarProperty Name="U12RRDSUB" ColumnName="U12RRDSUB" />
+                <ScalarProperty Name="UCATTREF" ColumnName="UCATTREF" />
+                <ScalarProperty Name="U16USER" ColumnName="U16USER" />
+                <ScalarProperty Name="U16EXPFEE" ColumnName="U16EXPFEE" />
+                <ScalarProperty Name="U16TYPE" ColumnName="U16TYPE" />
+                <ScalarProperty Name="U16EXPREF" ColumnName="U16EXPREF" />
+                <ScalarProperty Name="U15ADPKRDY" ColumnName="U15ADPKRDY" />
+                <ScalarProperty Name="U15ADPKREC" ColumnName="U15ADPKREC" />
+                <ScalarProperty Name="U15ADPKSNT" ColumnName="U15ADPKSNT" />
+                <ScalarProperty Name="USOURCENAM" ColumnName="USOURCENAM" />
+                <ScalarProperty Name="UPROJECTST" ColumnName="UPROJECTST" />
+                <ScalarProperty Name="UPATENTATT" ColumnName="UPATENTATT" />
+                <ScalarProperty Name="UACCOUNT" ColumnName="UACCOUNT" />
+                <ScalarProperty Name="USURVEY" ColumnName="USURVEY" />
+                <ScalarProperty Name="UPOSITION" ColumnName="UPOSITION" />
+                <ScalarProperty Name="UHOLDDATE" ColumnName="UHOLDDATE" />
+                <ScalarProperty Name="UHOLDPAY" ColumnName="UHOLDPAY" />
+                <ScalarProperty Name="UREFID" ColumnName="UREFID" />
+                <ScalarProperty Name="UREFDATE" ColumnName="UREFDATE" />
+                <ScalarProperty Name="URAPREFRES" ColumnName="URAPREFRES" />
+                <ScalarProperty Name="URAPREFUND" ColumnName="URAPREFUND" />
+                <ScalarProperty Name="URIFTWILLS" ColumnName="URIFTWILLS" />
+                <ScalarProperty Name="U4WILLDIST" ColumnName="U4WILLDIST" />
+                <ScalarProperty Name="UINITCONT" ColumnName="UINITCONT" />
+                <ScalarProperty Name="UCONVDATE" ColumnName="UCONVDATE" />
+                <ScalarProperty Name="UPREFUP" ColumnName="UPREFUP" />
+                <ScalarProperty Name="UISMART" ColumnName="UISMART" />
+                <ScalarProperty Name="UY15COM" ColumnName="UY15COM" />
+                <ScalarProperty Name="UY14COM" ColumnName="UY14COM" />
+                <ScalarProperty Name="UY13COM" ColumnName="UY13COM" />
+                <ScalarProperty Name="UY14ACTVAT" ColumnName="UY14ACTVAT" />
+                <ScalarProperty Name="UY14EXPVAT" ColumnName="UY14EXPVAT" />
+                <ScalarProperty Name="UY15ACTFEE" ColumnName="UY15ACTFEE" />
+                <ScalarProperty Name="UY14ACTFEE" ColumnName="UY14ACTFEE" />
+                <ScalarProperty Name="UY13ACTFEE" ColumnName="UY13ACTFEE" />
+                <ScalarProperty Name="UY15ACTREF" ColumnName="UY15ACTREF" />
+                <ScalarProperty Name="UY14ACTREF" ColumnName="UY14ACTREF" />
+                <ScalarProperty Name="UY13ACTREF" ColumnName="UY13ACTREF" />
+                <ScalarProperty Name="UY15SIGNED" ColumnName="UY15SIGNED" />
+                <ScalarProperty Name="UY14SIGNED" ColumnName="UY14SIGNED" />
+                <ScalarProperty Name="UY13SIGNED" ColumnName="UY13SIGNED" />
+                <ScalarProperty Name="UY15FEEDAT" ColumnName="UY15FEEDAT" />
+                <ScalarProperty Name="UY14FEEDAT" ColumnName="UY14FEEDAT" />
+                <ScalarProperty Name="UY13FEEDAT" ColumnName="UY13FEEDAT" />
+                <ScalarProperty Name="UY15USER" ColumnName="UY15USER" />
+                <ScalarProperty Name="UY14USER" ColumnName="UY14USER" />
+                <ScalarProperty Name="UY13USER" ColumnName="UY13USER" />
+                <ScalarProperty Name="UY15EXPFEE" ColumnName="UY15EXPFEE" />
+                <ScalarProperty Name="UY14EXPFEE" ColumnName="UY14EXPFEE" />
+                <ScalarProperty Name="UY13EXPFEE" ColumnName="UY13EXPFEE" />
+                <ScalarProperty Name="UY15EXPREF" ColumnName="UY15EXPREF" />
+                <ScalarProperty Name="UY14EXPREF" ColumnName="UY14EXPREF" />
+                <ScalarProperty Name="UY13EXPREF" ColumnName="UY13EXPREF" />
+                <ScalarProperty Name="UY15TYPE" ColumnName="UY15TYPE" />
+                <ScalarProperty Name="UY14TYPE" ColumnName="UY14TYPE" />
+                <ScalarProperty Name="UY13TYPE" ColumnName="UY13TYPE" />
+                <ScalarProperty Name="UEMAILADDR" ColumnName="UEMAILADDR" />
+                <ScalarProperty Name="USA1FORM" ColumnName="USA1FORM" />
+                <ScalarProperty Name="USOURCTYPE" ColumnName="USOURCTYPE" />
+                <ScalarProperty Name="UY12SIGNED" ColumnName="UY12SIGNED" />
+                <ScalarProperty Name="UY11SIGNED" ColumnName="UY11SIGNED" />
+                <ScalarProperty Name="UY10SIGNED" ColumnName="UY10SIGNED" />
+                <ScalarProperty Name="UCALLTIME" ColumnName="UCALLTIME" />
+                <ScalarProperty Name="UTRADE" ColumnName="UTRADE" />
+                <ScalarProperty Name="UALERT2" ColumnName="UALERT2" />
+                <ScalarProperty Name="UREFERRAL" ColumnName="UREFERRAL" />
+                <ScalarProperty Name="ULOCATION2" ColumnName="ULOCATION2" />
+                <ScalarProperty Name="UY12TYPE" ColumnName="UY12TYPE" />
+                <ScalarProperty Name="UY11TYPE" ColumnName="UY11TYPE" />
+                <ScalarProperty Name="UY10TYPE" ColumnName="UY10TYPE" />
+                <ScalarProperty Name="UYR9TYPE" ColumnName="UYR9TYPE" />
+                <ScalarProperty Name="UYR8TYPE" ColumnName="UYR8TYPE" />
+                <ScalarProperty Name="UYR7TYPE" ColumnName="UYR7TYPE" />
+                <ScalarProperty Name="UYR6TYPE" ColumnName="UYR6TYPE" />
+                <ScalarProperty Name="UY12FEEDAT" ColumnName="UY12FEEDAT" />
+                <ScalarProperty Name="UY11FEEDAT" ColumnName="UY11FEEDAT" />
+                <ScalarProperty Name="UY10FEEDAT" ColumnName="UY10FEEDAT" />
+                <ScalarProperty Name="UYR9FEEDAT" ColumnName="UYR9FEEDAT" />
+                <ScalarProperty Name="UYR8FEEDAT" ColumnName="UYR8FEEDAT" />
+                <ScalarProperty Name="UYR7FEEDAT" ColumnName="UYR7FEEDAT" />
+                <ScalarProperty Name="UYR6FEEDAT" ColumnName="UYR6FEEDAT" />
+                <ScalarProperty Name="UY12USER" ColumnName="UY12USER" />
+                <ScalarProperty Name="UY11USER" ColumnName="UY11USER" />
+                <ScalarProperty Name="UY10USER" ColumnName="UY10USER" />
+                <ScalarProperty Name="UYR9USER" ColumnName="UYR9USER" />
+                <ScalarProperty Name="UYR8USER" ColumnName="UYR8USER" />
+                <ScalarProperty Name="UYR7USER" ColumnName="UYR7USER" />
+                <ScalarProperty Name="UYR6USER" ColumnName="UYR6USER" />
+                <ScalarProperty Name="UONLINDATE" ColumnName="UONLINDATE" />
+                <ScalarProperty Name="UPROCDATE" ColumnName="UPROCDATE" />
+                <ScalarProperty Name="UYR9RECVD" ColumnName="UYR9RECVD" />
+                <ScalarProperty Name="UYR9EXPFEE" ColumnName="UYR9EXPFEE" />
+                <ScalarProperty Name="UYR9EXPECT" ColumnName="UYR9EXPECT" />
+                <ScalarProperty Name="UYR9COM" ColumnName="UYR9COM" />
+                <ScalarProperty Name="UYR9ACTFEE" ColumnName="UYR9ACTFEE" />
+                <ScalarProperty Name="UYR8RECVD" ColumnName="UYR8RECVD" />
+                <ScalarProperty Name="UYR8EXPFEE" ColumnName="UYR8EXPFEE" />
+                <ScalarProperty Name="UYR8EXPECT" ColumnName="UYR8EXPECT" />
+                <ScalarProperty Name="UYR8COM" ColumnName="UYR8COM" />
+                <ScalarProperty Name="UYR8ACTFEE" ColumnName="UYR8ACTFEE" />
+                <ScalarProperty Name="UYR7RECVD" ColumnName="UYR7RECVD" />
+                <ScalarProperty Name="UYR7EXPFEE" ColumnName="UYR7EXPFEE" />
+                <ScalarProperty Name="UYR7EXPECT" ColumnName="UYR7EXPECT" />
+                <ScalarProperty Name="UYR7COM" ColumnName="UYR7COM" />
+                <ScalarProperty Name="UYR7ACTFEE" ColumnName="UYR7ACTFEE" />
+                <ScalarProperty Name="UYR6RECVD" ColumnName="UYR6RECVD" />
+                <ScalarProperty Name="UYR6EXPFEE" ColumnName="UYR6EXPFEE" />
+                <ScalarProperty Name="UYR6EXPECT" ColumnName="UYR6EXPECT" />
+                <ScalarProperty Name="UYR6COM" ColumnName="UYR6COM" />
+                <ScalarProperty Name="UYR6ACTFEE" ColumnName="UYR6ACTFEE" />
+                <ScalarProperty Name="UYR5RECVD" ColumnName="UYR5RECVD" />
+                <ScalarProperty Name="UYR5EXPFEE" ColumnName="UYR5EXPFEE" />
+                <ScalarProperty Name="UYR5EXPECT" ColumnName="UYR5EXPECT" />
+                <ScalarProperty Name="UYR5COM" ColumnName="UYR5COM" />
+                <ScalarProperty Name="UYR5ACTFEE" ColumnName="UYR5ACTFEE" />
+                <ScalarProperty Name="UYR4RECVD" ColumnName="UYR4RECVD" />
+                <ScalarProperty Name="UYR4EXPFEE" ColumnName="UYR4EXPFEE" />
+                <ScalarProperty Name="UYR4EXPECT" ColumnName="UYR4EXPECT" />
+                <ScalarProperty Name="UYR4COM" ColumnName="UYR4COM" />
+                <ScalarProperty Name="UYR4ACTFEE" ColumnName="UYR4ACTFEE" />
+                <ScalarProperty Name="UYR3RECVD" ColumnName="UYR3RECVD" />
+                <ScalarProperty Name="UYR3EXPFEE" ColumnName="UYR3EXPFEE" />
+                <ScalarProperty Name="UYR3EXPECT" ColumnName="UYR3EXPECT" />
+                <ScalarProperty Name="UYR3COM" ColumnName="UYR3COM" />
+                <ScalarProperty Name="UYR3ACTFEE" ColumnName="UYR3ACTFEE" />
+                <ScalarProperty Name="UYR2RECVD" ColumnName="UYR2RECVD" />
+                <ScalarProperty Name="UYR2EXPFEE" ColumnName="UYR2EXPFEE" />
+                <ScalarProperty Name="UYR2EXPECT" ColumnName="UYR2EXPECT" />
+                <ScalarProperty Name="UYR2COM" ColumnName="UYR2COM" />
+                <ScalarProperty Name="UYR2ACTFEE" ColumnName="UYR2ACTFEE" />
+                <ScalarProperty Name="UYR1DATERD" ColumnName="UYR1DATERD" />
+                <ScalarProperty Name="UYR1COM" ColumnName="UYR1COM" />
+                <ScalarProperty Name="UY12EXPREF" ColumnName="UY12EXPREF" />
+                <ScalarProperty Name="UY12EXPFEE" ColumnName="UY12EXPFEE" />
+                <ScalarProperty Name="UY12COM" ColumnName="UY12COM" />
+                <ScalarProperty Name="UY12ACTREF" ColumnName="UY12ACTREF" />
+                <ScalarProperty Name="UY12ACTFEE" ColumnName="UY12ACTFEE" />
+                <ScalarProperty Name="UY11EXPREF" ColumnName="UY11EXPREF" />
+                <ScalarProperty Name="UY11EXPFEE" ColumnName="UY11EXPFEE" />
+                <ScalarProperty Name="UY11COM" ColumnName="UY11COM" />
+                <ScalarProperty Name="UY11ACTREF" ColumnName="UY11ACTREF" />
+                <ScalarProperty Name="UY11ACTFEE" ColumnName="UY11ACTFEE" />
+                <ScalarProperty Name="UY10EXPREF" ColumnName="UY10EXPREF" />
+                <ScalarProperty Name="UY10EXPFEE" ColumnName="UY10EXPFEE" />
+                <ScalarProperty Name="UY10COM" ColumnName="UY10COM" />
+                <ScalarProperty Name="UY10ACTREF" ColumnName="UY10ACTREF" />
+                <ScalarProperty Name="UY10ACTFEE" ColumnName="UY10ACTFEE" />
+                <ScalarProperty Name="UVERIFYDTE" ColumnName="UVERIFYDTE" />
+                <ScalarProperty Name="UTRVLODEXP" ColumnName="UTRVLODEXP" />
+                <ScalarProperty Name="USIGNDATE" ColumnName="USIGNDATE" />
+                <ScalarProperty Name="USERDEF02" ColumnName="USERDEF02" />
+                <ScalarProperty Name="USERDEF01" ColumnName="USERDEF01" />
+                <ScalarProperty Name="UPACKSENT" ColumnName="UPACKSENT" />
+                <ScalarProperty Name="UIRSUBMIT" ColumnName="UIRSUBMIT" />
+                <ScalarProperty Name="UDOB" ColumnName="UDOB" />
+                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
+                <ScalarProperty Name="ACTIONON" ColumnName="ACTIONON" />
+                <ScalarProperty Name="NEXTACTION" ColumnName="NEXTACTION" />
+                <ScalarProperty Name="PREVRESULT" ColumnName="PREVRESULT" />
+                <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+                <ScalarProperty Name="MEETTIMEAT" ColumnName="MEETTIMEAT" />
+                <ScalarProperty Name="MEETDATEON" ColumnName="MEETDATEON" />
+                <ScalarProperty Name="LASTATMPAT" ColumnName="LASTATMPAT" />
+                <ScalarProperty Name="LASTATMPON" ColumnName="LASTATMPON" />
+                <ScalarProperty Name="LASTCONTAT" ColumnName="LASTCONTAT" />
+                <ScalarProperty Name="LASTCONTON" ColumnName="LASTCONTON" />
+                <ScalarProperty Name="CALLBKFREQ" ColumnName="CALLBKFREQ" />
+                <ScalarProperty Name="CALLBACKAT" ColumnName="CALLBACKAT" />
+                <ScalarProperty Name="CALLBACKON" ColumnName="CALLBACKON" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTSUPPs">
+            <EntityTypeMapping TypeName="GoldmineModel.CONTSUPP">
+              <MappingFragment StoreEntitySet="CONTSUPP">
+                <ScalarProperty Name="recid" ColumnName="recid" />
+                <ScalarProperty Name="U_ADDRESS1" ColumnName="U_ADDRESS1" />
+                <ScalarProperty Name="U_CONTSUPREF" ColumnName="U_CONTSUPREF" />
+                <ScalarProperty Name="U_CONTACT" ColumnName="U_CONTACT" />
+                <ScalarProperty Name="LASTTIME" ColumnName="LASTTIME" />
+                <ScalarProperty Name="LASTDATE" ColumnName="LASTDATE" />
+                <ScalarProperty Name="LASTUSER" ColumnName="LASTUSER" />
+                <ScalarProperty Name="LINKEDDOC" ColumnName="LINKEDDOC" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="MERGECODES" ColumnName="MERGECODES" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="LINKACCT" ColumnName="LINKACCT" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="EXT" ColumnName="EXT" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="DEAR" ColumnName="DEAR" />
+                <ScalarProperty Name="CONTSUPREF" ColumnName="CONTSUPREF" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+                <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

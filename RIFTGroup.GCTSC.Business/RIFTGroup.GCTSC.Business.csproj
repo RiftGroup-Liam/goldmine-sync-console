@@ -54,7 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChangeTrackingProcess.cs" />
+    <Compile Include="GM_Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestProcessor.cs" />
+    <Compile Include="ResultsProcessor.cs" />
     <Compile Include="VersionNumberProcess.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,9 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CONTACT1> CONTACT1 { get; set; }
+        public virtual DbSet<CONTACT2> CONTACT2 { get; set; }
+        public virtual DbSet<CONTSUPP> CONTSUPPs { get; set; }
     
         public virtual ObjectResult<CONTACT1ChangeTracking_Result> CONTACT1ChangeTracking(Nullable<int> lastVersionNumber)
         {
