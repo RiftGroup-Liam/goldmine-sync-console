@@ -12,7 +12,8 @@ namespace RIFTGroup.GCTSC.Core.Enums
         {
             OK,
             UNAUTHORISED,
-            NOT_FOUND
+            NOT_FOUND,
+            FAILED
         }
 
         public enum SendRequest
