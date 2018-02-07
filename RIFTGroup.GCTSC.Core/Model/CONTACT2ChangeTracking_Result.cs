@@ -20,6 +20,7 @@ namespace RIFTGroup.GCTSC.Core
         public byte[] SYS_CHANGE_CONTEXT { get; set; }
         public string ACCOUNTNO { get; set; }
         public Nullable<int> uemailaddrChanged { get; set; }
-        public Nullable<int> uclientstaChanged { get; set; }
+        public Nullable<int> ustage1datChanged { get; set; }
+        public Nullable<int> uconvdatChanged { get; set; }
     }
 }

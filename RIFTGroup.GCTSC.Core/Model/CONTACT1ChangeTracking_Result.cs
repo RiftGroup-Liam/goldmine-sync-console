@@ -26,6 +26,5 @@ namespace RIFTGroup.GCTSC.Core
         public Nullable<int> phone1Changed { get; set; }
         public Nullable<int> phone2Changed { get; set; }
         public Nullable<int> phone3Changed { get; set; }
-        public Nullable<int> key2Changed { get; set; }
     }
 }

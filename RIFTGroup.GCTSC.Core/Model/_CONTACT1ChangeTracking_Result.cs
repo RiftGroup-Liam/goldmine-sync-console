@@ -61,13 +61,5 @@ namespace RIFTGroup.GCTSC.Core
                 return phone3Changed.Value == 1;
             }
         }
-
-        public bool key2Changed_bool
-        {
-            get
-            {
-                return key2Changed.Value == 1;
-            }
-        }
     }
 }

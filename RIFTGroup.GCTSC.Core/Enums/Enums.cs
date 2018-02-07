@@ -25,8 +25,8 @@ namespace RIFTGroup.GCTSC.Core.Enums
             PHONE1,
             PHONE2,
             PHONE3,
-            KEY2,
-            UCLIENTSTA,
+            UCONVDATE,
+            USTAGE1DAT,
             UEMAILADDR,
             CONTSUPREF
         }

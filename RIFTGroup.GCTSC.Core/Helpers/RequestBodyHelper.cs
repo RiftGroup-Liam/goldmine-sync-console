@@ -29,11 +29,11 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 restRequest.AddParameter("goldmine_customer_number", changedValue);
             }
-            if (requestType == Enums.Enums.SendRequest.KEY2)
+            if (requestType == Enums.Enums.SendRequest.UCONVDATE)
             {
                 restRequest.AddParameter("tbc", changedValue);
             }
-            if (requestType == Enums.Enums.SendRequest.UCLIENTSTA)
+            if (requestType == Enums.Enums.SendRequest.USTAGE1DAT)
             {
                 restRequest.AddParameter("tbc", changedValue);
             }
