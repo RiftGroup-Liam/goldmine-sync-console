@@ -13,9 +13,9 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         public static IRestRequest CreateUpdatePersonRequestBody(Enums.Enums.SendRequest requestType,
                                                                     string changedValue, IRestRequest restRequest)
         {
-            if(requestType == Enums.Enums.SendRequest.CONTACT)
+            if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
-                restRequest.AddParameter("tbc",  changedValue);
+                restRequest.AddParameter("tbc", changedValue);
             }
             if (requestType == Enums.Enums.SendRequest.SECR)
             {
@@ -40,7 +40,7 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return restRequest;
         }
 
-        public static IRestRequest CreateEmailAddressUpdateRequestBody(Enums.Enums.SendRequest requestType, 
+        public static IRestRequest CreateEmailAddressUpdateRequestBody(Enums.Enums.SendRequest requestType,
                                                                         string changedValue, IRestRequest restRequest)
         {
             if (requestType == Enums.Enums.SendRequest.UEMAILADDR)
@@ -73,6 +73,12 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         }
 
         public static IRestRequest CreateUpdateEmailAddressToNonActiveBody(string changedValue, IRestRequest request)
+        {
+            request.AddParameter("active", "false");
+            return request;
+        }
+
+        public static IRestRequest CreateUpdatePhoneNumberRequestBody(string changedValue, IRestRequest request)
         {
             request.AddParameter("active", "false");
             return request;

@@ -98,17 +98,18 @@
     <Compile Include="Model\_CONTSUPPChangeTracking_Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReponseObjects\CreateEmailResponse.cs" />
+    <Compile Include="ReponseObjects\CreatePhoneNumberResponse.cs" />
     <Compile Include="ReponseObjects\EmailResponse.cs" />
     <Compile Include="ReponseObjects\PeopleResponse.cs" />
+    <Compile Include="ReponseObjects\PhoneNumberResponse.cs" />
     <Compile Include="ReponseObjects\UpdateEmailResponse.cs" />
     <Compile Include="ReponseObjects\UpdatePeopleResponse.cs" />
+    <Compile Include="ReponseObjects\UpdatePhoneResponse.cs" />
     <Compile Include="ResponseDetails.cs" />
     <Compile Include="ResultsObject.cs" />
     <Compile Include="Model\_CONTACT2ChangeTracking_Result.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SQL Scripts\Console scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\GoldmineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -118,6 +119,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RiftModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL Scripts\Console scripts\Create Contact 1 Change tracking procedure.sql" />
+    <Content Include="SQL Scripts\Console scripts\Create Contact2 Change Tracking Procedure.sql" />
+    <Content Include="SQL Scripts\Console scripts\Create ContSupp change tracking procedure.sql" />
+    <Content Include="SQL Scripts\Console scripts\Create system keys for Last Version Number.sql" />
+    <Content Include="SQL Scripts\Console scripts\Create test procedures.sql" />
     <Content Include="SQL Scripts\CT SQL Scripts\Check Change tracking DBs and Tables.sql" />
     <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes - contact 2.sql" />
     <Content Include="SQL Scripts\CT SQL Scripts\Query to determine changes - contsupp.sql" />

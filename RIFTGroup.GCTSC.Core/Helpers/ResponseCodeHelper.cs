@@ -15,7 +15,7 @@ namespace RIFTGroup.GCTSC.Core.Helpers
                 return Enums.Enums.SendResponse.OK;
             else if (statusCode == HttpStatusCode.NotFound)
                 return Enums.Enums.SendResponse.NOT_FOUND;
-            else if (statusCode == HttpStatusCode.Forbidden)
+            else if (statusCode == HttpStatusCode.Unauthorized)
                 return Enums.Enums.SendResponse.UNAUTHORISED;
             else
                 return Enums.Enums.SendResponse.FAILED;

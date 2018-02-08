@@ -43,16 +43,75 @@ namespace RIFTGroup.GCTSC.Core
             }
             return ro;
         }
+
         public ResultsObject SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest requestType, ResultsObject ro)
         {
+            UpdateCurrentPhoneNumbersToNonActive(ro);
+            ro = CreateNewPhoneNumber(ro, requestType,);
             return ro;
-        }
+        }        
 
         public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro)
         {
             UpdateCurrentEmailsToNonActive(ro);
             ro = CreateNewEmailAddress(ro);
             return ro;
+        }
+
+
+
+        private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro)
+        {
+            List<PhoneNumberResponse> phoneNumbers = GetPhoneNumbers(ro);
+            if(phoneNumbers.Count > 0)
+            {
+                foreach(PhoneNumberResponse phoneNumber in phoneNumbers)
+                {
+                    IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
+                    request.AddHeader("Authentication-Token", _apiToken);
+                    request = RequestBodyHelper.CreateUpdatePhoneNumberRequestBody(ro.ChangedValue, request);
+                    IRestResponse response = _restClient.Execute(request);
+                    UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
+                    ro.Responses.Add(new ResponseDetails()
+                    {
+                        URL = response.ResponseUri.ToString(),
+                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                    });
+                }
+            }
+        }
+        
+        private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType,)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            if(!string.IsNullOrEmpty(personId))
+            {
+                IRestRequest request = new RestRequest("/person/phone_numbers/", Method.POST);
+                request.AddHeader("Authentication-Token", _apiToken);
+                request = RequestBodyHelper.CreatePhoneNumberBody(ro.ChangedValue, personId, requestType, request);
+                IRestResponse response = _restClient.Execute(request);
+            }
+            return ro;
+        }
+
+        private List<PhoneNumberResponse> GetPhoneNumbers(ResultsObject ro)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            List<PhoneNumberResponse> phoneNumbers = new List<PhoneNumberResponse>();
+            ro.Responses = new List<ResponseDetails>();
+            if(!string.IsNullOrEmpty(personId))
+            {
+                IRestRequest request = new RestRequest("/person/phone_numbers?person_id=" + personId);
+                request.AddHeader("Authentication-Token", _apiToken);
+                IRestResponse response = _restClient.Execute(request);
+                phoneNumbers = JsonConvert.DeserializeObject<List<PhoneNumberResponse>>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                });
+            }
+            return phoneNumbers;
         }
 
         private void UpdateCurrentEmailsToNonActive(ResultsObject ro)

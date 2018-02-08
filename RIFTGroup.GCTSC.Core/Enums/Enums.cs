@@ -30,5 +30,12 @@ namespace RIFTGroup.GCTSC.Core.Enums
             UEMAILADDR,
             CONTSUPREF
         }
+
+        public enum PhoneNumberKind
+        {
+            Work = 1,
+            Home = 2,
+            Mobile = 3
+        }
     }
 }
