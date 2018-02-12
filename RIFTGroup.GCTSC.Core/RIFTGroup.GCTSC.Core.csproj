@@ -82,6 +82,18 @@
     <Compile Include="Model\CONTSUPPChangeTracking_Result.cs">
       <DependentUpon>GoldmineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\GCTSC_ChangeTracking.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GCTSC_ChangeTracking_Requests.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GCTSC_ChangeTracking_UpdateRequests.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GCTSC_ExceptionLogging.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\GoldmineModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

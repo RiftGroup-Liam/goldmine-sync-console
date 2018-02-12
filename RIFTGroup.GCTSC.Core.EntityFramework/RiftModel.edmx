@@ -4,7 +4,46 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RiftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GCTSC_ChangeTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accountno" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking_Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChangeTrackingId" Type="int" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseCode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseContent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking_UpdateRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChangeTrackingId" Type="int" Nullable="false" />
+          <Property Name="Change" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseCode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseContent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GCTSC_ExceptionLogging">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="InnerMessage" Type="nvarchar(max)" />
+          <Property Name="StackTrace" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SystemKey">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,11 +52,52 @@
           <Property Name="Key" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="256" />
         </EntityType>
+        <Association Name="FK_ChangeTracking_Requests">
+          <End Role="GCTSC_ChangeTracking" Type="Self.GCTSC_ChangeTracking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GCTSC_ChangeTracking_Requests" Type="Self.GCTSC_ChangeTracking_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GCTSC_ChangeTracking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GCTSC_ChangeTracking_Requests">
+              <PropertyRef Name="ChangeTrackingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChangeTracking_UpdateRequests">
+          <End Role="GCTSC_ChangeTracking" Type="Self.GCTSC_ChangeTracking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GCTSC_ChangeTracking_UpdateRequests" Type="Self.GCTSC_ChangeTracking_UpdateRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GCTSC_ChangeTracking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GCTSC_ChangeTracking_UpdateRequests">
+              <PropertyRef Name="ChangeTrackingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="TESTs_ClearGCTSCChangeTrackingLogs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TESTs_ClearGCTSCExceptionTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="RiftModelStoreContainer">
+          <EntitySet Name="GCTSC_ChangeTracking" EntityType="Self.GCTSC_ChangeTracking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GCTSC_ChangeTracking_Requests" EntityType="Self.GCTSC_ChangeTracking_Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GCTSC_ChangeTracking_UpdateRequests" EntityType="Self.GCTSC_ChangeTracking_UpdateRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GCTSC_ExceptionLogging" EntityType="Self.GCTSC_ExceptionLogging" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemKey" EntityType="Self.SystemKey" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChangeTracking_Requests" Association="Self.FK_ChangeTracking_Requests">
+            <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
+            <End Role="GCTSC_ChangeTracking_Requests" EntitySet="GCTSC_ChangeTracking_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChangeTracking_UpdateRequests" Association="Self.FK_ChangeTracking_UpdateRequests">
+            <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
+            <End Role="GCTSC_ChangeTracking_UpdateRequests" EntitySet="GCTSC_ChangeTracking_UpdateRequests" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RiftModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -31,8 +111,93 @@
         </EntityType>
         <EntityContainer Name="RiftEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="SystemKeys" EntityType="Self.SystemKey" />
+          <EntitySet Name="GCTSC_ChangeTracking_Requests" EntityType="RiftModel.GCTSC_ChangeTracking_Requests" />
+          <EntitySet Name="GCTSC_ChangeTracking_UpdateRequests" EntityType="RiftModel.GCTSC_ChangeTracking_UpdateRequests" />
+          <EntitySet Name="GCTSC_ExceptionLogging" EntityType="RiftModel.GCTSC_ExceptionLogging" />
+          <FunctionImport Name="TESTs_ClearGCTSCChangeTrackingLogs" />
+          <FunctionImport Name="TESTs_ClearGCTSCExceptionTable" />
+          <EntitySet Name="GCTSC_ChangeTracking" EntityType="RiftModel.GCTSC_ChangeTracking" />
+          <AssociationSet Name="FK_ChangeTracking_Requests" Association="RiftModel.FK_ChangeTracking_Requests">
+            <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
+            <End Role="GCTSC_ChangeTracking_Requests" EntitySet="GCTSC_ChangeTracking_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChangeTracking_UpdateRequests" Association="RiftModel.FK_ChangeTracking_UpdateRequests">
+            <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
+            <End Role="GCTSC_ChangeTracking_UpdateRequests" EntitySet="GCTSC_ChangeTracking_UpdateRequests" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
+        <EntityType Name="GCTSC_ChangeTracking_Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_Requests" FromRole="GCTSC_ChangeTracking_Requests" ToRole="GCTSC_ChangeTracking" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking_UpdateRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Change" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_UpdateRequests" FromRole="GCTSC_ChangeTracking_UpdateRequests" ToRole="GCTSC_ChangeTracking" />
+        </EntityType>
+        <EntityType Name="GCTSC_ExceptionLogging">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InnerMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accountno" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="GCTSC_ChangeTracking_Requests" Relationship="RiftModel.FK_ChangeTracking_Requests" FromRole="GCTSC_ChangeTracking" ToRole="GCTSC_ChangeTracking_Requests" />
+          <NavigationProperty Name="GCTSC_ChangeTracking_UpdateRequests" Relationship="RiftModel.FK_ChangeTracking_UpdateRequests" FromRole="GCTSC_ChangeTracking" ToRole="GCTSC_ChangeTracking_UpdateRequests" />
+        </EntityType>
+        <Association Name="FK_ChangeTracking_Requests">
+          <End Type="RiftModel.GCTSC_ChangeTracking" Role="GCTSC_ChangeTracking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RiftModel.GCTSC_ChangeTracking_Requests" Role="GCTSC_ChangeTracking_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GCTSC_ChangeTracking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GCTSC_ChangeTracking_Requests">
+              <PropertyRef Name="ChangeTrackingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChangeTracking_UpdateRequests">
+          <End Type="RiftModel.GCTSC_ChangeTracking" Role="GCTSC_ChangeTracking" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RiftModel.GCTSC_ChangeTracking_UpdateRequests" Role="GCTSC_ChangeTracking_UpdateRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GCTSC_ChangeTracking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GCTSC_ChangeTracking_UpdateRequests">
+              <PropertyRef Name="ChangeTrackingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -44,6 +209,51 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GCTSC_ChangeTracking_Requests">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_Requests">
+              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_Requests">
+                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GCTSC_ChangeTracking_UpdateRequests">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_UpdateRequests">
+              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_UpdateRequests">
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GCTSC_ExceptionLogging">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ExceptionLogging">
+              <MappingFragment StoreEntitySet="GCTSC_ExceptionLogging">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="InnerMessage" ColumnName="InnerMessage" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TESTs_ClearGCTSCChangeTrackingLogs" FunctionName="RiftModel.Store.TESTs_ClearGCTSCChangeTrackingLogs" />
+          <FunctionImportMapping FunctionImportName="TESTs_ClearGCTSCExceptionTable" FunctionName="RiftModel.Store.TESTs_ClearGCTSCExceptionTable" />
+          <EntitySetMapping Name="GCTSC_ChangeTracking">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking">
+              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Accountno" ColumnName="Accountno" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

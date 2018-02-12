@@ -12,5 +12,6 @@ namespace RIFTGroup.GCTSC.Core
         public Enums.Enums.SendResponse SendResponse {get;set;}
         public string ChangedValue { get; set; }
         public Enums.Enums.SendRequest SendRequest { get; set; }
+        public string ResponseContent { get; set; }
     }
 }

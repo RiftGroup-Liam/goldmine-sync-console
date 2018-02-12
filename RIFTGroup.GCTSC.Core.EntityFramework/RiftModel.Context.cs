@@ -13,6 +13,8 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using RIFTGroup.GCTSC.Core;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class RiftEntities : DbContext
     {
@@ -27,5 +29,19 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
         }
     
         public virtual DbSet<SystemKey> SystemKeys { get; set; }
+        public virtual DbSet<GCTSC_ChangeTracking_Requests> GCTSC_ChangeTracking_Requests { get; set; }
+        public virtual DbSet<GCTSC_ChangeTracking_UpdateRequests> GCTSC_ChangeTracking_UpdateRequests { get; set; }
+        public virtual DbSet<GCTSC_ExceptionLogging> GCTSC_ExceptionLogging { get; set; }
+        public virtual DbSet<GCTSC_ChangeTracking> GCTSC_ChangeTracking { get; set; }
+    
+        public virtual int TESTs_ClearGCTSCChangeTrackingLogs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TESTs_ClearGCTSCChangeTrackingLogs");
+        }
+    
+        public virtual int TESTs_ClearGCTSCExceptionTable()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TESTs_ClearGCTSCExceptionTable");
+        }
     }
 }
