@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RIFTGroup.GCTSC.Core;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace RIFTGroup.GCTSC.Core.Tests
 {
@@ -25,13 +26,15 @@ namespace RIFTGroup.GCTSC.Core.Tests
         [TestMethod]
         public void SendsUpdatePersonRequest_OKResponse()
         {
+            string changedValue = "TestChange";
             ResultsObject ro = new ResultsObject()
             {
                 Accountno = _testAccountno,
                 ReferenceNumber = _testReference,
-                ChangedValue = "TestChange"
+                
             };
-            ro = _restClient.SendUpdatePersonRequest(Enums.Enums.SendRequest.SECR, ro);
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdatePersonRequest(Enums.Enums.SendRequest.SECR, ro, changedValue);
             Assert.IsTrue(ro.Accountno == _testAccountno);
             Assert.IsTrue(ro.ReferenceNumber == _testReference);
             Assert.IsTrue(ro.Responses[0].URL.Contains("/people/" + _dataAPITestPersonId));
@@ -41,13 +44,15 @@ namespace RIFTGroup.GCTSC.Core.Tests
         [TestMethod]
         public void SendsUpdateEmailRequest_OKResponse()
         {
+            string changedValue = "test_change@riftgroup.com";
             ResultsObject ro = new ResultsObject()
             {
                 Accountno = _testAccountno,
                 ReferenceNumber = _testReference,
-                ChangedValue = "test_change@riftgroup.com"
+                
             };
-            ro = _restClient.SendUpdateEmailAddressRequest(Enums.Enums.SendRequest.CONTSUPREF, ro);
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdateEmailAddressRequest(Enums.Enums.SendRequest.CONTSUPREF, ro, changedValue);
             Assert.IsTrue(ro.Accountno == _testAccountno);
             Assert.IsTrue(ro.ReferenceNumber == _testReference);
             Assert.IsTrue(ro.Responses[1].URL.Contains("/person/email_addresses/"));
@@ -57,16 +62,18 @@ namespace RIFTGroup.GCTSC.Core.Tests
         [TestMethod]
         public void SendsUpdatePhoneNumberRequest_OKResponse()
         {
+            string changedValue = "07887495880";
             ResultsObject ro = new ResultsObject()
             {
                 Accountno = _testAccountno,
                 ReferenceNumber = _testReference,
-                ChangedValue = "07887495880"
+                
             };
-            ro = _restClient.SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest.PHONE1, ro);
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest.PHONE1, ro, changedValue);
             Assert.IsTrue(ro.Accountno == _testAccountno);
             Assert.IsTrue(ro.ReferenceNumber == _testReference);
-            Assert.IsTrue(ro.Responses[0].URL.Contains("/people/phone_numbers/"));
+            Assert.IsTrue(ro.Responses[0].URL.Contains("/person/phone_numbers"));
             Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
         }
     }

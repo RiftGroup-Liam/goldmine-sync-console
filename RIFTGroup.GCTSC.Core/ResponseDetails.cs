@@ -10,5 +10,7 @@ namespace RIFTGroup.GCTSC.Core
     {
         public string URL { get; set; }
         public Enums.Enums.SendResponse SendResponse {get;set;}
+        public string ChangedValue { get; set; }
+        public Enums.Enums.SendRequest SendRequest { get; set; }
     }
 }

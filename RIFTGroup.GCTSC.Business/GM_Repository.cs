@@ -51,16 +51,6 @@ namespace RIFTGroup.GCTSC.Business
             return contsupref;
         }
 
-        public string GetUclientsta(string accountno)
-        {
-            string uclientsta = string.Empty;
-            using (GoldmineEntities context = new GoldmineEntities())
-            {
-                uclientsta = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UCLIENTSTA).FirstOrDefault();
-            }
-            return uclientsta;
-        }
-
         public string GetKey5(string accountno)
         {
             string key5 = string.Empty;
@@ -131,14 +121,34 @@ namespace RIFTGroup.GCTSC.Business
             return phone3;
         }
 
-        public string GetKey2(string accountno)
+        public string GetUstage1dat(string accountno)
         {
-            string key2 = string.Empty;
+            DateTime? ustage1dat = null;
             using (GoldmineEntities context = new GoldmineEntities())
             {
-                key2 = (from c in context.CONTACT1.Where(c => c.ACCOUNTNO == accountno) select c.KEY2).FirstOrDefault();
+                ustage1dat = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.USTAGE1DAT).FirstOrDefault();
             }
-            return key2;
+            return ustage1dat.Value.ToString();
+        }
+
+        public string GetUconvdate(string accountno)
+        {
+            DateTime? uconvdate = null;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                uconvdate = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UCONVDATE).FirstOrDefault();
+            }
+            return uconvdate.Value.ToString();
+        }
+
+        public string GetUemailaddr(string accountno)
+        {
+            string uemailAddr = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                uemailAddr = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UEMAILADDR).FirstOrDefault();
+            }
+            return uemailAddr;
         }
     }
 }

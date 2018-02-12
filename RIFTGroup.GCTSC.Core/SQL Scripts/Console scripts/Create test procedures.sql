@@ -9,7 +9,7 @@ go
 
 create procedure dbo.TESTS_CreateContact2Change @accountno nvarchar(20)
 as
-update dbo.CONTACT2 set uclientsta = 'LEAD - NonActive!'
+update dbo.CONTACT2 set USTAGE1DAT = CONVERT(date, GETDATE())
 where ACCOUNTNO = @accountno
 go
 

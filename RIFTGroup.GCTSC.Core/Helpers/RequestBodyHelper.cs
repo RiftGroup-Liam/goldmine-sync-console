@@ -72,23 +72,47 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return restRequest;
         }
 
-        public static IRestRequest CreateUpdateEmailAddressToNonActiveBody(string changedValue, IRestRequest request)
+        public static IRestRequest CreateUpdateEmailAddressToNonActiveBody(IRestRequest request)
         {
             request.AddParameter("active", "false");
             return request;
         }
 
-        public static IRestRequest CreateUpdatePhoneNumberRequestBody(string changedValue, IRestRequest request)
+        public static IRestRequest CreateUpdatePhoneNumberToNonActiveRequestBody(IRestRequest request)
         {
             request.AddParameter("active", "false");
             return request;
         }
 
-        public static IRestRequest CreateEmailAddressBody(string changedValue, string person_id, IRestRequest request)
+        public static IRestRequest CreateEmailAddressBody(string changedValue, string person_id,
+                                                            Enums.Enums.SendRequest requestType, IRestRequest request)
         {
             request.AddParameter("person_id", person_id);
             request.AddParameter("email_address", changedValue);
             request.AddParameter("active", "true");
+            return request;
+        }
+
+        public static IRestRequest CreatePhoneNumberBody(string changedValue, string personId, 
+                                                            Enums.Enums.SendRequest requestType, IRestRequest request)
+        {
+            request.AddParameter("person_id", personId);
+            request.AddParameter("country_code", "+44");
+            request.AddParameter("subscriber_number", PhoneNumberHelper.CreateSubscriberNumber(changedValue)); 
+            request.AddParameter("active", "true");
+
+            if(requestType == Enums.Enums.SendRequest.PHONE1)
+            {
+                request.AddParameter("phone_number_kind_id", (int)Enums.Enums.PhoneNumberKind.Mobile);
+            }
+            else if(requestType == Enums.Enums.SendRequest.PHONE2)
+            {
+                request.AddParameter("phone_number_kind_id", (int)Enums.Enums.PhoneNumberKind.Home);
+            }
+            else if (requestType == Enums.Enums.SendRequest.PHONE3)
+            {
+                request.AddParameter("phone_number_kind_id", (int)Enums.Enums.PhoneNumberKind.General);
+            }
             return request;
         }
     }

@@ -12,6 +12,5 @@ namespace RIFTGroup.GCTSC.Core
         public string Accountno { get; set; }
         public string ReferenceNumber { get; set; }
         public List<ResponseDetails> Responses{ get; set; }
-        public string ChangedValue { get; set; }
     }
 }

@@ -26,37 +26,49 @@ namespace RIFTGroup.GCTSC.Core
             _restClient = new RestClient(_baseAddress);
         }
 
-        public ResultsObject SendUpdatePersonRequest(Enums.Enums.SendRequest requestType, ResultsObject ro)
+        public ResultsObject SendUpdatePersonRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
-            ro.Responses = new List<ResponseDetails>();
+            
             if (!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/people/" + personId, Method.PATCH);
                 request.AddHeader("Authentication-Token", _apiToken);
-                request = RequestBodyHelper.CreateUpdatePersonRequestBody(requestType, ro.ChangedValue, request);
+                request = RequestBodyHelper.CreateUpdatePersonRequestBody(requestType, changedValue, request);
+
+                Console.WriteLine("Sending: {0}\n", request.Resource);
                 IRestResponse response = _restClient.Execute(request);
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                 UpdatePeopleResponse updateResponse = JsonConvert.DeserializeObject<UpdatePeopleResponse>(response.Content);
                 ro.Responses.Add(new ResponseDetails() {
+                                                        SendRequest = requestType,
+                                                        ChangedValue = changedValue,
                                                         URL = response.ResponseUri.ToString(),
                                                         SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode) });
             }
             return ro;
         }
 
-        public ResultsObject SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest requestType, ResultsObject ro)
+        public ResultsObject SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
             UpdateCurrentPhoneNumbersToNonActive(ro);
-            ro = CreateNewPhoneNumber(ro, requestType,);
+            ro = CreateNewPhoneNumber(ro, requestType, changedValue);
             return ro;
         }        
 
-        public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro)
+        public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
             UpdateCurrentEmailsToNonActive(ro);
-            ro = CreateNewEmailAddress(ro);
+            ro = CreateNewEmailAddress(ro, requestType, changedValue);
             return ro;
         }
+
+
+
+
+
 
 
 
@@ -69,8 +81,13 @@ namespace RIFTGroup.GCTSC.Core
                 {
                     IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
                     request.AddHeader("Authentication-Token", _apiToken);
-                    request = RequestBodyHelper.CreateUpdatePhoneNumberRequestBody(ro.ChangedValue, request);
+                    request = RequestBodyHelper.CreateUpdatePhoneNumberToNonActiveRequestBody(request);
+
+                    Console.WriteLine("Sending: {0}\n", request.Resource);
                     IRestResponse response = _restClient.Execute(request);
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                     UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
                     ro.Responses.Add(new ResponseDetails()
                     {
@@ -81,15 +98,28 @@ namespace RIFTGroup.GCTSC.Core
             }
         }
         
-        private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType,)
+        private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
             if(!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/person/phone_numbers/", Method.POST);
                 request.AddHeader("Authentication-Token", _apiToken);
-                request = RequestBodyHelper.CreatePhoneNumberBody(ro.ChangedValue, personId, requestType, request);
+                request = RequestBodyHelper.CreatePhoneNumberBody(changedValue, personId, requestType, request);
+
+                Console.WriteLine("Sending: {0}\n", request.Resource);
                 IRestResponse response = _restClient.Execute(request);
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
+                CreatePhoneNumberResponse createPhoneNumberResponse = JsonConvert.DeserializeObject<CreatePhoneNumberResponse>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                });
             }
             return ro;
         }
@@ -98,12 +128,16 @@ namespace RIFTGroup.GCTSC.Core
         {
             string personId = GetPersonId(ro.ReferenceNumber);
             List<PhoneNumberResponse> phoneNumbers = new List<PhoneNumberResponse>();
-            ro.Responses = new List<ResponseDetails>();
             if(!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/person/phone_numbers?person_id=" + personId);
                 request.AddHeader("Authentication-Token", _apiToken);
+
+                Console.WriteLine("Sending: {0}\n", request.Resource);
                 IRestResponse response = _restClient.Execute(request);
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                 phoneNumbers = JsonConvert.DeserializeObject<List<PhoneNumberResponse>>(response.Content);
                 ro.Responses.Add(new ResponseDetails()
                 {
@@ -123,8 +157,13 @@ namespace RIFTGroup.GCTSC.Core
                 {
                     IRestRequest request = new RestRequest("/person/email_addresses/" + address.Id, Method.PATCH);
                     request.AddHeader("Authentication-Token", _apiToken);
-                    request = RequestBodyHelper.CreateUpdateEmailAddressToNonActiveBody(ro.ChangedValue, request);
+                    request = RequestBodyHelper.CreateUpdateEmailAddressToNonActiveBody(request);
+
+                    Console.WriteLine("Sending: {0}\n", request.Resource);
                     IRestResponse response = _restClient.Execute(request);
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                     UpdateEmailResponse updateResponse = JsonConvert.DeserializeObject<UpdateEmailResponse>(response.Content);
                     ro.Responses.Add(new ResponseDetails()
                     {
@@ -139,12 +178,16 @@ namespace RIFTGroup.GCTSC.Core
         {
             string personId = GetPersonId(ro.ReferenceNumber);
             List<EmailResponse> emailResponses = new List<EmailResponse>();
-            ro.Responses = new List<ResponseDetails>();
             if (!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/person/email_addresses?person_id=" + personId);
                 request.AddHeader("Authentication-Token", _apiToken);
+
+                Console.WriteLine("Sending: {0}\n", request.Resource);
                 IRestResponse response = _restClient.Execute(request);
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                 emailResponses = JsonConvert.DeserializeObject<List<EmailResponse>>(response.Content);
                 ro.Responses.Add(new ResponseDetails() { URL = response.ResponseUri.ToString(),
                                                             SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode) });
@@ -152,18 +195,26 @@ namespace RIFTGroup.GCTSC.Core
             return emailResponses;
         }
 
-        private ResultsObject CreateNewEmailAddress(ResultsObject ro)
+        private ResultsObject CreateNewEmailAddress(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
         {
             string personId = GetPersonId(ro.ReferenceNumber);            
             if (!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/person/email_addresses/", Method.POST);
                 request.AddHeader("Authentication-Token", _apiToken);
-                request = RequestBodyHelper.CreateEmailAddressBody(ro.ChangedValue, personId, request);
+
+                request = RequestBodyHelper.CreateEmailAddressBody(changedValue, personId, requestType, request);
+
+                Console.WriteLine("Sending: {0}\n", request.Resource);
                 IRestResponse response = _restClient.Execute(request);
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
                 CreateEmailResponse createEmailResponse = JsonConvert.DeserializeObject<CreateEmailResponse>(response.Content);
                 ro.Responses.Add(new ResponseDetails()
                 {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
                     URL = response.ResponseUri.ToString(),
                     SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
                 });
@@ -176,7 +227,12 @@ namespace RIFTGroup.GCTSC.Core
             string personId = string.Empty;
             IRestRequest request = new RestRequest("/people?goldmine_customer_number=" + referenceNumber);
             request.AddHeader("Authentication-Token", _apiToken);
+
+            Console.WriteLine("Sending: {0}\n", request.Resource);
             IRestResponse response = _restClient.Execute(request);
+            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+
             List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
             personId = peopleResponse[0].Id;
             return personId;

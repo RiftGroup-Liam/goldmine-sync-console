@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Business.Tests.Helpers;
+using System.Linq;
 
 namespace RIFTGroup.GCTSC.Business.Tests
 {
@@ -48,9 +49,10 @@ namespace RIFTGroup.GCTSC.Business.Tests
         {
             List<ResultsObject> results = _resultsProcessor.ProcessAPICalls(_contact1Results, _contact2Results, _contsuppResults);
             Assert.IsTrue(results.Count == 3);
-            Assert.IsTrue(results[0].Accountno == _testAccountno);
-            Assert.IsTrue(results[1].Accountno == _testAccountno);
-            Assert.IsTrue(results[2].Accountno == _testAccountno);
+            Assert.IsTrue(results[0].Responses.Where(x => x.SendRequest == Core.Enums.Enums.SendRequest.PHONE1).Any());
+            Assert.IsTrue(results[1].Responses.Where(x => x.SendRequest == Core.Enums.Enums.SendRequest.USTAGE1DAT).Any());
+            Assert.IsTrue(results[2].Responses.Where(x => x.SendRequest == Core.Enums.Enums.SendRequest.CONTSUPREF).Any());
         }
     }
 }
+
