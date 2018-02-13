@@ -24,5 +24,10 @@ namespace RIFTGroup.GCTSC.Core
         {
             get { return _appSettings["apiURL"]; }
         }
+
+        public int ThreadSleep
+        {
+            get { return int.Parse(_appSettings["threadSleep"]); }
+        }
     }
 }
