@@ -5,11 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Core.EntityFramework;
+using RIFTGroup.GCTSC.Business.Helpers;
 
 namespace RIFTGroup.GCTSC.Business
 {
     public class GM_Repository
     {
+        ClientDataMappingHelper _clientDataMapping;
+        public GM_Repository()
+        {
+            _clientDataMapping = new ClientDataMappingHelper();
+        }
         public ResultsObject GetReferenceNumberFromRecid(string recid, ResultsObject ro)
         {
             using (GoldmineEntities context = new GoldmineEntities())
@@ -79,6 +85,22 @@ namespace RIFTGroup.GCTSC.Business
                 contact = (from c in context.CONTACT1.Where(c => c.ACCOUNTNO == accountno) select c.CONTACT).FirstOrDefault();
             }
             return contact;
+        }
+
+        public ClientData GetClientData(string referenceNumber)
+        {
+            ClientData clientData = new ClientData();
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                CONTACT1 c1 = (from c in context.CONTACT1.Where(c => c.KEY5 == referenceNumber) select c).FirstOrDefault();
+                if(c1!=null)
+                {
+                    CONTACT2 c2 = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == c1.ACCOUNTNO) select c).FirstOrDefault();
+                    clientData = _clientDataMapping.MapClientData(clientData, c1, c2);
+                    clientData.Key5 = referenceNumber;
+                }
+            }
+            return clientData;
         }
 
         public string GetLastname(string accountno)

@@ -104,5 +104,25 @@ namespace RIFTGroup.GCTSC.Business
             return ro;
 
         }
+
+        public ResultsObject ProcessCreatePersonRequest(ClientData clientData)
+        {
+            ResultsObject ro = new ResultsObject();
+            if (ro.Responses == null) { ro.Responses = new List<ResponseDetails>(); };
+            ro.Accountno = clientData.Accountno;
+            ro.ReferenceNumber = clientData.Key5;
+            ro = _apiClient.CreatePersonRequest(ro, clientData);
+            ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.UEMAILADDR, ro, clientData.UEmailAddr);
+            ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE1, ro, clientData.Phone1);
+            _applicationLogging.Log(ro);
+            return ro;
+        }
+
+        public string ProcessPersonIdFetch(string referenceNumber)
+        {
+            string personId = string.Empty;
+            personId = _apiClient.GetPersonId(referenceNumber);
+            return personId;
+        }
     }
 }

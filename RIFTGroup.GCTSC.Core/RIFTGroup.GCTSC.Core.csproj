@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientData.cs" />
     <Compile Include="Helpers\AppSettings.cs" />
     <Compile Include="DataAPIClient.cs" />
     <Compile Include="Enums\Enums.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Model\_CONTSUPPChangeTracking_Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReponseObjects\CreateEmailResponse.cs" />
+    <Compile Include="ReponseObjects\CreatePersonResponse.cs" />
     <Compile Include="ReponseObjects\CreatePhoneNumberResponse.cs" />
     <Compile Include="ReponseObjects\EmailResponse.cs" />
     <Compile Include="ReponseObjects\PeopleResponse.cs" />

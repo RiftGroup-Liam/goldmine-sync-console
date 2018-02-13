@@ -28,8 +28,7 @@ namespace RIFTGroup.GCTSC.Core
 
         public ResultsObject SendUpdatePersonRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
-            string personId = GetPersonId(ro.ReferenceNumber);
-            
+            string personId = GetPersonId(ro.ReferenceNumber);            
             if (!string.IsNullOrEmpty(personId))
             {
                 IRestRequest request = new RestRequest("/people/" + personId, Method.PATCH);
@@ -51,7 +50,7 @@ namespace RIFTGroup.GCTSC.Core
             }
             return ro;
         }
-
+        
         public ResultsObject SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
             UpdateCurrentPhoneNumbersToNonActive(ro);
@@ -66,12 +65,48 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
+        public string GetPersonId(string referenceNumber)
+        {
+            string personId = string.Empty;
+            IRestRequest request = new RestRequest("/people?goldmine_customer_number=" + referenceNumber);
+            request.AddHeader("Authentication-Token", _apiToken);
 
+            Console.WriteLine("Sending: {0}\n", request.Resource);
+            IRestResponse response = _restClient.Execute(request);
+            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
 
+            List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
+            if (peopleResponse.Count != 0)
+            {
+                personId = peopleResponse[0].Id;
+            }
+            return personId;
+        }
+        
+        public ResultsObject CreatePersonRequest(ResultsObject ro, ClientData clientData)
+        {
+            IRestRequest request = new RestRequest("/people/", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
 
+            request = RequestBodyHelper.CreatePersonRequestBody(request, clientData);
 
+            Console.WriteLine("Sending: {0}\n", request.Resource);
+            IRestResponse response = _restClient.Execute(request);
+            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
 
-
+            CreatePersonResponse creatgePersonResponse= JsonConvert.DeserializeObject<CreatePersonResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.CREATE,
+                ChangedValue = "CREATE",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
 
         private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro)
         {
@@ -228,22 +263,6 @@ namespace RIFTGroup.GCTSC.Core
                 });
             }
             return ro;
-        }
-
-        private string GetPersonId(string referenceNumber)
-        {
-            string personId = string.Empty;
-            IRestRequest request = new RestRequest("/people?goldmine_customer_number=" + referenceNumber);
-            request.AddHeader("Authentication-Token", _apiToken);
-
-            Console.WriteLine("Sending: {0}\n", request.Resource);
-            IRestResponse response = _restClient.Execute(request);
-            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-
-            List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
-            personId = peopleResponse[0].Id;
-            return personId;
         }
     }
 }

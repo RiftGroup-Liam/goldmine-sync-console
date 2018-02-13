@@ -10,9 +10,11 @@ namespace RIFTGroup.GCTSC.Business
     public class ResultsProcessor
     {
         RequestProcessor _requestProcessor;
+        GM_Repository _gmRepo;
         public ResultsProcessor()
         {
             _requestProcessor = new RequestProcessor();
+            _gmRepo = new GM_Repository();
         }
         public List<ResultsObject> ProcessAPICalls(List<CONTACT1ChangeTracking_Result> contact1Results,
                                                     List<CONTACT2ChangeTracking_Result> contact2Results,
@@ -46,7 +48,19 @@ namespace RIFTGroup.GCTSC.Business
             List<ResultsObject> results = new List<ResultsObject>();
             foreach(CONTSUPPChangeTracking_Result ctResult in contsuppResults)
             {
-                ResultsObject ro = _requestProcessor.ProcessContsuppRequests(ctResult);
+                ResultsObject ro = new ResultsObject();
+                ro = _gmRepo.GetAccountnoFromRecid(ctResult.recid, ro);
+                ro = _gmRepo.GetReferenceNumberFromAccountno(ro.Accountno, ro);
+                if (!string.IsNullOrEmpty(_requestProcessor.ProcessPersonIdFetch(ro.ReferenceNumber)))
+                {
+                    ro = _requestProcessor.ProcessContsuppRequests(ctResult);                    
+                }
+                else
+                {
+                    ClientData clientData = new ClientData();
+                    clientData = _gmRepo.GetClientData(ro.ReferenceNumber);
+                    ro = _requestProcessor.ProcessCreatePersonRequest(clientData);
+                }
                 results.Add(ro);
             }
             return results;
@@ -57,7 +71,19 @@ namespace RIFTGroup.GCTSC.Business
             List<ResultsObject> results = new List<ResultsObject>();
             foreach(CONTACT2ChangeTracking_Result ctResult in contact2Results)
             {
-                ResultsObject ro = _requestProcessor.ProcessContact2Requests(ctResult);
+                ResultsObject ro = new ResultsObject();
+                ro.Accountno = ctResult.ACCOUNTNO;
+                ro = _gmRepo.GetReferenceNumberFromAccountno(ro.Accountno, ro);
+                if (!string.IsNullOrEmpty(_requestProcessor.ProcessPersonIdFetch(ro.ReferenceNumber)))
+                {
+                    ro = _requestProcessor.ProcessContact2Requests(ctResult);
+                }
+                else
+                {
+                    ClientData clientData = new ClientData();
+                    clientData = _gmRepo.GetClientData(ro.ReferenceNumber);
+                    ro = _requestProcessor.ProcessCreatePersonRequest(clientData);
+                }
                 results.Add(ro);
             }
             return results;
@@ -68,7 +94,19 @@ namespace RIFTGroup.GCTSC.Business
             List<ResultsObject> results = new List<ResultsObject>();
             foreach(CONTACT1ChangeTracking_Result ctResult in contact1Results)
             {
-                ResultsObject ro = _requestProcessor.ProcessContact1Requests(ctResult);
+                ResultsObject ro = new ResultsObject();
+                ro.Accountno = ctResult.ACCOUNTNO;
+                ro = _gmRepo.GetReferenceNumberFromAccountno(ro.Accountno, ro);
+                if (!string.IsNullOrEmpty(_requestProcessor.ProcessPersonIdFetch(ro.ReferenceNumber)))
+                {
+                    ro = _requestProcessor.ProcessContact1Requests(ctResult);
+                }
+                else
+                {
+                    ClientData clientData = new ClientData();
+                    clientData = _gmRepo.GetClientData(ro.ReferenceNumber);
+                    ro = _requestProcessor.ProcessCreatePersonRequest(clientData);
+                }
                 results.Add(ro);
             }
             return results;

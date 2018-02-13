@@ -93,6 +93,14 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
+        public static IRestRequest CreatePersonRequestBody(IRestRequest request, ClientData clientData)
+        {
+            request.AddParameter("goldmine_customer_number", clientData.Key5);
+            request.AddParameter("first_name", clientData.Secr);
+            request.AddParameter("last_name", clientData.Lastname);
+            return request;
+        }
+
         public static IRestRequest CreatePhoneNumberBody(string changedValue, string personId, 
                                                             Enums.Enums.SendRequest requestType, IRestRequest request)
         {

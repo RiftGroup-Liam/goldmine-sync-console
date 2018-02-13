@@ -57,6 +57,7 @@
     <Compile Include="ChangeTrackingProcess.cs" />
     <Compile Include="ExceptionLogging.cs" />
     <Compile Include="GM_Repository.cs" />
+    <Compile Include="Helpers\ClientDataMappingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestProcessor.cs" />
     <Compile Include="ResultsProcessor.cs" />
