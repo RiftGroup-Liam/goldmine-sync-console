@@ -27,6 +27,7 @@ namespace RIFTGroup.GCTSC.ClientConsole
                 List<CONTSUPPChangeTracking_Result> contsuppResults = new List<CONTSUPPChangeTracking_Result>();
                 try
                 {
+                    Console.Clear();
                     Console.WriteLine("Getting CONTACT1 changes");
                     contact1Results = changeTrackingProcess.GetContact1ChangeTrackingResults(vnp.GetCurrentContact1Version());
                     Console.WriteLine("CONTACT1 changes: {0}", contact1Results.Count);
