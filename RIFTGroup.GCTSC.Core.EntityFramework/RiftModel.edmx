@@ -21,7 +21,7 @@
           <Property Name="ChangeTrackingId" Type="int" Nullable="false" />
           <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ResponseCode" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ResponseContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseContent" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="GCTSC_ChangeTracking_UpdateRequests">
           <Key>
@@ -32,7 +32,7 @@
           <Property Name="Change" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ResponseCode" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ResponseContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ResponseContent" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="GCTSC_ExceptionLogging">
           <Key>
@@ -111,12 +111,12 @@
         </EntityType>
         <EntityContainer Name="RiftEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="SystemKeys" EntityType="Self.SystemKey" />
-          <EntitySet Name="GCTSC_ChangeTracking_Requests" EntityType="RiftModel.GCTSC_ChangeTracking_Requests" />
-          <EntitySet Name="GCTSC_ChangeTracking_UpdateRequests" EntityType="RiftModel.GCTSC_ChangeTracking_UpdateRequests" />
           <EntitySet Name="GCTSC_ExceptionLogging" EntityType="RiftModel.GCTSC_ExceptionLogging" />
           <FunctionImport Name="TESTs_ClearGCTSCChangeTrackingLogs" />
           <FunctionImport Name="TESTs_ClearGCTSCExceptionTable" />
           <EntitySet Name="GCTSC_ChangeTracking" EntityType="RiftModel.GCTSC_ChangeTracking" />
+          <EntitySet Name="GCTSC_ChangeTracking_Requests" EntityType="RiftModel.GCTSC_ChangeTracking_Requests" />
+          <EntitySet Name="GCTSC_ChangeTracking_UpdateRequests" EntityType="RiftModel.GCTSC_ChangeTracking_UpdateRequests" />
           <AssociationSet Name="FK_ChangeTracking_Requests" Association="RiftModel.FK_ChangeTracking_Requests">
             <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
             <End Role="GCTSC_ChangeTracking_Requests" EntitySet="GCTSC_ChangeTracking_Requests" />
@@ -125,30 +125,7 @@
             <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
             <End Role="GCTSC_ChangeTracking_UpdateRequests" EntitySet="GCTSC_ChangeTracking_UpdateRequests" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="GCTSC_ChangeTracking_Requests">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
-          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_Requests" FromRole="GCTSC_ChangeTracking_Requests" ToRole="GCTSC_ChangeTracking" />
-        </EntityType>
-        <EntityType Name="GCTSC_ChangeTracking_UpdateRequests">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
-          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Change" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_UpdateRequests" FromRole="GCTSC_ChangeTracking_UpdateRequests" ToRole="GCTSC_ChangeTracking" />
-        </EntityType>
+          </EntityContainer>
         <EntityType Name="GCTSC_ExceptionLogging">
           <Key>
             <PropertyRef Name="Id" />
@@ -168,6 +145,29 @@
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="GCTSC_ChangeTracking_Requests" Relationship="RiftModel.FK_ChangeTracking_Requests" FromRole="GCTSC_ChangeTracking" ToRole="GCTSC_ChangeTracking_Requests" />
           <NavigationProperty Name="GCTSC_ChangeTracking_UpdateRequests" Relationship="RiftModel.FK_ChangeTracking_UpdateRequests" FromRole="GCTSC_ChangeTracking" ToRole="GCTSC_ChangeTracking_UpdateRequests" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking_Requests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_Requests" FromRole="GCTSC_ChangeTracking_Requests" ToRole="GCTSC_ChangeTracking" />
+        </EntityType>
+        <EntityType Name="GCTSC_ChangeTracking_UpdateRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeTrackingId" Type="Int32" Nullable="false" />
+          <Property Name="Change" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GCTSC_ChangeTracking" Relationship="RiftModel.FK_ChangeTracking_UpdateRequests" FromRole="GCTSC_ChangeTracking_UpdateRequests" ToRole="GCTSC_ChangeTracking" />
         </EntityType>
         <Association Name="FK_ChangeTracking_Requests">
           <End Type="RiftModel.GCTSC_ChangeTracking" Role="GCTSC_ChangeTracking" Multiplicity="1">
@@ -212,29 +212,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GCTSC_ChangeTracking_Requests">
-            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_Requests">
-              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_Requests">
-                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
-                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GCTSC_ChangeTracking_UpdateRequests">
-            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_UpdateRequests">
-              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_UpdateRequests">
-                <ScalarProperty Name="Change" ColumnName="Change" />
-                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
-                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
-                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GCTSC_ExceptionLogging">
             <EntityTypeMapping TypeName="RiftModel.GCTSC_ExceptionLogging">
               <MappingFragment StoreEntitySet="GCTSC_ExceptionLogging">
@@ -253,6 +230,29 @@
               <MappingFragment StoreEntitySet="GCTSC_ChangeTracking">
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Accountno" ColumnName="Accountno" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GCTSC_ChangeTracking_Requests">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_Requests">
+              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_Requests">
+                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GCTSC_ChangeTracking_UpdateRequests">
+            <EntityTypeMapping TypeName="RiftModel.GCTSC_ChangeTracking_UpdateRequests">
+              <MappingFragment StoreEntitySet="GCTSC_ChangeTracking_UpdateRequests">
+                <ScalarProperty Name="ResponseContent" ColumnName="ResponseContent" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

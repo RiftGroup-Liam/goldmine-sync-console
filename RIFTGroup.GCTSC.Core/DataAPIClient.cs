@@ -46,7 +46,8 @@ namespace RIFTGroup.GCTSC.Core
                                                         SendRequest = requestType,
                                                         ChangedValue = changedValue,
                                                         URL = response.ResponseUri.ToString(),
-                                                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode) });
+                                                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                                                        ResponseContent = response.Content});
             }
             return ro;
         }
@@ -92,7 +93,8 @@ namespace RIFTGroup.GCTSC.Core
                     ro.Responses.Add(new ResponseDetails()
                     {
                         URL = response.ResponseUri.ToString(),
-                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                        ResponseContent = response.Content
                     });
                 }
             }
@@ -118,7 +120,8 @@ namespace RIFTGroup.GCTSC.Core
                     SendRequest = requestType,
                     ChangedValue = changedValue,
                     URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
                 });
             }
             return ro;
@@ -142,7 +145,8 @@ namespace RIFTGroup.GCTSC.Core
                 ro.Responses.Add(new ResponseDetails()
                 {
                     URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
                 });
             }
             return phoneNumbers;
@@ -168,7 +172,8 @@ namespace RIFTGroup.GCTSC.Core
                     ro.Responses.Add(new ResponseDetails()
                     {
                         URL = response.ResponseUri.ToString(),
-                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                        ResponseContent = response.Content
                     });
                 }
             }
@@ -190,7 +195,9 @@ namespace RIFTGroup.GCTSC.Core
 
                 emailResponses = JsonConvert.DeserializeObject<List<EmailResponse>>(response.Content);
                 ro.Responses.Add(new ResponseDetails() { URL = response.ResponseUri.ToString(),
-                                                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode) });
+                                                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                                                            ResponseContent = response.Content
+                });
             }
             return emailResponses;
         }
@@ -216,7 +223,8 @@ namespace RIFTGroup.GCTSC.Core
                     SendRequest = requestType,
                     ChangedValue = changedValue,
                     URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode)
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
                 });
             }
             return ro;

@@ -16,10 +16,10 @@ namespace RIFTGroup.GCTSC.Core
     {
         public int Id { get; set; }
         public int ChangeTrackingId { get; set; }
+        public string Change { get; set; }
         public string URL { get; set; }
         public string ResponseCode { get; set; }
         public string ResponseContent { get; set; }
-        public string Change { get; set; }
     
         public virtual GCTSC_ChangeTracking GCTSC_ChangeTracking { get; set; }
     }

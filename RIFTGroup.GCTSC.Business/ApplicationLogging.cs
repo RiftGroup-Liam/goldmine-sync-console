@@ -10,7 +10,15 @@ namespace RIFTGroup.GCTSC.Business
 {
     public class ApplicationLogging
     {
-        public void Log(ResultsObject resultObject, Core.Enums.Enums.SendRequest sendRequest)
+        public void Log(List<ResultsObject> results)
+        {
+            foreach(ResultsObject ro in results)
+            {
+                Log(ro);
+            }
+        }
+
+        public void Log(ResultsObject resultObject)
         {
             GCTSC_ChangeTracking ctRecord = new GCTSC_ChangeTracking()
             {

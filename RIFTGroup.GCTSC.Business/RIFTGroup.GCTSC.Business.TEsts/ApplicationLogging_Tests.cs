@@ -25,7 +25,7 @@ namespace RIFTGroup.GCTSC.Business.Tests
         public void DoInit()
         {
             ClearTestData();
-            _applicationLogging.Log(_testRO, Core.Enums.Enums.SendRequest.LASTNAME);
+            _applicationLogging.Log(_testRO);
         }
 
         [TestMethod]

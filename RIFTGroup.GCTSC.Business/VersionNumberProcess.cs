@@ -74,7 +74,7 @@ namespace RIFTGroup.GCTSC.Business
         {
             using (RiftEntities context = new RiftEntities())
             {
-                SystemKey systemKey = (from sk in context.SystemKeys.Where(sk => sk.Key == Contsupp_LastVersion) select sk).FirstOrDefault();
+                SystemKey systemKey = (from sk in context.SystemKeys.Where(sk => sk.Key == Contact2_LastVersion) select sk).FirstOrDefault();
                 if (systemKey != null)
                 {
                     systemKey.Value = newVersion.ToString();
@@ -88,7 +88,7 @@ namespace RIFTGroup.GCTSC.Business
         {
             using (RiftEntities context = new RiftEntities())
             {
-                SystemKey systemKey = (from sk in context.SystemKeys.Where(sk => sk.Key == Contact2_LastVersion) select sk).FirstOrDefault();
+                SystemKey systemKey = (from sk in context.SystemKeys.Where(sk => sk.Key == Contsupp_LastVersion) select sk).FirstOrDefault();
                 if (systemKey != null)
                 {
                     systemKey.Value = newVersion.ToString();

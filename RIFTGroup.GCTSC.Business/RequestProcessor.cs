@@ -12,10 +12,12 @@ namespace RIFTGroup.GCTSC.Business
     {
         DataAPIClient _apiClient;
         GM_Repository _gm_repo;
+        ApplicationLogging _applicationLogging;
         public RequestProcessor()
         {
             _apiClient = new DataAPIClient();
             _gm_repo = new GM_Repository();
+            _applicationLogging = new ApplicationLogging();
         }
         public ResultsObject ProcessContsuppRequests(CONTSUPPChangeTracking_Result ctResult)
         {
@@ -28,6 +30,7 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetContsupref(ctResult.recid);
                 ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.CONTSUPREF, ro, changedValue);
             }
+            _applicationLogging.Log(ro);
             return ro;
         }
 
@@ -52,6 +55,7 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetUconvdate(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.UCONVDATE, ro, changedValue);
             }
+            _applicationLogging.Log(ro);
             return ro;
         }
 
@@ -96,6 +100,7 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetPhone3(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE3, ro, changedValue);
             }
+            _applicationLogging.Log(ro);
             return ro;
 
         }
