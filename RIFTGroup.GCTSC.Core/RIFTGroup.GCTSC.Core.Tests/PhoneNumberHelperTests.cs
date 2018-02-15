@@ -37,7 +37,7 @@ namespace RIFTGroup.GCTSC.Core.Tests
         }
 
         [TestMethod]
-        public void CreateSubscriberNumber_FromOriginalWithPlussSign()
+        public void CreateSubscriberNumber_FromOriginalWithPlusSign()
         {
             string testNumber = "+447887495880";
             string actualSubscriberNumber = PhoneNumberHelper.CreateSubscriberNumber(testNumber);

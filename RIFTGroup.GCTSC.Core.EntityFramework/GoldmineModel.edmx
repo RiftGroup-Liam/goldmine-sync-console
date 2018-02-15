@@ -676,6 +676,7 @@
         <Function Name="TESTS_CreateContsuppChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accountno" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="Tests_GCTSC_UpdateGMRepoTestData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="GoldmineModelStoreContainer">
           <EntitySet Name="CONTACT1" EntityType="Self.CONTACT1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONTACT2" EntityType="Self.CONTACT2" Schema="dbo" store:Type="Tables" />
@@ -702,11 +703,12 @@
           <EntitySet Name="CONTACT2" EntityType="GoldmineModel.CONTACT2" />
           <EntitySet Name="CONTSUPPs" EntityType="GoldmineModel.CONTSUPP" />
           <FunctionImport Name="CONTACT1ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT1ChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Tests_GCTSC_UpdateGMRepoTestData" />
         </EntityContainer>
         <ComplexType Name="CONTSUPPChangeTracking_Result">
           <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
@@ -2108,6 +2110,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Tests_GCTSC_UpdateGMRepoTestData" FunctionName="GoldmineModel.Store.Tests_GCTSC_UpdateGMRepoTestData" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

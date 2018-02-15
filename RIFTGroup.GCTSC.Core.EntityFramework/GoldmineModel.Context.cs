@@ -85,5 +85,10 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONTACT2ChangeTracking_Result>("CONTACT2ChangeTracking", lastVersionNumberParameter);
         }
+    
+        public virtual int Tests_GCTSC_UpdateGMRepoTestData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Tests_GCTSC_UpdateGMRepoTestData");
+        }
     }
 }
