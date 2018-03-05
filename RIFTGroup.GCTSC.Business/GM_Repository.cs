@@ -150,7 +150,14 @@ namespace RIFTGroup.GCTSC.Business
             {
                 ustage1dat = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.USTAGE1DAT).FirstOrDefault();
             }
-            return ustage1dat.Value.ToString();
+            if (ustage1dat != null)
+            {
+                return ustage1dat.Value.ToString();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string GetUconvdate(string accountno)
