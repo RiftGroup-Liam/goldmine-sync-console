@@ -43,5 +43,31 @@ namespace RIFTGroup.GCTSC.Core.Tests
             string actualSubscriberNumber = PhoneNumberHelper.CreateSubscriberNumber(testNumber);
             Assert.IsTrue(actualSubscriberNumber == _expectedSubscriberNumber);
         }
+
+        [TestMethod]
+        public void CreateSubscriberNumber_DoesntErrorWithNullPhoneNumber()
+        {
+            string testNumber = null;
+            string actualSubsciberNumber = null;
+            try
+            {
+                actualSubsciberNumber = PhoneNumberHelper.CreateSubscriberNumber(testNumber);
+            }
+            catch(Exception ex) { Assert.Fail(ex.Message); }
+            Assert.IsTrue(actualSubsciberNumber == string.Empty);
+        }
+
+        [TestMethod]
+        public void CreateSubscriberNumber_DoesntErrorWithEmptyPhoneNumber()
+        {
+            string testNumber = "";
+            string actualSubsciberNumber = null;
+            try
+            {
+                actualSubsciberNumber = PhoneNumberHelper.CreateSubscriberNumber(testNumber);
+            }
+            catch (Exception ex) { Assert.Fail(ex.Message); }
+            Assert.IsTrue(actualSubsciberNumber == string.Empty);
+        }
     }
 }

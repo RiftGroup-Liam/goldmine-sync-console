@@ -83,9 +83,9 @@ namespace RIFTGroup.GCTSC.Business.Tests
             do
             {
                 randomReference = CreateRandomReference();
-            } while (ReferenceNumberExists(randomReference));
+            } while (ReferenceNumberExists(randomReference) && !AccountnoExists(randomReference));
 
-            accountno = GetAccountnoFromKey5(randomReference);
+            
             List<CONTACT1ChangeTracking_Result> results = new List<CONTACT1ChangeTracking_Result>();
             CONTACT1ChangeTracking_Result result = new CONTACT1ChangeTracking_Result() { contactChanged = 1, ACCOUNTNO = GetAccountnoFromKey5(randomReference) };
             results.Add(result);
@@ -98,6 +98,19 @@ namespace RIFTGroup.GCTSC.Business.Tests
             Assert.IsTrue(ros[0].Responses[0].SendResponse == Core.Enums.Enums.SendResponse.OK);
             Assert.IsTrue(ros[0].Responses[4].SendResponse == Core.Enums.Enums.SendResponse.OK);
             Assert.IsTrue(ros[0].Responses[2].SendResponse == Core.Enums.Enums.SendResponse.OK);
+        }
+
+        private bool AccountnoExists(string randomReference)
+        {
+            string accountno = GetAccountnoFromKey5(randomReference);
+            if(!string.IsNullOrEmpty(accountno))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void CreateContact2Change()

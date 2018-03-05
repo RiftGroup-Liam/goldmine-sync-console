@@ -15,7 +15,8 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         {
             if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
-                restRequest.AddParameter("tbc", changedValue);
+                restRequest.AddParameter("first_name", changedValue.Split(' ').First());
+                restRequest.AddParameter("last_name", changedValue.Split(' ').Last());
             }
             if (requestType == Enums.Enums.SendRequest.SECR)
             {
@@ -31,43 +32,11 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             }
             if (requestType == Enums.Enums.SendRequest.UCONVDATE)
             {
-                restRequest.AddParameter("tbc", changedValue);
+                restRequest.AddParameter("authorized_at", changedValue);
             }
             if (requestType == Enums.Enums.SendRequest.USTAGE1DAT)
             {
-                restRequest.AddParameter("tbc", changedValue);
-            }
-            return restRequest;
-        }
-
-        public static IRestRequest CreateEmailAddressUpdateRequestBody(Enums.Enums.SendRequest requestType,
-                                                                        string changedValue, IRestRequest restRequest)
-        {
-            if (requestType == Enums.Enums.SendRequest.UEMAILADDR)
-            {
-                restRequest.AddParameter("tbc", changedValue);
-            }
-            if (requestType == Enums.Enums.SendRequest.CONTSUPREF)
-            {
-                restRequest.AddParameter("tbc", changedValue);
-            }
-            return restRequest;
-        }
-
-        public static IRestRequest CreatePhoneNumberUpdateRequestBody(Enums.Enums.SendRequest requestType,
-                                                                        string changedValue, IRestRequest restRequest)
-        {
-            if (requestType == Enums.Enums.SendRequest.PHONE1)
-            {
-                restRequest.AddParameter("tbc", changedValue);
-            }
-            if (requestType == Enums.Enums.SendRequest.PHONE2)
-            {
-                restRequest.AddParameter("tbc", changedValue);
-            }
-            if (requestType == Enums.Enums.SendRequest.PHONE3)
-            {
-                restRequest.AddParameter("tbc", changedValue);
+                restRequest.AddParameter("qualified_at", changedValue);
             }
             return restRequest;
         }

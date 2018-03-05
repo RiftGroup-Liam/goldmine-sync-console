@@ -138,7 +138,7 @@ namespace RIFTGroup.GCTSC.Core
         private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
-            if(!string.IsNullOrEmpty(personId))
+            if(!string.IsNullOrEmpty(personId) && !string.IsNullOrEmpty(changedValue))
             {
                 IRestRequest request = new RestRequest("/person/phone_numbers/", Method.POST);
                 request.AddHeader("Authentication-Token", _apiToken);

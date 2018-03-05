@@ -71,6 +71,10 @@
     <Compile Include="PhoneNumberHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RIFTGroup.GCTSC.Business\RIFTGroup.GCTSC.Business.TEsts\RIFTGroup.GCTSC.Business.Tests.csproj">
+      <Project>{5B14F8B2-38E3-4770-923D-22D8DE7A7FC1}</Project>
+      <Name>RIFTGroup.GCTSC.Business.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RIFTGroup.GCTSC.Core.csproj">
       <Project>{899F81AE-EFB3-4984-ACC2-15BB59C261A0}</Project>
       <Name>RIFTGroup.GCTSC.Core</Name>

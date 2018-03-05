@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RIFTGroup.GCTSC.Core;
 using RestSharp;
 using System.Collections.Generic;
-using RIFTGroup.GCTSC.Core.Tests.Helpers;
+using RIFTGroup.GCTSC.Business.Tests.Helpers;
 
 namespace RIFTGroup.GCTSC.Core.Tests
 {
@@ -84,19 +84,18 @@ namespace RIFTGroup.GCTSC.Core.Tests
         [TestMethod]
         public void CreatePersonRequest_OKResponse()
         {
+            
+            ClientData clientData = _clientDataHelper.TestData;
             ResultsObject ro = new ResultsObject()
             {
                 Accountno = _testAccountno,
-                ReferenceNumber = _testReference,
+                ReferenceNumber = clientData.Key5,
             };
-            ClientData clientData = _clientDataHelper.ClientData;
             ro.Responses = new List<ResponseDetails>();
             ro = _restClient.CreatePersonRequest(ro, clientData);
             Assert.IsTrue(ro.Accountno == _testAccountno);
-            Assert.IsTrue(ro.ReferenceNumber == _testReference);
             Assert.IsTrue(ro.Responses[0].URL.Contains("/people/"));
             Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
-            Assert.IsTrue(ro.Responses[0].ResponseContent.Contains(@"""goldmine_customer_number"":165992,""first_name"":""Client"",""middle_names"":null,""last_name"":""Data"""));
         }
     }
 }

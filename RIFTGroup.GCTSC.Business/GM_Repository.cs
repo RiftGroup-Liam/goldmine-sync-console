@@ -160,7 +160,14 @@ namespace RIFTGroup.GCTSC.Business
             {
                 uconvdate = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UCONVDATE).FirstOrDefault();
             }
-            return uconvdate.Value.ToString();
+            if (uconvdate != null)
+            {
+                return uconvdate.Value.ToString();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string GetUemailaddr(string accountno)
