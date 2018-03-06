@@ -29,5 +29,10 @@ namespace RIFTGroup.GCTSC.Core
         {
             get { return int.Parse(_appSettings["threadSleep"]); }
         }
+
+        public bool RunAsConsole
+        {
+            get { if (_appSettings["runAsConsole"] == "1") { return true; } else { return false; } ;  }
+        }
     }
 }

@@ -11,24 +11,32 @@ namespace RIFTGroup.GCTSC.Business
     {
         RequestProcessor _requestProcessor;
         GM_Repository _gmRepo;
+        AppSettings _appSettings;
         public ResultsProcessor()
         {
             _requestProcessor = new RequestProcessor();
             _gmRepo = new GM_Repository();
+            _appSettings = new AppSettings();
         }
         public List<ResultsObject> ProcessAPICalls(List<CONTACT1ChangeTracking_Result> contact1Results,
                                                     List<CONTACT2ChangeTracking_Result> contact2Results,
                                                     List<CONTSUPPChangeTracking_Result> contsuppResults)
         {
-            Console.Clear();
-            Console.WriteLine("Creating API Requests");
+            if (_appSettings.RunAsConsole)
+            {
+                Console.Clear();
+                Console.WriteLine("Creating API Requests");
+            }
             List<ResultsObject> results = new List<ResultsObject>();
 
-            Console.WriteLine("Sending CONTACT 1 API Requests");
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending CONTACT 1 API Requests"); }
             List<ResultsObject> contact1SendResults = SendContact1Changes(contact1Results);
-            Console.WriteLine("Sending CONTACT 2 API Requests");
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending CONTACT 2 API Requests"); }
             List<ResultsObject> contact2SendResults = SendContact2Changes(contact2Results);
-            Console.WriteLine("Sending CONTSUPP API Requests");
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending CONTSUPP API Requests"); }
             List<ResultsObject> contsuppSendResults = SendContsuppChanges(contsuppResults);
             results = AmalgamateResults(contact1SendResults, contact2SendResults, contsuppSendResults);
             return results;
