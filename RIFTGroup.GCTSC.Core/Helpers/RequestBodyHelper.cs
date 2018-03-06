@@ -15,16 +15,20 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         {
             if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
-                restRequest.AddParameter("first_name", changedValue.Split(' ').First());
-                restRequest.AddParameter("last_name", changedValue.Split(' ').Last());
+                string firstnameFirstWord = changedValue.Split(' ').First();
+                string lastnameFirstWord = changedValue.Split(' ').Last();
+                string middleNames = changedValue.Replace(firstnameFirstWord, "").Replace(lastnameFirstWord, "").Trim();
+                restRequest.AddParameter("first_name", firstnameFirstWord);
+                restRequest.AddParameter("last_name", lastnameFirstWord);
+                restRequest.AddParameter("middle_name", middleNames);
             }
             if (requestType == Enums.Enums.SendRequest.SECR)
             {
-                restRequest.AddParameter("first_name", changedValue);
+                restRequest.AddParameter("first_name", changedValue.Split(' ').First());
             }
             if (requestType == Enums.Enums.SendRequest.LASTNAME)
             {
-                restRequest.AddParameter("last_name", changedValue);
+                restRequest.AddParameter("last_name", changedValue.First());
             }
             if (requestType == Enums.Enums.SendRequest.KEY5)
             {
