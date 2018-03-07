@@ -62,6 +62,7 @@
     <Compile Include="Helpers\AppSettings.cs" />
     <Compile Include="DataAPIClient.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Helpers\NameHelper.cs" />
     <Compile Include="Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Helpers\RequestBodyHelper.cs" />
     <Compile Include="Helpers\ResponseCodeHelper.cs" />

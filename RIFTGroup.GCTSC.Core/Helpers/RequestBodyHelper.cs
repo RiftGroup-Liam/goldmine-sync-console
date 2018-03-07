@@ -15,20 +15,17 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         {
             if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
-                string firstnameFirstWord = changedValue.Split(' ').First();
-                string lastnameFirstWord = changedValue.Split(' ').Last();
-                string middleNames = changedValue.Replace(firstnameFirstWord, "").Replace(lastnameFirstWord, "").Trim();
-                restRequest.AddParameter("first_name", firstnameFirstWord);
-                restRequest.AddParameter("last_name", lastnameFirstWord);
-                restRequest.AddParameter("middle_name", middleNames);
+                restRequest.AddParameter("first_name", NameHelper.CreateFirstnameFromContact(changedValue));
+                restRequest.AddParameter("last_name", NameHelper.CreateLastnameFromContact(changedValue));
+                restRequest.AddParameter("middle_names", NameHelper.CreateMiddleNamesFromContact(changedValue));
             }
             if (requestType == Enums.Enums.SendRequest.SECR)
             {
-                restRequest.AddParameter("first_name", changedValue.Split(' ').First());
+                restRequest.AddParameter("first_name", NameHelper.CreateFirstnameFromContact(changedValue));
             }
             if (requestType == Enums.Enums.SendRequest.LASTNAME)
             {
-                restRequest.AddParameter("last_name", changedValue.First());
+                restRequest.AddParameter("last_name", NameHelper.CreateLastnameFromContact(changedValue));
             }
             if (requestType == Enums.Enums.SendRequest.KEY5)
             {
@@ -69,8 +66,8 @@ namespace RIFTGroup.GCTSC.Core.Helpers
         public static IRestRequest CreatePersonRequestBody(IRestRequest request, ClientData clientData)
         {
             request.AddParameter("goldmine_customer_number", clientData.Key5);
-            request.AddParameter("first_name", clientData.Secr);
-            request.AddParameter("last_name", clientData.Lastname);
+            request.AddParameter("first_name", NameHelper.CreateFirstnameFromContact(clientData.Secr));
+            request.AddParameter("last_name", NameHelper.CreateLastnameFromContact(clientData.Lastname));
             return request;
         }
 

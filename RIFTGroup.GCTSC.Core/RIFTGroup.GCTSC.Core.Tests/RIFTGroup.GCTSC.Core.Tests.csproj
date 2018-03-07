@@ -69,6 +69,7 @@
     <Compile Include="Helpers\ClientDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PhoneNumberHelperTests.cs" />
+    <Compile Include="NameHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\RIFTGroup.GCTSC.Business\RIFTGroup.GCTSC.Business.TEsts\RIFTGroup.GCTSC.Business.Tests.csproj">
