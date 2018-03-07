@@ -56,15 +56,21 @@ namespace RIFTGroup.GCTSC.Core
         
         public ResultsObject SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
-            UpdateCurrentPhoneNumbersToNonActive(ro);
             ro = CreateNewPhoneNumber(ro, requestType, changedValue);
+            if (ro.Responses.Last().SendResponse == Enums.Enums.SendResponse.OK)
+            {
+                UpdateCurrentPhoneNumbersToNonActive(ro, changedValue);
+            }
             return ro;
         }        
 
         public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {
-            UpdateCurrentEmailsToNonActive(ro);
             ro = CreateNewEmailAddress(ro, requestType, changedValue);
+            if (ro.Responses.Last().SendResponse == Enums.Enums.SendResponse.OK)
+            {
+                UpdateCurrentEmailsToNonActive(ro, changedValue);
+            }
             return ro;
         }
 
@@ -83,11 +89,15 @@ namespace RIFTGroup.GCTSC.Core
                 Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
             }
 
-            List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
-            if (peopleResponse.Count != 0)
+            if (response.Content != "[]" && response.Content != "")
             {
-                personId = peopleResponse[0].Id;
+                List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
+                if (peopleResponse.Count != 0)
+                {
+                    personId = peopleResponse[0].Id;
+                }
             }
+            
             return personId;
         }
         
@@ -119,33 +129,36 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
-        private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro)
+        private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro, string changedValue)
         {
             List<PhoneNumberResponse> phoneNumbers = GetPhoneNumbers(ro);
             if(phoneNumbers.Count > 0)
             {
                 foreach(PhoneNumberResponse phoneNumber in phoneNumbers)
                 {
-                    IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
-                    request.AddHeader("Authentication-Token", _apiToken);
-                    request = RequestBodyHelper.CreateUpdatePhoneNumberToNonActiveRequestBody(request);
-
-                    if (_appSettings.RunAsConsole)
-                    { Console.WriteLine("Sending: {0}\n", request.Resource); }
-                    IRestResponse response = _restClient.Execute(request);
-                    if (_appSettings.RunAsConsole)
+                    if (phoneNumber.Subscriber_number != PhoneNumberHelper.CreateSubscriberNumber(changedValue))
                     {
-                        Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                        Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                        IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
+                        request.AddHeader("Authentication-Token", _apiToken);
+                        request = RequestBodyHelper.CreateUpdatePhoneNumberToNonActiveRequestBody(request);
+
+                        if (_appSettings.RunAsConsole)
+                        { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                        IRestResponse response = _restClient.Execute(request);
+                        if (_appSettings.RunAsConsole)
+                        {
+                            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                        }
+
+                        UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
+                        ro.Responses.Add(new ResponseDetails()
+                        {
+                            URL = response.ResponseUri.ToString(),
+                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                            ResponseContent = response.Content
+                        });
                     }
-
-                    UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
-                    ro.Responses.Add(new ResponseDetails()
-                    {
-                        URL = response.ResponseUri.ToString(),
-                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                        ResponseContent = response.Content
-                    });
                 }
             }
         }
@@ -210,33 +223,36 @@ namespace RIFTGroup.GCTSC.Core
             return phoneNumbers;
         }
 
-        private void UpdateCurrentEmailsToNonActive(ResultsObject ro)
+        private void UpdateCurrentEmailsToNonActive(ResultsObject ro, string changedValue)
         {
             List<EmailResponse> emailAddresses = GetEmailAddresses(ro);
             if(emailAddresses.Count>0)
             {
                 foreach(EmailResponse address in emailAddresses)
                 {
-                    IRestRequest request = new RestRequest("/person/email_addresses/" + address.Id, Method.PATCH);
-                    request.AddHeader("Authentication-Token", _apiToken);
-                    request = RequestBodyHelper.CreateUpdateEmailAddressToNonActiveBody(request);
-
-                    if (_appSettings.RunAsConsole)
-                    { Console.WriteLine("Sending: {0}\n", request.Resource); }
-                    IRestResponse response = _restClient.Execute(request);
-                    if (_appSettings.RunAsConsole)
+                    if (address.Email_address != changedValue)
                     {
-                        Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                        Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                        IRestRequest request = new RestRequest("/person/email_addresses/" + address.Id, Method.PATCH);
+                        request.AddHeader("Authentication-Token", _apiToken);
+                        request = RequestBodyHelper.CreateUpdateEmailAddressToNonActiveBody(request);
+
+                        if (_appSettings.RunAsConsole)
+                        { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                        IRestResponse response = _restClient.Execute(request);
+                        if (_appSettings.RunAsConsole)
+                        {
+                            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                        }
+
+                        UpdateEmailResponse updateResponse = JsonConvert.DeserializeObject<UpdateEmailResponse>(response.Content);
+                        ro.Responses.Add(new ResponseDetails()
+                        {
+                            URL = response.ResponseUri.ToString(),
+                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                            ResponseContent = response.Content
+                        });
                     }
-
-                    UpdateEmailResponse updateResponse = JsonConvert.DeserializeObject<UpdateEmailResponse>(response.Content);
-                    ro.Responses.Add(new ResponseDetails()
-                    {
-                        URL = response.ResponseUri.ToString(),
-                        SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                        ResponseContent = response.Content
-                    });
                 }
             }
         }

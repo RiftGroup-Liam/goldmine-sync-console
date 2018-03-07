@@ -11,7 +11,7 @@ namespace RIFTGroup.GCTSC.Core.ReponseObjects
         public string Id { get; set; }
         public string Person_id { get; set; }
         public string Country_code { get; set; }
-        public string Subsciber_number { get; set; }
+        public string Subscriber_number { get; set; }
         public bool Active { get; set; }
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
