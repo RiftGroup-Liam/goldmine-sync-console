@@ -55,6 +55,11 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetUconvdate(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.UCONVDATE, ro, changedValue);
             }
+            if(ctResult.ubcaseown_bool)
+            {
+                string changedValue = _gm_repo.GetTranslatedCaseOwner(ctResult.ACCOUNTNO);
+                ro = _apiClient.SendUpdateCaseOwnerRequest(Enums.SendRequest.UBCASEOWN, ro, changedValue);
+            }
             _applicationLogging.Log(ro);
             return ro;
         }

@@ -109,9 +109,14 @@
     <Compile Include="Model\SystemKey.cs">
       <DependentUpon>RiftModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\WorkFlowUsernameLookup.cs">
+      <DependentUpon>RiftModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\_CONTACT1ChangeTracking_Result.cs" />
     <Compile Include="Model\_CONTSUPPChangeTracking_Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReponseObjects\CaseOwnerResponse.cs" />
+    <Compile Include="ReponseObjects\CreateCaseOwnerResponse.cs" />
     <Compile Include="ReponseObjects\CreateEmailResponse.cs" />
     <Compile Include="ReponseObjects\CreatePersonResponse.cs" />
     <Compile Include="ReponseObjects\CreatePhoneNumberResponse.cs" />

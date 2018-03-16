@@ -77,6 +77,28 @@ namespace RIFTGroup.GCTSC.Business
             return secr;
         }
 
+        public string GetTranslatedCaseOwner(string accountno)
+        {
+            string translatedCaseOwner = string.Empty;
+            string goldmineValue = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                goldmineValue = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UBCASEOWN).FirstOrDefault();
+            }
+            if(!string.IsNullOrEmpty(goldmineValue))
+            {
+                using (RiftEntities context = new RiftEntities())
+                {
+                    string riftValue = (from r in context.WorkFlowUsernameLookups.Where(r => r.GoldMineUsername == goldmineValue) select r.WorkFlowUsername).FirstOrDefault();
+                    if(!string.IsNullOrEmpty(riftValue))
+                    {
+                        translatedCaseOwner = riftValue.Split('@')[0];
+                    }
+                }
+            }
+            return translatedCaseOwner;            
+        }
+
         public string GetContact(string accountno)
         {
             string contact = string.Empty;

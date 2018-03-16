@@ -33,6 +33,7 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
         public virtual DbSet<GCTSC_ChangeTracking> GCTSC_ChangeTracking { get; set; }
         public virtual DbSet<GCTSC_ChangeTracking_Requests> GCTSC_ChangeTracking_Requests { get; set; }
         public virtual DbSet<GCTSC_ChangeTracking_UpdateRequests> GCTSC_ChangeTracking_UpdateRequests { get; set; }
+        public virtual DbSet<WorkFlowUsernameLookup> WorkFlowUsernameLookups { get; set; }
     
         public virtual int TESTs_ClearGCTSCChangeTrackingLogs()
         {

@@ -39,6 +39,10 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 restRequest.AddParameter("qualified_at", changedValue);
             }
+            if(requestType == Enums.Enums.SendRequest.UBCASEOWN)
+            {
+                restRequest.AddParameter("case_owner_id", changedValue);
+            }
             return restRequest;
         }
 
@@ -91,6 +95,12 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 request.AddParameter("phone_number_kind_id", (int)Enums.Enums.PhoneNumberKind.General);
             }
+            return request;
+        }
+
+        public static IRestRequest CreateCaseOwnerBody(string changedValue, IRestRequest request)
+        {
+            request.AddParameter("name", changedValue);
             return request;
         }
     }

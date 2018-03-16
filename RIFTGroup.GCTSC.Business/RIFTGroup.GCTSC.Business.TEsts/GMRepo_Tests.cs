@@ -174,6 +174,14 @@ namespace RIFTGroup.GCTSC.Business.Tests
             string actual = _gmRepo.GetUemailaddr(_testAccountno);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void GetTranslatedCaseOwner_FromAccountno()
+        {
+            string expected = "larnold";
+            string actual = _gmRepo.GetTranslatedCaseOwner(_testAccountno);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 

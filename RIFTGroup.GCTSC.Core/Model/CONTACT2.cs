@@ -647,5 +647,19 @@ namespace RIFTGroup.GCTSC.Core
         public Nullable<double> U21REFAC { get; set; }
         public Nullable<double> U22REFEC { get; set; }
         public Nullable<double> U22REFAC { get; set; }
+        public Nullable<System.DateTime> U22ADPKSNT { get; set; }
+        public Nullable<System.DateTime> U22ADPKREC { get; set; }
+        public string U22ASPKTYP { get; set; }
+        public string U22LOGBOOK { get; set; }
+        public Nullable<System.DateTime> U22PCKGRAD { get; set; }
+        public Nullable<System.DateTime> U22ADPKRDY { get; set; }
+        public string U22BOXNO { get; set; }
+        public string U22ADPKISS { get; set; }
+        public Nullable<double> U20EXPVAT { get; set; }
+        public Nullable<double> U20ACTVAT { get; set; }
+        public Nullable<double> U21EXPVAT { get; set; }
+        public Nullable<double> U21ACTVAT { get; set; }
+        public Nullable<double> U22EXPVAT { get; set; }
+        public Nullable<double> U22ACTVAT { get; set; }
     }
 }

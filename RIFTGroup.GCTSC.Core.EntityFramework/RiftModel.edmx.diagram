@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="RiftModel.GCTSC_ChangeTracking_UpdateRequests" Width="3.5" PointX="11.125" PointY="1.125" />
         <AssociationConnector Association="RiftModel.FK_ChangeTracking_Requests" />
         <AssociationConnector Association="RiftModel.FK_ChangeTracking_UpdateRequests" />
+        <EntityTypeShape EntityType="RiftModel.WorkFlowUsernameLookup" Width="2.125" PointX="0.75" PointY="6.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

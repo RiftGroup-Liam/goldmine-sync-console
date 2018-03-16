@@ -623,19 +623,19 @@
           <Property Name="USTA1CALLS" Type="int" />
           <Property Name="USTA2CALLS" Type="int" />
           <Property Name="U4WILLSTAT" Type="varchar" MaxLength="20" />
+          <Property Name="U20EXPREF" Type="float" />
           <Property Name="U21SERVT" Type="varchar" MaxLength="30" />
           <Property Name="U22SERVT" Type="varchar" MaxLength="30" />
           <Property Name="U21TYPE" Type="varchar" MaxLength="10" />
           <Property Name="U22TYPE" Type="varchar" MaxLength="10" />
-          <Property Name="UY20ACTREF" Type="float" />
-          <Property Name="UY21ACTREF" Type="float" />
-          <Property Name="UY22ACTREF" Type="float" />
-          <Property Name="U20EXPREF" Type="float" />
           <Property Name="U21EXPREF" Type="float" />
           <Property Name="U22EXPREF" Type="float" />
           <Property Name="U20EXPFEE" Type="float" />
           <Property Name="U21EXPFEE" Type="float" />
           <Property Name="U22EXPFEE" Type="float" />
+          <Property Name="UY20ACTREF" Type="float" />
+          <Property Name="UY21ACTREF" Type="float" />
+          <Property Name="UY22ACTREF" Type="float" />
           <Property Name="UY20ACTFEE" Type="float" />
           <Property Name="UY21ACTFEE" Type="float" />
           <Property Name="UY22ACTFEE" Type="float" />
@@ -644,26 +644,34 @@
           <Property Name="UY22COM" Type="datetime" />
           <Property Name="U20ADPKSNT" Type="datetime" />
           <Property Name="U21ADPKSNT" Type="datetime" />
+          <Property Name="U22ADPKSNT" Type="datetime" />
           <Property Name="U20ADPKREC" Type="datetime" />
           <Property Name="U21ADPKREC" Type="datetime" />
+          <Property Name="U22ADPKREC" Type="datetime" />
           <Property Name="U20ASPKTYP" Type="varchar" MaxLength="50" />
           <Property Name="U21ASPKTYP" Type="varchar" MaxLength="50" />
+          <Property Name="U22ASPKTYP" Type="varchar" MaxLength="50" />
           <Property Name="U20LOGBOOK" Type="varchar" MaxLength="10" />
           <Property Name="U21LOGBOOK" Type="varchar" MaxLength="10" />
+          <Property Name="U22LOGBOOK" Type="varchar" MaxLength="10" />
           <Property Name="U20PCKGRAD" Type="datetime" />
           <Property Name="U21PCKGRAD" Type="datetime" />
+          <Property Name="U22PCKGRAD" Type="datetime" />
           <Property Name="U20ADPKRDY" Type="datetime" />
           <Property Name="U21ADPKRDY" Type="datetime" />
+          <Property Name="U22ADPKRDY" Type="datetime" />
           <Property Name="U20BOXNO" Type="varchar" MaxLength="30" />
           <Property Name="U21BOXNO" Type="varchar" MaxLength="30" />
+          <Property Name="U22BOXNO" Type="varchar" MaxLength="30" />
           <Property Name="U20FEEDAT" Type="datetime" />
           <Property Name="U21FEEDAT" Type="datetime" />
-          <Property Name="U21ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U22FEEDAT" Type="datetime" />
           <Property Name="U20ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U21ADPKISS" Type="varchar" MaxLength="30" />
+          <Property Name="U22ADPKISS" Type="varchar" MaxLength="30" />
           <Property Name="U20USER" Type="varchar" MaxLength="20" />
           <Property Name="U21USER" Type="varchar" MaxLength="20" />
           <Property Name="U22USER" Type="varchar" MaxLength="20" />
-          <Property Name="U22FEEDAT" Type="datetime" />
           <Property Name="U20SIGNED" Type="varchar" MaxLength="10" />
           <Property Name="U21SIGNED" Type="varchar" MaxLength="10" />
           <Property Name="U22SIGNED" Type="varchar" MaxLength="10" />
@@ -693,10 +701,16 @@
           <Property Name="UY22RRCOM" Type="varchar" MaxLength="3" />
           <Property Name="U20REFEC" Type="float" />
           <Property Name="U20REFAC" Type="float" />
+          <Property Name="U20EXPVAT" Type="float" />
+          <Property Name="U20ACTVAT" Type="float" />
           <Property Name="U21REFEC" Type="float" />
           <Property Name="U21REFAC" Type="float" />
+          <Property Name="U21EXPVAT" Type="float" />
+          <Property Name="U21ACTVAT" Type="float" />
           <Property Name="U22REFEC" Type="float" />
           <Property Name="U22REFAC" Type="float" />
+          <Property Name="U22EXPVAT" Type="float" />
+          <Property Name="U22ACTVAT" Type="float" />
           <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="CONTSUPP">
@@ -741,15 +755,6 @@
         <Function Name="CONTSUPPChangeTracking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LastVersionNumber" Type="int" Mode="In" />
         </Function>
-        <Function Name="TESTS_CreateContact1Change" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="accountno" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="TESTS_CreateContact2Change" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="accountno" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="TESTS_CreateContsuppChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="accountno" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="TESTS_CreateNonBAUCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accountno" Type="nvarchar" Mode="In" />
         </Function>
@@ -768,13 +773,10 @@
           <EntitySet Name="CONTACT2" EntityType="GoldmineModel.CONTACT2" />
           <EntitySet Name="CONTSUPPs" EntityType="GoldmineModel.CONTSUPP" />
           <FunctionImport Name="CONTACT1ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT1ChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CONTSUPPChangeTracking" ReturnType="Collection(GoldmineModel.CONTSUPPChangeTracking_Result)">
-            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TESTS_CreateContact1Change">
             <Parameter Name="accountno" Mode="In" Type="String" />
@@ -785,10 +787,13 @@
           <FunctionImport Name="TESTS_CreateContsuppChange">
             <Parameter Name="accountno" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Tests_GCTSC_UpdateGMRepoTestData" />
           <FunctionImport Name="TESTS_CreateNonBAUCustomer">
             <Parameter Name="accountno" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Tests_GCTSC_UpdateGMRepoTestData" />
         </EntityContainer>
         <EntityType Name="CONTACT1">
           <Key>
@@ -1483,6 +1488,20 @@
           <Property Name="U21REFAC" Type="Double" />
           <Property Name="U22REFEC" Type="Double" />
           <Property Name="U22REFAC" Type="Double" />
+          <Property Name="U22ADPKSNT" Type="DateTime" Precision="3" />
+          <Property Name="U22ADPKREC" Type="DateTime" Precision="3" />
+          <Property Name="U22ASPKTYP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="U22LOGBOOK" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="U22PCKGRAD" Type="DateTime" Precision="3" />
+          <Property Name="U22ADPKRDY" Type="DateTime" Precision="3" />
+          <Property Name="U22BOXNO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U22ADPKISS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="U20EXPVAT" Type="Double" />
+          <Property Name="U20ACTVAT" Type="Double" />
+          <Property Name="U21EXPVAT" Type="Double" />
+          <Property Name="U21ACTVAT" Type="Double" />
+          <Property Name="U22EXPVAT" Type="Double" />
+          <Property Name="U22ACTVAT" Type="Double" />
         </EntityType>
         <EntityType Name="CONTSUPP">
           <Key>
@@ -1533,6 +1552,16 @@
           <Property Type="Int32" Name="phone3Changed" Nullable="true" />
           <Property Type="String" Name="rectype" Nullable="true" MaxLength="35" />
         </ComplexType>
+        <ComplexType Name="CONTSUPPChangeTracking_Result">
+          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
+          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
+          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
+          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
+          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="recid" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="contsuprefChanged" Nullable="true" />
+          <Property Type="String" Name="RecType" Nullable="true" MaxLength="35" />
+        </ComplexType>
         <ComplexType Name="CONTACT2ChangeTracking_Result">
           <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
           <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
@@ -1543,17 +1572,8 @@
           <Property Type="Int32" Name="uemailaddrChanged" Nullable="true" />
           <Property Type="Int32" Name="ustage1datChanged" Nullable="true" />
           <Property Type="Int32" Name="uconvdatChanged" Nullable="true" />
+          <Property Type="Int32" Name="ubcaseownChanged" Nullable="true" />
           <Property Type="String" Name="RECTYPE" Nullable="true" MaxLength="35" />
-        </ComplexType>
-        <ComplexType Name="CONTSUPPChangeTracking_Result">
-          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
-          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
-          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
-          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
-          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="recid" Nullable="false" MaxLength="15" />
-          <Property Type="Int32" Name="contsuprefChanged" Nullable="true" />
-          <Property Type="String" Name="RecType" Nullable="true" MaxLength="35" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1621,6 +1641,20 @@
           <EntitySetMapping Name="CONTACT2">
             <EntityTypeMapping TypeName="GoldmineModel.CONTACT2">
               <MappingFragment StoreEntitySet="CONTACT2">
+                <ScalarProperty Name="U22ACTVAT" ColumnName="U22ACTVAT" />
+                <ScalarProperty Name="U22EXPVAT" ColumnName="U22EXPVAT" />
+                <ScalarProperty Name="U21ACTVAT" ColumnName="U21ACTVAT" />
+                <ScalarProperty Name="U21EXPVAT" ColumnName="U21EXPVAT" />
+                <ScalarProperty Name="U20ACTVAT" ColumnName="U20ACTVAT" />
+                <ScalarProperty Name="U20EXPVAT" ColumnName="U20EXPVAT" />
+                <ScalarProperty Name="U22ADPKISS" ColumnName="U22ADPKISS" />
+                <ScalarProperty Name="U22BOXNO" ColumnName="U22BOXNO" />
+                <ScalarProperty Name="U22ADPKRDY" ColumnName="U22ADPKRDY" />
+                <ScalarProperty Name="U22PCKGRAD" ColumnName="U22PCKGRAD" />
+                <ScalarProperty Name="U22LOGBOOK" ColumnName="U22LOGBOOK" />
+                <ScalarProperty Name="U22ASPKTYP" ColumnName="U22ASPKTYP" />
+                <ScalarProperty Name="U22ADPKREC" ColumnName="U22ADPKREC" />
+                <ScalarProperty Name="U22ADPKSNT" ColumnName="U22ADPKSNT" />
                 <ScalarProperty Name="U22REFAC" ColumnName="U22REFAC" />
                 <ScalarProperty Name="U22REFEC" ColumnName="U22REFEC" />
                 <ScalarProperty Name="U21REFAC" ColumnName="U21REFAC" />
@@ -2311,22 +2345,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CONTACT2ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT2ChangeTracking">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT2ChangeTracking_Result">
-                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
-                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
-                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
-                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
-                <ScalarProperty Name="uemailaddrChanged" ColumnName="uemailaddrChanged" />
-                <ScalarProperty Name="ustage1datChanged" ColumnName="ustage1datChanged" />
-                <ScalarProperty Name="uconvdatChanged" ColumnName="uconvdatChanged" />
-                <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CONTSUPPChangeTracking" FunctionName="GoldmineModel.Store.CONTSUPPChangeTracking">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GoldmineModel.CONTSUPPChangeTracking_Result">
@@ -2341,11 +2359,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="TESTS_CreateContact1Change" FunctionName="GoldmineModel.Store.TESTS_CreateContact1Change" />
-          <FunctionImportMapping FunctionImportName="TESTS_CreateContact2Change" FunctionName="GoldmineModel.Store.TESTS_CreateContact2Change" />
-          <FunctionImportMapping FunctionImportName="TESTS_CreateContsuppChange" FunctionName="GoldmineModel.Store.TESTS_CreateContsuppChange" />
-          <FunctionImportMapping FunctionImportName="TESTS_CreateNonBAUCustomer" FunctionName="GoldmineModel.Store.TESTS_CreateNonBAUCustomer" />
+          <FunctionImportMapping FunctionImportName="CONTACT2ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT2ChangeTracking">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT2ChangeTracking_Result">
+                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
+                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
+                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+                <ScalarProperty Name="uemailaddrChanged" ColumnName="uemailaddrChanged" />
+                <ScalarProperty Name="ustage1datChanged" ColumnName="ustage1datChanged" />
+                <ScalarProperty Name="uconvdatChanged" ColumnName="uconvdatChanged" />
+                <ScalarProperty Name="ubcaseownChanged" ColumnName="ubcaseownChanged" />
+                <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Tests_GCTSC_UpdateGMRepoTestData" FunctionName="GoldmineModel.Store.Tests_GCTSC_UpdateGMRepoTestData" />
+          <FunctionImportMapping FunctionImportName="TESTS_CreateNonBAUCustomer" FunctionName="GoldmineModel.Store.TESTS_CreateNonBAUCustomer" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

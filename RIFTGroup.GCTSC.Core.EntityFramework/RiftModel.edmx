@@ -52,6 +52,16 @@
           <Property Name="Key" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="256" />
         </EntityType>
+        <EntityType Name="WorkFlowUsernameLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoldMineUsername" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="WorkFlowUsername" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Deleted" Type="datetime" />
+        </EntityType>
         <Association Name="FK_ChangeTracking_Requests">
           <End Role="GCTSC_ChangeTracking" Type="Self.GCTSC_ChangeTracking" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -88,6 +98,7 @@
           <EntitySet Name="GCTSC_ChangeTracking_UpdateRequests" EntityType="Self.GCTSC_ChangeTracking_UpdateRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GCTSC_ExceptionLogging" EntityType="Self.GCTSC_ExceptionLogging" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemKey" EntityType="Self.SystemKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkFlowUsernameLookup" EntityType="Self.WorkFlowUsernameLookup" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ChangeTracking_Requests" Association="Self.FK_ChangeTracking_Requests">
             <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
             <End Role="GCTSC_ChangeTracking_Requests" EntitySet="GCTSC_ChangeTracking_Requests" />
@@ -125,6 +136,7 @@
             <End Role="GCTSC_ChangeTracking" EntitySet="GCTSC_ChangeTracking" />
             <End Role="GCTSC_ChangeTracking_UpdateRequests" EntitySet="GCTSC_ChangeTracking_UpdateRequests" />
           </AssociationSet>
+          <EntitySet Name="WorkFlowUsernameLookups" EntityType="RiftModel.WorkFlowUsernameLookup" />
           </EntityContainer>
         <EntityType Name="GCTSC_ExceptionLogging">
           <Key>
@@ -197,6 +209,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WorkFlowUsernameLookup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoldMineUsername" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="WorkFlowUsername" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Deleted" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -253,6 +275,17 @@
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Change" ColumnName="Change" />
                 <ScalarProperty Name="ChangeTrackingId" ColumnName="ChangeTrackingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkFlowUsernameLookups">
+            <EntityTypeMapping TypeName="RiftModel.WorkFlowUsernameLookup">
+              <MappingFragment StoreEntitySet="WorkFlowUsernameLookup">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="WorkFlowUsername" ColumnName="WorkFlowUsername" />
+                <ScalarProperty Name="GoldMineUsername" ColumnName="GoldMineUsername" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

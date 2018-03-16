@@ -62,7 +62,78 @@ namespace RIFTGroup.GCTSC.Core
                 UpdateCurrentPhoneNumbersToNonActive(ro, changedValue);
             }
             return ro;
-        }        
+        }
+
+        public ResultsObject SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest ubcaseown, ResultsObject ro, string changedValue)
+        {
+            string caseownerId = GetCaseownerId(changedValue);
+            if(caseownerId == "0")
+            {
+                caseownerId = CreateCaseOwnerRequest(changedValue, ubcaseown, ro);
+            }
+            ro = SendUpdatePersonRequest(ubcaseown, ro, caseownerId.ToString());
+            return ro;
+        }
+
+        private string CreateCaseOwnerRequest(string changedValue, Enums.Enums.SendRequest requestType, ResultsObject ro)
+        {
+            string newCaseOwnerId = string.Empty;
+            if (!string.IsNullOrEmpty(changedValue))
+            {
+                IRestRequest request = new RestRequest("/case_owners", Method.POST);
+                request.AddHeader("Authentication-Token", _apiToken);
+                request = RequestBodyHelper.CreateCaseOwnerBody(changedValue, request);
+
+                if (_appSettings.RunAsConsole)
+                { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                IRestResponse response = _restClient.Execute(request);
+                if (_appSettings.RunAsConsole)
+                {
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                }
+
+                CreateCaseOwnerResponse createCaseownerResponse = JsonConvert.DeserializeObject<CreateCaseOwnerResponse>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
+                });
+                if(createCaseownerResponse != null) { newCaseOwnerId = createCaseownerResponse.Id; }
+            }
+            return newCaseOwnerId;
+        }
+
+        private string GetCaseownerId(string changedValue)
+        {
+            string caseownerId = string.Empty;
+
+            IRestRequest request = new RestRequest("/case_owners?name=" + changedValue);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<CaseOwnerResponse> caseownerResponse = JsonConvert.DeserializeObject<List<CaseOwnerResponse>>(response.Content);
+                if (caseownerResponse.Count != 0)
+                {
+                    caseownerId = caseownerResponse[0].Id;
+                }
+            }
+
+            return caseownerId;
+        }
 
         public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
         {

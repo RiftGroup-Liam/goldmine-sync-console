@@ -18,5 +18,7 @@ namespace RIFTGroup.GCTSC.Core
 
         public bool ustage1dat_bool { get { return ustage1datChanged.Value == 1; } }
         public bool uconvdate_bool { get { return uconvdatChanged.Value == 1; } }
+
+        public bool ubcaseown_bool { get { return ubcaseownChanged.Value == 1; } }
     }
 }

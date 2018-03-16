@@ -29,7 +29,8 @@ namespace RIFTGroup.GCTSC.Core.Enums
             USTAGE1DAT = 9,
             UEMAILADDR = 10,
             CONTSUPREF = 11,
-            CREATE = 12
+            CREATE = 12,
+            UBCASEOWN = 13
         }
 
         public enum PhoneNumberKind
