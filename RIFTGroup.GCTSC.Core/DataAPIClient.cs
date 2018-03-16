@@ -67,7 +67,7 @@ namespace RIFTGroup.GCTSC.Core
         public ResultsObject SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest ubcaseown, ResultsObject ro, string changedValue)
         {
             string caseownerId = GetCaseownerId(changedValue);
-            if(caseownerId == "0")
+            if(caseownerId == "")
             {
                 caseownerId = CreateCaseOwnerRequest(changedValue, ubcaseown, ro);
             }
