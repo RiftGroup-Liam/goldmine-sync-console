@@ -98,9 +98,25 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
+        public static IRestRequest UpdateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool changedValue, IRestRequest request, string personId, string existingPreferenceId)
+        {
+            request.AddParameter("person_id", personId);
+            request.AddParameter("permitted", changedValue.ToString().ToLower());
+            request.AddParameter("name", type.ToString().ToLower());
+            return request;
+        }
+
         public static IRestRequest CreateCaseOwnerBody(string changedValue, IRestRequest request)
         {
             request.AddParameter("name", changedValue);
+            return request;
+        }
+
+        public static IRestRequest CreateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool changedValue, IRestRequest request, string person_id)
+        {
+            request.AddParameter("person_id", person_id);
+            request.AddParameter("permitted", changedValue.ToString().ToLower());
+            request.AddParameter("name", type.ToString().ToLower());
             return request;
         }
     }

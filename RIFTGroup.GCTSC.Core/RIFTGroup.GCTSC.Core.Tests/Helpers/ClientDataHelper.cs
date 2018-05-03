@@ -22,7 +22,11 @@ namespace RIFTGroup.GCTSC.Core.Tests.Helpers
                     Phone3 = "07849588000",
                     UconvDate = "2018-02-13",
                     UStage1Dat = "2018-02-13",
-                    UEmailAddr = "larnold@riftgroup.com"
+                    UEmailAddr = "larnold@riftgroup.com",
+                    EmailPreference = "Yes",
+                    PhonePreference = "No",
+                    SMSPreference = "Yes",
+                    PostPreference = "No",
                 };
             }
         }

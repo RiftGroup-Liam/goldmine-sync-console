@@ -20,6 +20,10 @@ namespace RIFTGroup.GCTSC.Business.Helpers
             clientData.UconvDate = c2.UCONVDATE.ToString();
             clientData.UStage1Dat = c2.USTAGE1DAT.ToString();
             clientData.UEmailAddr = c2.UEMAILADDR;
+            clientData.PostPreference = c2.UCPPOST;
+            clientData.EmailPreference = c2.UCPEMAIL;
+            clientData.PhonePreference = c2.UCPPHONE;
+            clientData.SMSPreference = c2.UCPSMS;
             return clientData;
         }
     }

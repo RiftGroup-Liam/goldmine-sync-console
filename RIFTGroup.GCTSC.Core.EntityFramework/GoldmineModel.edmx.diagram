@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8bb167d6811b4a1b80b90e3929483d5f" Name="Diagram1" ZoomLevel="82" >
         <EntityTypeShape EntityType="GoldmineModel.CONTACT1" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GoldmineModel.CONTACT2" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="GoldmineModel.CONTSUPP" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GoldmineModel.CONTACT2" Width="1.5" PointX="3" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

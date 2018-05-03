@@ -18,5 +18,9 @@ namespace RIFTGroup.GCTSC.Core
         public string UconvDate { get; set; }
         public string UStage1Dat { get; set; }
         public string UEmailAddr { get; set; }
+        public string EmailPreference { get; set; }
+        public string PhonePreference { get; set; }
+        public string PostPreference { get; set; }
+        public string SMSPreference { get; set; }
     }
 }

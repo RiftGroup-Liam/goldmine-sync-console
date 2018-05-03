@@ -37,7 +37,7 @@ namespace RIFTGroup.GCTSC.Business
         public ResultsObject ProcessContact2Requests(CONTACT2ChangeTracking_Result ctResult)
         {
             ResultsObject ro = new ResultsObject();
-            if (ro.Responses == null) { ro.Responses = new List<ResponseDetails>(); } ;
+            if (ro.Responses == null) { ro.Responses = new List<ResponseDetails>(); };
             ro = _gm_repo.GetReferenceNumberFromAccountno(ctResult.ACCOUNTNO, ro);
             ro.Accountno = ctResult.ACCOUNTNO;
             if (ctResult.uemailaddrChanged_bool)
@@ -45,20 +45,52 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetUemailaddr(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.UEMAILADDR, ro, changedValue);
             }
-            if(ctResult.ustage1dat_bool)
+            if (ctResult.ustage1dat_bool)
             {
                 string changedValue = _gm_repo.GetUstage1dat(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.USTAGE1DAT, ro, changedValue);
             }
-            if(ctResult.uconvdate_bool)
+            if (ctResult.uconvdate_bool)
             {
                 string changedValue = _gm_repo.GetUconvdate(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.UCONVDATE, ro, changedValue);
             }
-            if(ctResult.ubcaseown_bool)
+            if (ctResult.ubcaseown_bool)
             {
                 string changedValue = _gm_repo.GetTranslatedCaseOwner(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdateCaseOwnerRequest(Enums.SendRequest.UBCASEOWN, ro, changedValue);
+            }
+            if (ctResult.ucpphone_bool)
+            {
+                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Phone).HasValue)
+                {
+                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Phone).Value;
+                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Phone, ro, changedValue);
+                }
+            }
+            if (ctResult.ucppost_bool)
+            {
+                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Post).HasValue)
+                {
+                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Post).Value;
+                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, changedValue);
+                }
+            }
+            if (ctResult.ucpemail_bool)
+            {
+                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Email).HasValue)
+                {
+                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Email).Value;
+                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, changedValue);
+                }
+            }
+            if (ctResult.ucpsms_bool)
+            {
+                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS).HasValue)
+                {
+                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS).Value;
+                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.SMS, ro, changedValue);
+                }
             }
             _applicationLogging.Log(ro);
             return ro;
@@ -75,32 +107,32 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetKey5(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.KEY5, ro, changedValue);
             }
-            if(ctResult.contactChanged_bool)
+            if (ctResult.contactChanged_bool)
             {
                 string changedValue = _gm_repo.GetContact(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.CONTACT, ro, changedValue);
             }
-            if(ctResult.secrChanged_bool)
+            if (ctResult.secrChanged_bool)
             {
                 string changedValue = _gm_repo.GetSecr(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.SECR, ro, changedValue);
             }
-            if(ctResult.LastnameChanged_bool)
+            if (ctResult.LastnameChanged_bool)
             {
                 string changedValue = _gm_repo.GetLastname(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.LASTNAME, ro, changedValue);
             }
-            if(ctResult.phone1Changed_bool)
+            if (ctResult.phone1Changed_bool)
             {
                 string changedValue = _gm_repo.GetPhone1(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE1, ro, changedValue);
             }
-            if(ctResult.phone2Changed_bool)
+            if (ctResult.phone2Changed_bool)
             {
                 string changedValue = _gm_repo.GetPhone2(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE2, ro, changedValue);
             }
-            if(ctResult.phone3Changed_bool)
+            if (ctResult.phone3Changed_bool)
             {
                 string changedValue = _gm_repo.GetPhone3(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE3, ro, changedValue);
@@ -119,7 +151,48 @@ namespace RIFTGroup.GCTSC.Business
             ro = _apiClient.CreatePersonRequest(ro, clientData);
             ro = _apiClient.SendUpdateEmailAddressRequest(Enums.SendRequest.UEMAILADDR, ro, clientData.UEmailAddr);
             ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE1, ro, clientData.Phone1);
+            ro = CreateCommunicationPreferences(ro, clientData);
             _applicationLogging.Log(ro);
+            return ro;
+        }
+
+        private ResultsObject CreateCommunicationPreferences(ResultsObject ro, ClientData clientData)
+        {
+            if(clientData.PhonePreference == "Yes")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Phone, ro, true);
+            }
+            else if(clientData.PhonePreference == "No")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Phone, ro, false);
+            }
+
+            if(clientData.PostPreference == "Yes")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, true);
+            }
+            else if(clientData.PostPreference == "No")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, false);
+            }
+
+            if(clientData.SMSPreference == "Yes")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, true);
+            }
+            else if(clientData.SMSPreference == "No")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, false);
+            }
+
+            if (clientData.EmailPreference == "Yes")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, true);
+            }
+            else if (clientData.EmailPreference == "No")
+            {
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, false);
+            }
             return ro;
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Core.EntityFramework;
 using RIFTGroup.GCTSC.Business.Helpers;
+using RIFTGroup.GCTSC.Core.Enums;
 
 namespace RIFTGroup.GCTSC.Business
 {
@@ -75,6 +76,62 @@ namespace RIFTGroup.GCTSC.Business
                 secr = (from c in context.CONTACT1.Where(c => c.ACCOUNTNO == accountno) select c.SECR).FirstOrDefault();
             }
             return secr;
+        }
+
+        public bool? GetChangeCommunicationPreference(string accountno, Enums.CommPreferenceType type)
+        {
+            bool? changedValue = null;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                switch (type)
+                {
+                    case Enums.CommPreferenceType.Email:
+                        string emailValue = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UCPEMAIL).FirstOrDefault();
+                        if(emailValue == "Yes")
+                        {
+                            changedValue = true;
+                        }
+                        else
+                        {
+                            changedValue = false;
+                        }
+                        break;
+                    case Enums.CommPreferenceType.Phone:
+                        string phoneValue = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UCPPHONE).FirstOrDefault();
+                        if (phoneValue == "Yes")
+                        {
+                            changedValue = true;
+                        }
+                        else
+                        {
+                            changedValue = false;
+                        }
+                        break;
+                    case Enums.CommPreferenceType.Post:
+                        string postValue = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UCPPOST).FirstOrDefault();
+                        if (postValue == "Yes")
+                        {
+                            changedValue = true;
+                        }
+                        else
+                        {
+                            changedValue = false;
+                        }
+                        break;
+                    case Enums.CommPreferenceType.SMS:
+                        string smsValue = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UCPSMS).FirstOrDefault();
+                        if (smsValue == "Yes")
+                        {
+                            changedValue = true;
+                        }
+                        else
+                        {
+                            changedValue = false;
+                        }
+                        break;
+                }
+            }
+            return changedValue;
         }
 
         public string GetTranslatedCaseOwner(string accountno)

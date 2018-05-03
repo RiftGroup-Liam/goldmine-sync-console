@@ -30,7 +30,11 @@ namespace RIFTGroup.GCTSC.Core.Enums
             UEMAILADDR = 10,
             CONTSUPREF = 11,
             CREATE = 12,
-            UBCASEOWN = 13
+            UBCASEOWN = 13,
+            EMAILPREFERENCE = 14,
+            PHONEPREFERENCE = 15,
+            POSTPREFERENCE = 16,
+            SMSPREFERENCE = 17
         }
 
         public enum PhoneNumberKind
@@ -39,6 +43,14 @@ namespace RIFTGroup.GCTSC.Core.Enums
             Home = 2,
             Mobile = 3,
             General = 4
+        }
+
+        public enum CommPreferenceType
+        {
+            Phone,
+            Email,
+            SMS,
+            Post
         }
     }
 }

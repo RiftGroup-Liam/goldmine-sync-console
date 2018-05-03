@@ -116,13 +116,16 @@
     <Compile Include="Model\_CONTSUPPChangeTracking_Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReponseObjects\CaseOwnerResponse.cs" />
+    <Compile Include="ReponseObjects\CommunicationPreferenceResponse.cs" />
     <Compile Include="ReponseObjects\CreateCaseOwnerResponse.cs" />
+    <Compile Include="ReponseObjects\CreateCommunicationPreferenceResponse.cs" />
     <Compile Include="ReponseObjects\CreateEmailResponse.cs" />
     <Compile Include="ReponseObjects\CreatePersonResponse.cs" />
     <Compile Include="ReponseObjects\CreatePhoneNumberResponse.cs" />
     <Compile Include="ReponseObjects\EmailResponse.cs" />
     <Compile Include="ReponseObjects\PeopleResponse.cs" />
     <Compile Include="ReponseObjects\PhoneNumberResponse.cs" />
+    <Compile Include="ReponseObjects\UpdateCommunicationPreferenceResponse.cs" />
     <Compile Include="ReponseObjects\UpdateEmailResponse.cs" />
     <Compile Include="ReponseObjects\UpdatePeopleResponse.cs" />
     <Compile Include="ReponseObjects\UpdatePhoneResponse.cs" />

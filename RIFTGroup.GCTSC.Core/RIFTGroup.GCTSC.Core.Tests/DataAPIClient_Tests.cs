@@ -111,5 +111,19 @@ namespace RIFTGroup.GCTSC.Core.Tests
             ro = _restClient.SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest.UBCASEOWN, ro, "larnold");
             Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
         }
+
+        [TestMethod]
+        public void SendsUpdateCommunicationPreference_OKResponse()
+        {
+            ClientData clientData = _clientDataHelper.TestData;
+            ResultsObject ro = new ResultsObject()
+            {
+                Accountno = _testAccountno,
+                ReferenceNumber = clientData.Key5,
+            };
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdateCommunicationPreference(Enums.Enums.CommPreferenceType.Email, ro, false);
+            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
+        }
     }
 }
