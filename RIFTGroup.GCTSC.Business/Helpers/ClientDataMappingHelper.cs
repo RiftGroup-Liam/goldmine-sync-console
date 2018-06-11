@@ -24,6 +24,17 @@ namespace RIFTGroup.GCTSC.Business.Helpers
             clientData.EmailPreference = c2.UCPEMAIL;
             clientData.PhonePreference = c2.UCPPHONE;
             clientData.SMSPreference = c2.UCPSMS;
+            clientData.CompletedDate_2009 = c2.UY12COM;
+            clientData.CompletedDate_2010 = c2.UY13COM;
+            clientData.CompletedDate_2011 = c2.UY14COM;
+            clientData.CompletedDate_2012 = c2.UY15COM;
+            clientData.CompletedDate_2013 = c2.UY16COM;
+            clientData.CompletedDate_2014 = c2.UY17COM;
+            clientData.CompletedDate_2015 = c2.UY18COM;
+            clientData.CompletedDate_2016 = c2.UY19COM;
+            clientData.CompletedDate_2017 = c2.UY20COM;
+            clientData.CompletedDate_2018 = c2.UY21COM;
+            clientData.CompletedDate_2019 = c2.UY22COM;
             return clientData;
         }
     }

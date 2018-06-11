@@ -8,11 +8,12 @@ namespace RIFTGroup.GCTSC.Business.Tests
     [TestClass]
     public class GMRepo_Tests
     {
-        string _testRecid;
-        string _testAccountno;
-        string _testReferenceNumber;
-        ResultsObject _testRo;
-        GM_Repository _gmRepo;
+        private GM_Repository _gmRepo;
+        private string _testAccountno;
+        private string _testRecid;
+        private string _testReferenceNumber;
+        private ResultsObject _testRo;
+
         public GMRepo_Tests()
         {
             _gmRepo = new GM_Repository();
@@ -32,62 +33,12 @@ namespace RIFTGroup.GCTSC.Business.Tests
         }
 
         [TestMethod]
-        public void GetReferenceNumberFromRecid()
-        {
-            string expected = _testReferenceNumber;
-            ResultsObject actual = new ResultsObject();
-            actual = _gmRepo.GetReferenceNumberFromRecid(_testRecid, _testRo);
-            Assert.AreEqual(expected, actual.ReferenceNumber);
-        }
-
-        [TestMethod]
         public void GetAccountnoFromRecid()
         {
             string expected = _testAccountno;
             ResultsObject actual = new ResultsObject();
             actual = _gmRepo.GetAccountnoFromRecid(_testRecid, _testRo);
             Assert.AreEqual(expected, actual.Accountno);
-        }
-
-        [TestMethod]
-        public void GetReferenceNumberFromAccountno()
-        {
-            string expected = _testReferenceNumber;
-            ResultsObject actual = new ResultsObject();
-            actual = _gmRepo.GetReferenceNumberFromAccountno(_testAccountno, _testRo);
-            Assert.AreEqual(expected, actual.ReferenceNumber);
-        }
-
-        [TestMethod]
-        public void GetContsupref_FromRecid()
-        {
-            string expected = "liamarnold93@gmail.com";
-            string actual = _gmRepo.GetContsupref(_testRecid);
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void GetKey5_FromAccoutno()
-        {
-            string expected = _testReferenceNumber;
-            string actual = _gmRepo.GetKey5(_testAccountno);
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void GetSecr_FromAccountno()
-        {
-            string expected = "Liam";
-            string actual = _gmRepo.GetSecr(_testAccountno);
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void GetContact_FromAccountno()
-        {
-            string expected = "Liam Arnold";
-            string actual = _gmRepo.GetContact(_testAccountno);
-            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -117,6 +68,30 @@ namespace RIFTGroup.GCTSC.Business.Tests
             Assert.AreEqual(expectedClientData.UconvDate, actualClientData.UconvDate);
             Assert.AreEqual(expectedClientData.UStage1Dat, actualClientData.UStage1Dat);
             Assert.AreEqual(expectedClientData.UEmailAddr, actualClientData.UEmailAddr);
+        }
+
+        [TestMethod]
+        public void GetContact_FromAccountno()
+        {
+            string expected = "Liam Arnold";
+            string actual = _gmRepo.GetContact(_testAccountno);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetContsupref_FromRecid()
+        {
+            string expected = "liamarnold93@gmail.com";
+            string actual = _gmRepo.GetContsupref(_testRecid);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetKey5_FromAccoutno()
+        {
+            string expected = _testReferenceNumber;
+            string actual = _gmRepo.GetKey5(_testAccountno);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -152,10 +127,36 @@ namespace RIFTGroup.GCTSC.Business.Tests
         }
 
         [TestMethod]
-        public void GetUsatge1Dat_FromAccountno()
+        public void GetReferenceNumberFromAccountno()
         {
-            string expected = "13/02/2018 00:00:00";
-            string actual = _gmRepo.GetUstage1dat(_testAccountno);
+            string expected = _testReferenceNumber;
+            ResultsObject actual = new ResultsObject();
+            actual = _gmRepo.GetReferenceNumberFromAccountno(_testAccountno, _testRo);
+            Assert.AreEqual(expected, actual.ReferenceNumber);
+        }
+
+        [TestMethod]
+        public void GetReferenceNumberFromRecid()
+        {
+            string expected = _testReferenceNumber;
+            ResultsObject actual = new ResultsObject();
+            actual = _gmRepo.GetReferenceNumberFromRecid(_testRecid, _testRo);
+            Assert.AreEqual(expected, actual.ReferenceNumber);
+        }
+
+        [TestMethod]
+        public void GetSecr_FromAccountno()
+        {
+            string expected = "Liam";
+            string actual = _gmRepo.GetSecr(_testAccountno);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetTranslatedCaseOwner_FromAccountno()
+        {
+            string expected = "larnold";
+            string actual = _gmRepo.GetTranslatedCaseOwner(_testAccountno);
             Assert.AreEqual(expected, actual);
         }
 
@@ -176,12 +177,11 @@ namespace RIFTGroup.GCTSC.Business.Tests
         }
 
         [TestMethod]
-        public void GetTranslatedCaseOwner_FromAccountno()
+        public void GetUsatge1Dat_FromAccountno()
         {
-            string expected = "larnold";
-            string actual = _gmRepo.GetTranslatedCaseOwner(_testAccountno);
+            string expected = "13/02/2018 00:00:00";
+            string actual = _gmRepo.GetUstage1dat(_testAccountno);
             Assert.AreEqual(expected, actual);
         }
     }
 }
-
