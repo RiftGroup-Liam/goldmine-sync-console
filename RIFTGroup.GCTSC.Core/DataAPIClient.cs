@@ -167,6 +167,98 @@ namespace RIFTGroup.GCTSC.Core
             return existingCommunicationPreferenceId;
         }
 
+        public ResultsObject SendUpdateClaimStatus(Enums.Enums.Year year, ResultsObject ro)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            string existingYearId = GetCurrentClaimYear(year, personId, ro);
+            if (!string.IsNullOrEmpty(existingYearId))
+            {
+                ro = SendUpdateClaimStatusRequest(ro, existingYearId);
+            }
+            else
+            {
+                ro = CreateClaimYear(year, personId, ro);
+            }
+            return ro;
+        }
+
+        private ResultsObject CreateClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
+        {
+            IRestRequest request = new RestRequest("/person/claims", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateClaimYearBody(request, personId, year);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            CreateClaimYearResponse createResponse = JsonConvert.DeserializeObject<CreateClaimYearResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        private ResultsObject SendUpdateClaimStatusRequest(ResultsObject ro, string existingYearId)
+        {
+            IRestRequest request = new RestRequest(string.Format("/person/claims/{0}", existingYearId), Method.PATCH);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateUpdateClaimStatusBody(request, existingYearId);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            UpdateClaimStatusResponse updateResponse = JsonConvert.DeserializeObject<UpdateClaimStatusResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        private string GetCurrentClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
+        {
+            string currentClaimYearId = string.Empty;
+            IRestRequest request = new RestRequest(string.Format("/person/claims?person_id={0}&year={1}", personId, ((int)year).ToString()));
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<ClaimYearResponse> claimYearResponse = JsonConvert.DeserializeObject<List<ClaimYearResponse>>(response.Content);
+                if (claimYearResponse.Count != 0)
+                {
+                    currentClaimYearId = claimYearResponse[0].Id;
+                }
+            }
+
+            return currentClaimYearId;
+        }
+
         private string CreateCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro, bool changedValue)
         {
             string newCommunicationPreferenceId = string.Empty;

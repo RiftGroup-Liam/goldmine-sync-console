@@ -16,5 +16,20 @@ namespace RIFTGroup.GCTSC.Core
         public bool ucpphone_bool { get { return ucpphoneChanged.Value == 1; } }
         public bool ucpsms_bool { get { return ucpsmsChanged.Value == 1; } }
         public bool ucppost_bool { get { return ucppostChanged.Value == 1; } }
+
+        #region Completed_Dates
+        // Completed Dates
+        public bool uy12com_bool { get { return UY12COM.Value == 1; } }
+        public bool uy13com_bool { get { return UY13COM.Value == 1; } }
+        public bool uy14com_bool { get { return UY14COM.Value == 1; } }
+        public bool uy15com_bool { get { return UY15COM.Value == 1; } }
+        public bool uy16com_bool { get { return UY16COM.Value == 1; } }
+        public bool uy17com_bool { get { return UY17COM.Value == 1; } }
+        public bool uy18com_bool { get { return UY18COM.Value == 1; } }
+        public bool uy19com_bool { get { return UY19COM.Value == 1; } }
+        public bool uy20com_bool { get { return UY20COM.Value == 1; } }
+        public bool uy21com_bool { get { return UY21COM.Value == 1; } }
+        public bool uy22com_bool { get { return UY22COM.Value == 1; } }
+        #endregion
     }
 }

@@ -119,5 +119,20 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             request.AddParameter("name", type.ToString().ToLower());
             return request;
         }
+
+        public static IRestRequest CreateUpdateClaimStatusBody(IRestRequest request, string existingYearId)
+        {
+            request.AddParameter("id", existingYearId);
+            request.AddParameter("claim_status_id", "8");
+            return request;
+        }
+
+        public static IRestRequest CreateClaimYearBody(IRestRequest request, string personId, Enums.Enums.Year year)
+        {
+            request.AddParameter("person_id", personId);
+            request.AddParameter("year", ((int)year).ToString());
+            request.AddParameter("claim_status_id", "8");
+            return request;
+        }
     }
 }

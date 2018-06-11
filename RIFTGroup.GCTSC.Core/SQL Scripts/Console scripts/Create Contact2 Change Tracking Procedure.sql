@@ -1,7 +1,7 @@
 use GoldmineUAT
 go
 
-CREATE PROCEDURE dbo.CONTACT2ChangeTracking @LastVersionNumber int
+CREATE PROCEDURE dbo.SMC_CONTACT2ChangeTracking @LastVersionNumber int
 as
 
 DECLARE @UEMAILADDR int = COLUMNPROPERTY(
@@ -25,5 +25,4 @@ SELECT
 FROM  
     CHANGETABLE(CHANGES GoldmineUAT.dbo.CONTACT2, 1) AS CT  
 ) X
-where (X.uemailaddrChanged = 1 or X.ustage1datChanged = 1 or X.uconvdatChanged = 1)
-and X.SYS_CHANGE_VERSION > @LastVersionNumber
+where X.SYS_CHANGE_VERSION > @LastVersionNumber

@@ -711,10 +711,10 @@
           <Property Name="U22REFAC" Type="float" />
           <Property Name="U22EXPVAT" Type="float" />
           <Property Name="U22ACTVAT" Type="float" />
-          <Property Name="UCPPOST" Type="varchar" MaxLength="3" />
           <Property Name="UCPPHONE" Type="varchar" MaxLength="3" />
-          <Property Name="UCPSMS" Type="varchar" MaxLength="3" />
           <Property Name="UCPEMAIL" Type="varchar" MaxLength="3" />
+          <Property Name="UCPSMS" Type="varchar" MaxLength="3" />
+          <Property Name="UCPPOST" Type="varchar" MaxLength="3" />
           <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="CONTSUPP">
@@ -1581,6 +1581,17 @@
           <Property Type="Int32" Name="ucpsmsChanged" Nullable="true" />
           <Property Type="Int32" Name="ucpphoneChanged" Nullable="true" />
           <Property Type="Int32" Name="ubcaseownChanged" Nullable="true" />
+          <Property Type="Int32" Name="UY12COM" Nullable="true" />
+          <Property Type="Int32" Name="UY13COM" Nullable="true" />
+          <Property Type="Int32" Name="UY14COM" Nullable="true" />
+          <Property Type="Int32" Name="UY15COM" Nullable="true" />
+          <Property Type="Int32" Name="UY16COM" Nullable="true" />
+          <Property Type="Int32" Name="UY17COM" Nullable="true" />
+          <Property Type="Int32" Name="UY18COM" Nullable="true" />
+          <Property Type="Int32" Name="UY19COM" Nullable="true" />
+          <Property Type="Int32" Name="UY20COM" Nullable="true" />
+          <Property Type="Int32" Name="UY21COM" Nullable="true" />
+          <Property Type="Int32" Name="UY22COM" Nullable="true" />
           <Property Type="String" Name="RECTYPE" Nullable="true" MaxLength="35" />
         </ComplexType>
       </Schema>
@@ -2388,6 +2399,17 @@
                 <ScalarProperty Name="ucpsmsChanged" ColumnName="ucpsmsChanged" />
                 <ScalarProperty Name="ucpphoneChanged" ColumnName="ucpphoneChanged" />
                 <ScalarProperty Name="ubcaseownChanged" ColumnName="ubcaseownChanged" />
+                <ScalarProperty Name="UY12COM" ColumnName="UY12COM" />
+                <ScalarProperty Name="UY13COM" ColumnName="UY13COM" />
+                <ScalarProperty Name="UY14COM" ColumnName="UY14COM" />
+                <ScalarProperty Name="UY15COM" ColumnName="UY15COM" />
+                <ScalarProperty Name="UY16COM" ColumnName="UY16COM" />
+                <ScalarProperty Name="UY17COM" ColumnName="UY17COM" />
+                <ScalarProperty Name="UY18COM" ColumnName="UY18COM" />
+                <ScalarProperty Name="UY19COM" ColumnName="UY19COM" />
+                <ScalarProperty Name="UY20COM" ColumnName="UY20COM" />
+                <ScalarProperty Name="UY21COM" ColumnName="UY21COM" />
+                <ScalarProperty Name="UY22COM" ColumnName="UY22COM" />
                 <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
               </ComplexTypeMapping>
             </ResultMapping>

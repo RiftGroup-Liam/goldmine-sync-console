@@ -52,5 +52,20 @@ namespace RIFTGroup.GCTSC.Core.Enums
             SMS,
             Post
         }
+
+        public enum Year
+        {
+            UY12 = 2010,
+            UY13 = 2011,
+            UY14 = 2012,
+            UY15 = 2013,
+            UY16 = 2014,
+            UY17 = 2015,
+            UY18 = 2016,
+            UY19 = 2017,
+            UY20 = 2018,
+            UY21 = 2019,
+            UY22 = 2020
+        }
     }
 }

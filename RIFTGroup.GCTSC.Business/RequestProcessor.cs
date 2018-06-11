@@ -92,6 +92,7 @@ namespace RIFTGroup.GCTSC.Business
                     ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.SMS, ro, changedValue);
                 }
             }
+            ro = DoCompletedUpdates(ctResult, ro);
             _applicationLogging.Log(ro);
             return ro;
         }
@@ -192,6 +193,55 @@ namespace RIFTGroup.GCTSC.Business
             else if (clientData.EmailPreference == "No")
             {
                 ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, false);
+            }
+            return ro;
+        }
+
+        private ResultsObject DoCompletedUpdates(CONTACT2ChangeTracking_Result ctResult, ResultsObject ro)
+        {
+            if (ctResult.uy12com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY12, ro);
+            }
+            if (ctResult.uy13com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY13, ro);
+            }
+            if (ctResult.uy14com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY14, ro);
+            }
+            if (ctResult.uy15com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY15, ro);
+            }
+            if (ctResult.uy16com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY16, ro);
+            }
+            if (ctResult.uy17com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY17, ro);
+            }
+            if (ctResult.uy18com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY18, ro);
+            }
+            if (ctResult.uy19com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY19, ro);
+            }
+            if (ctResult.uy20com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY20, ro);
+            }
+            if (ctResult.uy21com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY21, ro);
+            }
+            if (ctResult.uy22com_bool)
+            {
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY22, ro);
             }
             return ro;
         }
