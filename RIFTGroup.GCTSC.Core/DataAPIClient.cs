@@ -14,16 +14,140 @@ namespace RIFTGroup.GCTSC.Core
 {
     public class DataAPIClient
     {
-        string _baseAddress;
-        string _apiToken;
-        RestClient _restClient;
-        AppSettings _appSettings;
+        private string _apiToken;
+        private AppSettings _appSettings;
+        private string _baseAddress;
+        private RestClient _restClient;
+
         public DataAPIClient()
         {
             _appSettings = new AppSettings();
             _baseAddress = _appSettings.ApiURL;
             _apiToken = _appSettings.APIToken;
             _restClient = new RestClient(_baseAddress);
+        }
+
+        public ResultsObject CreatePersonRequest(ResultsObject ro, ClientData clientData)
+        {
+            IRestRequest request = new RestRequest("/people/", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            request = RequestBodyHelper.CreatePersonRequestBody(request, clientData);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            CreatePersonResponse creatgePersonResponse = JsonConvert.DeserializeObject<CreatePersonResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.CREATE,
+                ChangedValue = "CREATE",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        public string GetPersonId(string referenceNumber)
+        {
+            string personId = string.Empty;
+            IRestRequest request = new RestRequest("/people?goldmine_customer_number=" + referenceNumber);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
+                if (peopleResponse.Count != 0)
+                {
+                    personId = peopleResponse[0].Id;
+                }
+            }
+
+            return personId;
+        }
+
+        public ResultsObject SendUpdateAllClaimsStatus(ResultsObject ro, int statusID)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            List<ClaimYearResponse> claims = GetPersonsClaims(personId);
+            foreach (var claim in claims)
+            {
+                int currentStatusID;
+                bool result = int.TryParse(claim.Claim_status_id, out currentStatusID);
+                if (result && currentStatusID <= statusID)
+                {
+                    ro = SendUpdateClaimStatusRequest(ro, claim.Id, statusID);
+                }
+            }
+
+            return ro;
+        }
+
+        public ResultsObject SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest ubcaseown, ResultsObject ro, string changedValue)
+        {
+            string caseownerId = GetCaseownerId(changedValue);
+            if (caseownerId == "")
+            {
+                caseownerId = CreateCaseOwnerRequest(changedValue, ubcaseown, ro);
+            }
+            ro = SendUpdatePersonRequest(ubcaseown, ro, caseownerId.ToString());
+            return ro;
+        }
+
+        public ResultsObject SendUpdateClaimStatus(Enums.Enums.Year year, ResultsObject ro, int statusID)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            string existingYearId = GetCurrentClaimYear(year, personId, ro);
+            if (!string.IsNullOrEmpty(existingYearId))
+            {
+                ro = SendUpdateClaimStatusRequest(ro, existingYearId, statusID);
+            }
+            else
+            {
+                ro = CreateClaimYear(year, personId, ro);
+            }
+            return ro;
+        }
+
+        public ResultsObject SendUpdateCommunicationPreference(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            string existingCommunicationPreferenceId = GetCurrentCommunicationPreference(type, personId, ro);
+            if (!string.IsNullOrEmpty(existingCommunicationPreferenceId))
+            {
+                SendUpdateCommunicationPreferenceRequest(type, ro, changedValue, personId, existingCommunicationPreferenceId);
+            }
+            else
+            {
+                CreateCommunicationPreference(type, personId, ro, changedValue);
+            }
+            return ro;
+        }
+
+        public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
+        {
+            ro = CreateNewEmailAddress(ro, requestType, changedValue);
+            if (ro.Responses.Last().SendResponse == Enums.Enums.SendResponse.OK)
+            {
+                UpdateCurrentEmailsToNonActive(ro, changedValue);
+            }
+            return ro;
         }
 
         public ResultsObject SendUpdatePersonRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
@@ -66,37 +190,43 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
-        public ResultsObject SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest ubcaseown, ResultsObject ro, string changedValue)
+        private string CreateCaseOwnerRequest(string changedValue, Enums.Enums.SendRequest requestType, ResultsObject ro)
         {
-            string caseownerId = GetCaseownerId(changedValue);
-            if (caseownerId == "")
+            string newCaseOwnerId = string.Empty;
+            if (!string.IsNullOrEmpty(changedValue))
             {
-                caseownerId = CreateCaseOwnerRequest(changedValue, ubcaseown, ro);
+                IRestRequest request = new RestRequest("/case_owners", Method.POST);
+                request.AddHeader("Authentication-Token", _apiToken);
+                request = RequestBodyHelper.CreateCaseOwnerBody(changedValue, request);
+
+                if (_appSettings.RunAsConsole)
+                { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                IRestResponse response = _restClient.Execute(request);
+                if (_appSettings.RunAsConsole)
+                {
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                }
+
+                CreateCaseOwnerResponse createCaseownerResponse = JsonConvert.DeserializeObject<CreateCaseOwnerResponse>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
+                });
+                if (createCaseownerResponse != null) { newCaseOwnerId = createCaseownerResponse.Id; }
             }
-            ro = SendUpdatePersonRequest(ubcaseown, ro, caseownerId.ToString());
-            return ro;
+            return newCaseOwnerId;
         }
 
-        public ResultsObject SendUpdateCommunicationPreference(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue)
+        private ResultsObject CreateClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
         {
-            string personId = GetPersonId(ro.ReferenceNumber);
-            string existingCommunicationPreferenceId = GetCurrentCommunicationPreference(type, personId, ro);
-            if (!string.IsNullOrEmpty(existingCommunicationPreferenceId))
-            {
-                SendUpdateCommunicationPreferenceRequest(type, ro, changedValue, personId, existingCommunicationPreferenceId);
-            }
-            else
-            {
-                CreateCommunicationPreference(type, personId, ro, changedValue);
-            }
-            return ro;
-        }
-
-        private void SendUpdateCommunicationPreferenceRequest(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue, string personId, string existingPreferenceId)
-        {
-            IRestRequest request = new RestRequest(string.Format("/person/communication_preferences/{0}", existingPreferenceId), Method.PATCH);
+            IRestRequest request = new RestRequest("/person/claims", Method.POST);
             request.AddHeader("Authentication-Token", _apiToken);
-            request = RequestBodyHelper.UpdateCommunicationPreferenceBody(type, changedValue, request, personId, existingPreferenceId);
+            request = RequestBodyHelper.CreateClaimYearBody(request, personId, year);
 
             if (_appSettings.RunAsConsole)
             { Console.WriteLine("Sending: {0}\n", request.Resource); }
@@ -107,7 +237,33 @@ namespace RIFTGroup.GCTSC.Core
                 Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
             }
 
-            UpdateCommunicationPreferenceResponse updateCommunicationPreferenceResponse = JsonConvert.DeserializeObject<UpdateCommunicationPreferenceResponse>(response.Content);
+            CreateClaimYearResponse createResponse = JsonConvert.DeserializeObject<CreateClaimYearResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        private string CreateCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro, bool changedValue)
+        {
+            string newCommunicationPreferenceId = string.Empty;
+            IRestRequest request = new RestRequest("/person/communication_preferences", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateCommunicationPreferenceBody(type, changedValue, request, personId);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            CreateCommunicationPreferenceResponse createCommunicationPreferenceResponse = JsonConvert.DeserializeObject<CreateCommunicationPreferenceResponse>(response.Content);
             ResponseDetails responseDetails = new ResponseDetails()
             {
                 ChangedValue = changedValue.ToString(),
@@ -120,17 +276,141 @@ namespace RIFTGroup.GCTSC.Core
                 case Enums.Enums.CommPreferenceType.Email:
                     responseDetails.SendRequest = Enums.Enums.SendRequest.EMAILPREFERENCE;
                     break;
+
                 case Enums.Enums.CommPreferenceType.Phone:
                     responseDetails.SendRequest = Enums.Enums.SendRequest.PHONEPREFERENCE;
                     break;
+
                 case Enums.Enums.CommPreferenceType.Post:
                     responseDetails.SendRequest = Enums.Enums.SendRequest.POSTPREFERENCE;
                     break;
+
                 case Enums.Enums.CommPreferenceType.SMS:
                     responseDetails.SendRequest = Enums.Enums.SendRequest.SMSPREFERENCE;
                     break;
             }
             ro.Responses.Add(responseDetails);
+            if (createCommunicationPreferenceResponse != null) { newCommunicationPreferenceId = createCommunicationPreferenceResponse.Id; }
+
+            return newCommunicationPreferenceId;
+        }
+
+        private ResultsObject CreateNewEmailAddress(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            if (!string.IsNullOrEmpty(personId))
+            {
+                IRestRequest request = new RestRequest("/person/email_addresses/", Method.POST);
+                request.AddHeader("Authentication-Token", _apiToken);
+
+                request = RequestBodyHelper.CreateEmailAddressBody(changedValue, personId, requestType, request);
+
+                if (_appSettings.RunAsConsole)
+                { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                IRestResponse response = _restClient.Execute(request);
+                if (_appSettings.RunAsConsole)
+                {
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                }
+
+                CreateEmailResponse createEmailResponse = JsonConvert.DeserializeObject<CreateEmailResponse>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
+                });
+            }
+            return ro;
+        }
+
+        private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            if (!string.IsNullOrEmpty(personId) && !string.IsNullOrEmpty(changedValue))
+            {
+                IRestRequest request = new RestRequest("/person/phone_numbers/", Method.POST);
+                request.AddHeader("Authentication-Token", _apiToken);
+                request = RequestBodyHelper.CreatePhoneNumberBody(changedValue, personId, requestType, request);
+
+                if (_appSettings.RunAsConsole)
+                { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                IRestResponse response = _restClient.Execute(request);
+                if (_appSettings.RunAsConsole)
+                {
+                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                }
+
+                CreatePhoneNumberResponse createPhoneNumberResponse = JsonConvert.DeserializeObject<CreatePhoneNumberResponse>(response.Content);
+                ro.Responses.Add(new ResponseDetails()
+                {
+                    SendRequest = requestType,
+                    ChangedValue = changedValue,
+                    URL = response.ResponseUri.ToString(),
+                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                    ResponseContent = response.Content
+                });
+            }
+            return ro;
+        }
+
+        private string GetCaseownerId(string changedValue)
+        {
+            string caseownerId = string.Empty;
+
+            IRestRequest request = new RestRequest("/case_owners?name=" + changedValue);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<CaseOwnerResponse> caseownerResponse = JsonConvert.DeserializeObject<List<CaseOwnerResponse>>(response.Content);
+                if (caseownerResponse.Count != 0)
+                {
+                    caseownerId = caseownerResponse[0].Id;
+                }
+            }
+
+            return caseownerId;
+        }
+
+        private string GetCurrentClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
+        {
+            string currentClaimYearId = string.Empty;
+            IRestRequest request = new RestRequest(string.Format("/person/claims?person_id={0}&year={1}", personId, ((int)year).ToString()));
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<ClaimYearResponse> claimYearResponse = JsonConvert.DeserializeObject<List<ClaimYearResponse>>(response.Content);
+                if (claimYearResponse.Count != 0)
+                {
+                    currentClaimYearId = claimYearResponse[0].Id;
+                }
+            }
+
+            return currentClaimYearId;
         }
 
         private string GetCurrentCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro)
@@ -167,151 +447,14 @@ namespace RIFTGroup.GCTSC.Core
             return existingCommunicationPreferenceId;
         }
 
-        public ResultsObject SendUpdateClaimStatus(Enums.Enums.Year year, ResultsObject ro)
+        private List<EmailResponse> GetEmailAddresses(ResultsObject ro)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
-            string existingYearId = GetCurrentClaimYear(year, personId, ro);
-            if (!string.IsNullOrEmpty(existingYearId))
+            List<EmailResponse> emailResponses = new List<EmailResponse>();
+            if (!string.IsNullOrEmpty(personId))
             {
-                ro = SendUpdateClaimStatusRequest(ro, existingYearId);
-            }
-            else
-            {
-                ro = CreateClaimYear(year, personId, ro);
-            }
-            return ro;
-        }
-
-        private ResultsObject CreateClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
-        {
-            IRestRequest request = new RestRequest("/person/claims", Method.POST);
-            request.AddHeader("Authentication-Token", _apiToken);
-            request = RequestBodyHelper.CreateClaimYearBody(request, personId, year);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            CreateClaimYearResponse createResponse = JsonConvert.DeserializeObject<CreateClaimYearResponse>(response.Content);
-            ro.Responses.Add(new ResponseDetails()
-            {
-                URL = response.ResponseUri.ToString(),
-                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                ResponseContent = response.Content
-            });
-            return ro;
-        }
-
-        private ResultsObject SendUpdateClaimStatusRequest(ResultsObject ro, string existingYearId)
-        {
-            IRestRequest request = new RestRequest(string.Format("/person/claims/{0}", existingYearId), Method.PATCH);
-            request.AddHeader("Authentication-Token", _apiToken);
-            request = RequestBodyHelper.CreateUpdateClaimStatusBody(request, existingYearId);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            UpdateClaimStatusResponse updateResponse = JsonConvert.DeserializeObject<UpdateClaimStatusResponse>(response.Content);
-            ro.Responses.Add(new ResponseDetails()
-            {
-                URL = response.ResponseUri.ToString(),
-                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                ResponseContent = response.Content
-            });
-            return ro;
-        }
-
-        private string GetCurrentClaimYear(Enums.Enums.Year year, string personId, ResultsObject ro)
-        {
-            string currentClaimYearId = string.Empty;
-            IRestRequest request = new RestRequest(string.Format("/person/claims?person_id={0}&year={1}", personId, ((int)year).ToString()));
-            request.AddHeader("Authentication-Token", _apiToken);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            if (response.Content != "[]" && response.Content != "")
-            {
-                List<ClaimYearResponse> claimYearResponse = JsonConvert.DeserializeObject<List<ClaimYearResponse>>(response.Content);
-                if (claimYearResponse.Count != 0)
-                {
-                    currentClaimYearId = claimYearResponse[0].Id;
-                }
-            }
-
-            return currentClaimYearId;
-        }
-
-        private string CreateCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro, bool changedValue)
-        {
-            string newCommunicationPreferenceId = string.Empty;
-            IRestRequest request = new RestRequest("/person/communication_preferences", Method.POST);
-            request.AddHeader("Authentication-Token", _apiToken);
-            request = RequestBodyHelper.CreateCommunicationPreferenceBody(type, changedValue, request, personId);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            CreateCommunicationPreferenceResponse createCommunicationPreferenceResponse = JsonConvert.DeserializeObject<CreateCommunicationPreferenceResponse>(response.Content);
-            ResponseDetails responseDetails = new ResponseDetails()
-            {
-                ChangedValue = changedValue.ToString(),
-                URL = response.ResponseUri.ToString(),
-                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                ResponseContent = response.Content
-            };
-            switch (type)
-            {
-                case Enums.Enums.CommPreferenceType.Email:
-                    responseDetails.SendRequest = Enums.Enums.SendRequest.EMAILPREFERENCE;
-                    break;
-                case Enums.Enums.CommPreferenceType.Phone:
-                    responseDetails.SendRequest = Enums.Enums.SendRequest.PHONEPREFERENCE;
-                    break;
-                case Enums.Enums.CommPreferenceType.Post:
-                    responseDetails.SendRequest = Enums.Enums.SendRequest.POSTPREFERENCE;
-                    break;
-                case Enums.Enums.CommPreferenceType.SMS:
-                    responseDetails.SendRequest = Enums.Enums.SendRequest.SMSPREFERENCE;
-                    break;
-            }
-            ro.Responses.Add(responseDetails);
-            if (createCommunicationPreferenceResponse != null) { newCommunicationPreferenceId = createCommunicationPreferenceResponse.Id; }
-
-            return newCommunicationPreferenceId;
-        }
-
-        private string CreateCaseOwnerRequest(string changedValue, Enums.Enums.SendRequest requestType, ResultsObject ro)
-        {
-            string newCaseOwnerId = string.Empty;
-            if (!string.IsNullOrEmpty(changedValue))
-            {
-                IRestRequest request = new RestRequest("/case_owners", Method.POST);
+                IRestRequest request = new RestRequest("/person/email_addresses?person_id=" + personId);
                 request.AddHeader("Authentication-Token", _apiToken);
-                request = RequestBodyHelper.CreateCaseOwnerBody(changedValue, request);
 
                 if (_appSettings.RunAsConsole)
                 { Console.WriteLine("Sending: {0}\n", request.Resource); }
@@ -322,155 +465,25 @@ namespace RIFTGroup.GCTSC.Core
                     Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
                 }
 
-                CreateCaseOwnerResponse createCaseownerResponse = JsonConvert.DeserializeObject<CreateCaseOwnerResponse>(response.Content);
+                emailResponses = JsonConvert.DeserializeObject<List<EmailResponse>>(response.Content);
                 ro.Responses.Add(new ResponseDetails()
                 {
-                    SendRequest = requestType,
-                    ChangedValue = changedValue,
                     URL = response.ResponseUri.ToString(),
                     SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
                     ResponseContent = response.Content
                 });
-                if (createCaseownerResponse != null) { newCaseOwnerId = createCaseownerResponse.Id; }
             }
-            return newCaseOwnerId;
+            return emailResponses;
         }
 
-        private string GetCaseownerId(string changedValue)
+        private List<ClaimYearResponse> GetPersonsClaims(string personId)
         {
-            string caseownerId = string.Empty;
+            List<ClaimYearResponse> claims = new List<ClaimYearResponse>();
 
-            IRestRequest request = new RestRequest("/case_owners?name=" + changedValue);
-            request.AddHeader("Authentication-Token", _apiToken);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
+            if (!string.IsNullOrEmpty(personId))
             {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            if (response.Content != "[]" && response.Content != "")
-            {
-                List<CaseOwnerResponse> caseownerResponse = JsonConvert.DeserializeObject<List<CaseOwnerResponse>>(response.Content);
-                if (caseownerResponse.Count != 0)
-                {
-                    caseownerId = caseownerResponse[0].Id;
-                }
-            }
-
-            return caseownerId;
-        }
-
-        public ResultsObject SendUpdateEmailAddressRequest(Enums.Enums.SendRequest requestType, ResultsObject ro, string changedValue)
-        {
-            ro = CreateNewEmailAddress(ro, requestType, changedValue);
-            if (ro.Responses.Last().SendResponse == Enums.Enums.SendResponse.OK)
-            {
-                UpdateCurrentEmailsToNonActive(ro, changedValue);
-            }
-            return ro;
-        }
-
-        public string GetPersonId(string referenceNumber)
-        {
-            string personId = string.Empty;
-            IRestRequest request = new RestRequest("/people?goldmine_customer_number=" + referenceNumber);
-            request.AddHeader("Authentication-Token", _apiToken);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            if (response.Content != "[]" && response.Content != "")
-            {
-                List<PeopleResponse> peopleResponse = JsonConvert.DeserializeObject<List<PeopleResponse>>(response.Content);
-                if (peopleResponse.Count != 0)
-                {
-                    personId = peopleResponse[0].Id;
-                }
-            }
-
-            return personId;
-        }
-
-        public ResultsObject CreatePersonRequest(ResultsObject ro, ClientData clientData)
-        {
-            IRestRequest request = new RestRequest("/people/", Method.POST);
-            request.AddHeader("Authentication-Token", _apiToken);
-
-            request = RequestBodyHelper.CreatePersonRequestBody(request, clientData);
-
-            if (_appSettings.RunAsConsole)
-            { Console.WriteLine("Sending: {0}\n", request.Resource); }
-            IRestResponse response = _restClient.Execute(request);
-            if (_appSettings.RunAsConsole)
-            {
-                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-            }
-
-            CreatePersonResponse creatgePersonResponse = JsonConvert.DeserializeObject<CreatePersonResponse>(response.Content);
-            ro.Responses.Add(new ResponseDetails()
-            {
-                SendRequest = Enums.Enums.SendRequest.CREATE,
-                ChangedValue = "CREATE",
-                URL = response.ResponseUri.ToString(),
-                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                ResponseContent = response.Content
-            });
-            return ro;
-        }
-
-        private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro, string changedValue)
-        {
-            List<PhoneNumberResponse> phoneNumbers = GetPhoneNumbers(ro);
-            if (phoneNumbers.Count > 0)
-            {
-                foreach (PhoneNumberResponse phoneNumber in phoneNumbers)
-                {
-                    if (phoneNumber.Subscriber_number != PhoneNumberHelper.CreateSubscriberNumber(changedValue))
-                    {
-                        IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
-                        request.AddHeader("Authentication-Token", _apiToken);
-                        request = RequestBodyHelper.CreateUpdatePhoneNumberToNonActiveRequestBody(request);
-
-                        if (_appSettings.RunAsConsole)
-                        { Console.WriteLine("Sending: {0}\n", request.Resource); }
-                        IRestResponse response = _restClient.Execute(request);
-                        if (_appSettings.RunAsConsole)
-                        {
-                            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-                        }
-
-                        UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
-                        ro.Responses.Add(new ResponseDetails()
-                        {
-                            URL = response.ResponseUri.ToString(),
-                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                            ResponseContent = response.Content
-                        });
-                    }
-                }
-            }
-        }
-
-        private ResultsObject CreateNewPhoneNumber(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
-        {
-            string personId = GetPersonId(ro.ReferenceNumber);
-            if (!string.IsNullOrEmpty(personId) && !string.IsNullOrEmpty(changedValue))
-            {
-                IRestRequest request = new RestRequest("/person/phone_numbers/", Method.POST);
+                IRestRequest request = new RestRequest(string.Format("/person/claims?person_id={0}", personId));
                 request.AddHeader("Authentication-Token", _apiToken);
-                request = RequestBodyHelper.CreatePhoneNumberBody(changedValue, personId, requestType, request);
 
                 if (_appSettings.RunAsConsole)
                 { Console.WriteLine("Sending: {0}\n", request.Resource); }
@@ -481,17 +494,13 @@ namespace RIFTGroup.GCTSC.Core
                     Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
                 }
 
-                CreatePhoneNumberResponse createPhoneNumberResponse = JsonConvert.DeserializeObject<CreatePhoneNumberResponse>(response.Content);
-                ro.Responses.Add(new ResponseDetails()
+                if (response.Content != "[]" && response.Content != "")
                 {
-                    SendRequest = requestType,
-                    ChangedValue = changedValue,
-                    URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                    ResponseContent = response.Content
-                });
+                    claims = JsonConvert.DeserializeObject<List<ClaimYearResponse>>(response.Content);
+                }
             }
-            return ro;
+
+            return claims;
         }
 
         private List<PhoneNumberResponse> GetPhoneNumbers(ResultsObject ro)
@@ -521,6 +530,75 @@ namespace RIFTGroup.GCTSC.Core
                 });
             }
             return phoneNumbers;
+        }
+
+        private ResultsObject SendUpdateClaimStatusRequest(ResultsObject ro, string existingYearId, int statusID)
+        {
+            IRestRequest request = new RestRequest(string.Format("/person/claims/{0}", existingYearId), Method.PATCH);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateUpdateClaimStatusBody(request, existingYearId, statusID);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            UpdateClaimStatusResponse updateResponse = JsonConvert.DeserializeObject<UpdateClaimStatusResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        private void SendUpdateCommunicationPreferenceRequest(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue, string personId, string existingPreferenceId)
+        {
+            IRestRequest request = new RestRequest(string.Format("/person/communication_preferences/{0}", existingPreferenceId), Method.PATCH);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.UpdateCommunicationPreferenceBody(type, changedValue, request, personId, existingPreferenceId);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            UpdateCommunicationPreferenceResponse updateCommunicationPreferenceResponse = JsonConvert.DeserializeObject<UpdateCommunicationPreferenceResponse>(response.Content);
+            ResponseDetails responseDetails = new ResponseDetails()
+            {
+                ChangedValue = changedValue.ToString(),
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            };
+            switch (type)
+            {
+                case Enums.Enums.CommPreferenceType.Email:
+                    responseDetails.SendRequest = Enums.Enums.SendRequest.EMAILPREFERENCE;
+                    break;
+
+                case Enums.Enums.CommPreferenceType.Phone:
+                    responseDetails.SendRequest = Enums.Enums.SendRequest.PHONEPREFERENCE;
+                    break;
+
+                case Enums.Enums.CommPreferenceType.Post:
+                    responseDetails.SendRequest = Enums.Enums.SendRequest.POSTPREFERENCE;
+                    break;
+
+                case Enums.Enums.CommPreferenceType.SMS:
+                    responseDetails.SendRequest = Enums.Enums.SendRequest.SMSPREFERENCE;
+                    break;
+            }
+            ro.Responses.Add(responseDetails);
         }
 
         private void UpdateCurrentEmailsToNonActive(ResultsObject ro, string changedValue)
@@ -557,65 +635,38 @@ namespace RIFTGroup.GCTSC.Core
             }
         }
 
-        private List<EmailResponse> GetEmailAddresses(ResultsObject ro)
+        private void UpdateCurrentPhoneNumbersToNonActive(ResultsObject ro, string changedValue)
         {
-            string personId = GetPersonId(ro.ReferenceNumber);
-            List<EmailResponse> emailResponses = new List<EmailResponse>();
-            if (!string.IsNullOrEmpty(personId))
+            List<PhoneNumberResponse> phoneNumbers = GetPhoneNumbers(ro);
+            if (phoneNumbers.Count > 0)
             {
-                IRestRequest request = new RestRequest("/person/email_addresses?person_id=" + personId);
-                request.AddHeader("Authentication-Token", _apiToken);
-
-                if (_appSettings.RunAsConsole)
-                { Console.WriteLine("Sending: {0}\n", request.Resource); }
-                IRestResponse response = _restClient.Execute(request);
-                if (_appSettings.RunAsConsole)
+                foreach (PhoneNumberResponse phoneNumber in phoneNumbers)
                 {
-                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                    if (phoneNumber.Subscriber_number != PhoneNumberHelper.CreateSubscriberNumber(changedValue))
+                    {
+                        IRestRequest request = new RestRequest("person/phone_numbers/" + phoneNumber.Id, Method.PATCH);
+                        request.AddHeader("Authentication-Token", _apiToken);
+                        request = RequestBodyHelper.CreateUpdatePhoneNumberToNonActiveRequestBody(request);
+
+                        if (_appSettings.RunAsConsole)
+                        { Console.WriteLine("Sending: {0}\n", request.Resource); }
+                        IRestResponse response = _restClient.Execute(request);
+                        if (_appSettings.RunAsConsole)
+                        {
+                            Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                            Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+                        }
+
+                        UpdatePhoneResponse updateResponse = JsonConvert.DeserializeObject<UpdatePhoneResponse>(response.Content);
+                        ro.Responses.Add(new ResponseDetails()
+                        {
+                            URL = response.ResponseUri.ToString(),
+                            SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                            ResponseContent = response.Content
+                        });
+                    }
                 }
-
-                emailResponses = JsonConvert.DeserializeObject<List<EmailResponse>>(response.Content);
-                ro.Responses.Add(new ResponseDetails()
-                {
-                    URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                    ResponseContent = response.Content
-                });
             }
-            return emailResponses;
-        }
-
-        private ResultsObject CreateNewEmailAddress(ResultsObject ro, Enums.Enums.SendRequest requestType, string changedValue)
-        {
-            string personId = GetPersonId(ro.ReferenceNumber);
-            if (!string.IsNullOrEmpty(personId))
-            {
-                IRestRequest request = new RestRequest("/person/email_addresses/", Method.POST);
-                request.AddHeader("Authentication-Token", _apiToken);
-
-                request = RequestBodyHelper.CreateEmailAddressBody(changedValue, personId, requestType, request);
-
-                if (_appSettings.RunAsConsole)
-                { Console.WriteLine("Sending: {0}\n", request.Resource); }
-                IRestResponse response = _restClient.Execute(request);
-                if (_appSettings.RunAsConsole)
-                {
-                    Console.WriteLine("Response Status: {0}\n", response.StatusCode);
-                    Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
-                }
-
-                CreateEmailResponse createEmailResponse = JsonConvert.DeserializeObject<CreateEmailResponse>(response.Content);
-                ro.Responses.Add(new ResponseDetails()
-                {
-                    SendRequest = requestType,
-                    ChangedValue = changedValue,
-                    URL = response.ResponseUri.ToString(),
-                    SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
-                    ResponseContent = response.Content
-                });
-            }
-            return ro;
         }
     }
 }

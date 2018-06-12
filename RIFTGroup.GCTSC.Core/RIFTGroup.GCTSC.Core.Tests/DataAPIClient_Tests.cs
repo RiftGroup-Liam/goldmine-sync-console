@@ -10,13 +10,14 @@ namespace RIFTGroup.GCTSC.Core.Tests
     [TestClass]
     public class DataAPIClient_Tests
     {
-        DataAPIClient _restClient;
-        string _testReference;
-        string _testAccountno;
-        AppSettings _appSettings;
-        string _dataAPITestPersonId; // TODO: Cleanup as this is reliance on my existing record in the Data API
-        ClientDataHelper _clientDataHelper;
+        private AppSettings _appSettings;
+        private ClientDataHelper _clientDataHelper;
+        private string _dataAPITestPersonId;
+        private DataAPIClient _restClient;
+        private string _testAccountno;
+        private string _testReference;
 
+        // TODO: Cleanup as this is reliance on my existing record in the Data API
         public DataAPIClient_Tests()
         {
             _appSettings = new AppSettings();
@@ -28,63 +29,8 @@ namespace RIFTGroup.GCTSC.Core.Tests
         }
 
         [TestMethod]
-        public void SendsUpdatePersonRequest_OKResponse()
-        {
-            string changedValue = "TestChange";
-            ResultsObject ro = new ResultsObject()
-            {
-                Accountno = _testAccountno,
-                ReferenceNumber = _testReference,
-
-            };
-            ro.Responses = new List<ResponseDetails>();
-            ro = _restClient.SendUpdatePersonRequest(Enums.Enums.SendRequest.SECR, ro, changedValue);
-            Assert.IsTrue(ro.Accountno == _testAccountno);
-            Assert.IsTrue(ro.ReferenceNumber == _testReference);
-            Assert.IsTrue(ro.Responses[0].URL.Contains("/people/" + _dataAPITestPersonId));
-            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
-        }
-
-        [TestMethod]
-        public void SendsUpdateEmailRequest_OKResponse()
-        {
-            string changedValue = "test_change@riftgroup.com";
-            ResultsObject ro = new ResultsObject()
-            {
-                Accountno = _testAccountno,
-                ReferenceNumber = _testReference,
-
-            };
-            ro.Responses = new List<ResponseDetails>();
-            ro = _restClient.SendUpdateEmailAddressRequest(Enums.Enums.SendRequest.CONTSUPREF, ro, changedValue);
-            Assert.IsTrue(ro.Accountno == _testAccountno);
-            Assert.IsTrue(ro.ReferenceNumber == _testReference);
-            Assert.IsTrue(ro.Responses[1].URL.Contains("/person/email_addresses/"));
-            Assert.IsTrue(ro.Responses[1].SendResponse == Enums.Enums.SendResponse.OK);
-        }
-
-        [TestMethod]
-        public void SendsUpdatePhoneNumberRequest_OKResponse()
-        {
-            string changedValue = "07887495880";
-            ResultsObject ro = new ResultsObject()
-            {
-                Accountno = _testAccountno,
-                ReferenceNumber = _testReference,
-
-            };
-            ro.Responses = new List<ResponseDetails>();
-            ro = _restClient.SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest.PHONE1, ro, changedValue);
-            Assert.IsTrue(ro.Accountno == _testAccountno);
-            Assert.IsTrue(ro.ReferenceNumber == _testReference);
-            Assert.IsTrue(ro.Responses[0].URL.Contains("/person/phone_numbers"));
-            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
-        }
-
-        [TestMethod]
         public void CreatePersonRequest_OKResponse()
         {
-            
             ClientData clientData = _clientDataHelper.TestData;
             ResultsObject ro = new ResultsObject()
             {
@@ -95,20 +41,6 @@ namespace RIFTGroup.GCTSC.Core.Tests
             ro = _restClient.CreatePersonRequest(ro, clientData);
             Assert.IsTrue(ro.Accountno == _testAccountno);
             Assert.IsTrue(ro.Responses[0].URL.Contains("/people/"));
-            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
-        }
-
-        [TestMethod]
-        public void UpdateCaseOwner_OKResponse()
-        {
-            ClientData clientData = _clientDataHelper.TestData;
-            ResultsObject ro = new ResultsObject()
-            {
-                Accountno = _testAccountno,
-                ReferenceNumber = clientData.Key5,
-            };
-            ro.Responses = new List<ResponseDetails>();
-            ro = _restClient.SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest.UBCASEOWN, ro, "larnold");
             Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
         }
 
@@ -127,6 +59,23 @@ namespace RIFTGroup.GCTSC.Core.Tests
         }
 
         [TestMethod]
+        public void SendsUpdateEmailRequest_OKResponse()
+        {
+            string changedValue = "test_change@riftgroup.com";
+            ResultsObject ro = new ResultsObject()
+            {
+                Accountno = _testAccountno,
+                ReferenceNumber = _testReference,
+            };
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdateEmailAddressRequest(Enums.Enums.SendRequest.CONTSUPREF, ro, changedValue);
+            Assert.IsTrue(ro.Accountno == _testAccountno);
+            Assert.IsTrue(ro.ReferenceNumber == _testReference);
+            Assert.IsTrue(ro.Responses[1].URL.Contains("/person/email_addresses/"));
+            Assert.IsTrue(ro.Responses[1].SendResponse == Enums.Enums.SendResponse.OK);
+        }
+
+        [TestMethod]
         public void SendsUpdateOfClaimStatus_OKResponse()
         {
             ClientData clientData = _clientDataHelper.TestData;
@@ -136,7 +85,55 @@ namespace RIFTGroup.GCTSC.Core.Tests
                 ReferenceNumber = clientData.Key5,
             };
             ro.Responses = new List<ResponseDetails>();
-            ro = _restClient.SendUpdateClaimStatus(Enums.Enums.Year.UY18, ro);
+            ro = _restClient.SendUpdateClaimStatus(Enums.Enums.Year.UY18, ro, 8);
+            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
+        }
+
+        [TestMethod]
+        public void SendsUpdatePersonRequest_OKResponse()
+        {
+            string changedValue = "TestChange";
+            ResultsObject ro = new ResultsObject()
+            {
+                Accountno = _testAccountno,
+                ReferenceNumber = _testReference,
+            };
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdatePersonRequest(Enums.Enums.SendRequest.SECR, ro, changedValue);
+            Assert.IsTrue(ro.Accountno == _testAccountno);
+            Assert.IsTrue(ro.ReferenceNumber == _testReference);
+            Assert.IsTrue(ro.Responses[0].URL.Contains("/people/" + _dataAPITestPersonId));
+            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
+        }
+
+        [TestMethod]
+        public void SendsUpdatePhoneNumberRequest_OKResponse()
+        {
+            string changedValue = "07887495880";
+            ResultsObject ro = new ResultsObject()
+            {
+                Accountno = _testAccountno,
+                ReferenceNumber = _testReference,
+            };
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdatePhoneNumberRequest(Enums.Enums.SendRequest.PHONE1, ro, changedValue);
+            Assert.IsTrue(ro.Accountno == _testAccountno);
+            Assert.IsTrue(ro.ReferenceNumber == _testReference);
+            Assert.IsTrue(ro.Responses[0].URL.Contains("/person/phone_numbers"));
+            Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
+        }
+
+        [TestMethod]
+        public void UpdateCaseOwner_OKResponse()
+        {
+            ClientData clientData = _clientDataHelper.TestData;
+            ResultsObject ro = new ResultsObject()
+            {
+                Accountno = _testAccountno,
+                ReferenceNumber = clientData.Key5,
+            };
+            ro.Responses = new List<ResponseDetails>();
+            ro = _restClient.SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest.UBCASEOWN, ro, "larnold");
             Assert.IsTrue(ro.Responses[0].SendResponse == Enums.Enums.SendResponse.OK);
         }
     }

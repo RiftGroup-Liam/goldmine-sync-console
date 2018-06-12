@@ -66,7 +66,7 @@ namespace RIFTGroup.GCTSC.Business
             return ro;
         }
 
-        public ResultsObject ProcessContact2Requests(CONTACT2ChangeTracking_Result ctResult)
+        public ResultsObject ProcessContact2Requests(CONTACT2ChangeTracking_Result ctResult, ClientData clientData)
         {
             ResultsObject ro = new ResultsObject();
             if (ro.Responses == null) { ro.Responses = new List<ResponseDetails>(); };
@@ -81,11 +81,19 @@ namespace RIFTGroup.GCTSC.Business
             {
                 string changedValue = _gm_repo.GetUstage1dat(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.USTAGE1DAT, ro, changedValue);
+                if (!string.IsNullOrEmpty(clientData.UStage1Dat))
+                {
+                    ro = _apiClient.SendUpdateAllClaimsStatus(ro, 3);
+                }
             }
             if (ctResult.uconvdate_bool)
             {
                 string changedValue = _gm_repo.GetUconvdate(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePersonRequest(Enums.SendRequest.UCONVDATE, ro, changedValue);
+                if (!string.IsNullOrEmpty(clientData.UconvDate))
+                {
+                    ro = _apiClient.SendUpdateAllClaimsStatus(ro, 4);
+                }
             }
             if (ctResult.ubcaseown_bool)
             {
@@ -211,47 +219,47 @@ namespace RIFTGroup.GCTSC.Business
 
             if (ctResult.uy12com_bool && clientData.CompletedDate_2009 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY12, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY12, ro, 8);
             }
             if (ctResult.uy13com_bool && clientData.CompletedDate_2010 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY13, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY13, ro, 8);
             }
             if (ctResult.uy14com_bool && clientData.CompletedDate_2011 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY14, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY14, ro, 8);
             }
             if (ctResult.uy15com_bool && clientData.CompletedDate_2012 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY15, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY15, ro, 8);
             }
             if (ctResult.uy16com_bool && clientData.CompletedDate_2013 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY16, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY16, ro, 8);
             }
             if (ctResult.uy17com_bool && clientData.CompletedDate_2014 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY17, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY17, ro, 8);
             }
             if (ctResult.uy18com_bool && clientData.CompletedDate_2015 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY18, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY18, ro, 8);
             }
             if (ctResult.uy19com_bool && clientData.CompletedDate_2016 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY19, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY19, ro, 8);
             }
             if (ctResult.uy20com_bool && clientData.CompletedDate_2017 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY20, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY20, ro, 8);
             }
             if (ctResult.uy21com_bool && clientData.CompletedDate_2018 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY21, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY21, ro, 8);
             }
             if (ctResult.uy22com_bool && clientData.CompletedDate_2019 != null)
             {
-                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY22, ro);
+                ro = _apiClient.SendUpdateClaimStatus(Enums.Year.UY22, ro, 8);
             }
             return ro;
         }
