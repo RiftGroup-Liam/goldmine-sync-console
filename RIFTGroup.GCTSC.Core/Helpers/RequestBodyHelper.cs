@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 using RIFTGroup.GCTSC.Core.Enums;
+using RIFTGroup.GCTSC.Core.Model;
 
 namespace RIFTGroup.GCTSC.Core.Helpers
 {
@@ -85,8 +86,7 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
-        public static IRestRequest CreateUpdatePersonRequestBody(Enums.Enums.SendRequest requestType,
-                                                                                                                                    string changedValue, IRestRequest restRequest)
+        public static IRestRequest CreateUpdatePersonRequestBody(Enums.Enums.SendRequest requestType,                                                                                                                                    string changedValue, IRestRequest restRequest)
         {
             if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
@@ -118,7 +118,55 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 restRequest.AddParameter("case_owner_id", changedValue);
             }
+            if(requestType == Enums.Enums.SendRequest.UTR)
+            {
+                restRequest.AddParameter("unique_tax_reference", changedValue);
+            }
+            if(requestType == Enums.Enums.SendRequest.NINO)
+            {
+                restRequest.AddParameter("national_insurance_number", changedValue);
+            }
+            if(requestType == Enums.Enums.SendRequest.DOB)
+            {
+                restRequest.AddParameter("date_of_birth", changedValue);
+            }
             return restRequest;
+        }
+
+        public static IRestRequest CreateAddressRequestBody(IRestRequest request, Address address)
+        {
+            request.AddParameter("first_line", address.first_line);
+            request.AddParameter("second_line", address.second_line);
+            request.AddParameter("town", address.town);
+            request.AddParameter("county", address.county);
+            request.AddParameter("country", address.country);
+            request.AddParameter("postcode", address.postcode);
+            return request;
+        }
+
+        public static IRestRequest CreateUpdateAddressRequestBody(Address address, IRestRequest request)
+        {
+            request.AddParameter("first_line", address.first_line);
+            request.AddParameter("second_line", address.second_line);
+            request.AddParameter("town", address.town);
+            request.AddParameter("county", address.county);
+            request.AddParameter("country", address.country);
+            request.AddParameter("postcode", address.postcode);
+            return request;
+        }
+
+        public static IRestRequest CreateUpdateAddressToInactiveRequestBody(IRestRequest request)
+        {
+            request.AddParameter("ended_at", DateTime.Now.ToString());
+            return request;
+        }
+
+        public static IRestRequest CreatePersonAddressRequestBody(string addressId, string personId, IRestRequest request)
+        {
+            request.AddParameter("person_id", personId);
+            request.AddParameter("address_id", addressId);
+            request.AddParameter("started_at", DateTime.Now.ToString("yyyy-MM-dd"));
+            return request;
         }
 
         public static IRestRequest CreateUpdatePhoneNumberToNonActiveRequestBody(IRestRequest request)

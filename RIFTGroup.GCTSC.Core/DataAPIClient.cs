@@ -9,6 +9,8 @@ using RIFTGroup.GCTSC.Core.ReponseObjects;
 using RIFTGroup.GCTSC.Core.Helpers;
 using Newtonsoft.Json;
 using System.Net;
+using System.Web;
+using RIFTGroup.GCTSC.Core.Model;
 
 namespace RIFTGroup.GCTSC.Core
 {
@@ -82,6 +84,18 @@ namespace RIFTGroup.GCTSC.Core
             return personId;
         }
 
+        public ResultsObject SendUpdateUTRRequest(ResultsObject ro, string changedValue)
+        {
+            ro = SendUpdatePersonRequest(Enums.Enums.SendRequest.UTR, ro, changedValue);
+            return ro;
+        }
+
+        public ResultsObject SendUpdateNINORequest(ResultsObject ro, string changedValue)
+        {
+            ro = SendUpdatePersonRequest(Enums.Enums.SendRequest.NINO, ro, changedValue);
+            return ro;
+        }
+
         public ResultsObject SendUpdateAllClaimsStatus(ResultsObject ro, int statusID)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
@@ -97,6 +111,249 @@ namespace RIFTGroup.GCTSC.Core
             }
 
             return ro;
+        }
+
+        public bool CheckForOthersLinkedToThisAddress(string dataapi_addressId)
+        {
+            bool othersLinkedToThisAddress = true;
+            IRestRequest request = new RestRequest(
+               string.Format("/person/addresses?address_id=" + dataapi_addressId)
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<PersonAddress> addressResponse = JsonConvert.DeserializeObject<List<PersonAddress>>(response.Content);
+                if (addressResponse.Count <= 1)
+                {
+                    othersLinkedToThisAddress = false;
+                }
+            }
+            return othersLinkedToThisAddress;
+        }
+
+        public string CreateAddress(Address address, ResultsObject ro)
+        {
+            string newAddressId = string.Empty;
+            IRestRequest request = new RestRequest("/addresses", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            request = RequestBodyHelper.CreateAddressRequestBody(request, address);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            CreateAddressResponse createAddressReponse = JsonConvert.DeserializeObject<CreateAddressResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.CREATEADDRESS,
+                ChangedValue = "CREATE",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            newAddressId = createAddressReponse.id;
+            return newAddressId;
+        }
+
+        public string CreatePersonAddress(string addressId, string personId, ResultsObject ro)
+        {
+            string personAddressId = string.Empty;
+            IRestRequest request = new RestRequest("/person/addresses", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            request = RequestBodyHelper.CreatePersonAddressRequestBody(addressId, personId, request);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            CreatePersonAddressResponse createPersonAddressReponse = JsonConvert.DeserializeObject<CreatePersonAddressResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.CREATEPERSONADDRESS,
+                ChangedValue = "CREATE",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            if(createPersonAddressReponse != null)
+            {
+                personAddressId = createPersonAddressReponse.id;
+            }
+            return personAddressId;
+        }
+
+        public void SetOtherAddressesToInactive(ResultsObject ro)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            List<PersonAddress> personAddresses = GetOtherPersonAddresses(personId);
+            foreach(PersonAddress personAddress in personAddresses)
+            {
+                if(personAddress.Active)
+                {
+                    SetAddresstoInactive(personAddress.id, ro);
+                }
+            }
+        }
+
+        private ResultsObject SetAddresstoInactive(string id, ResultsObject ro)
+        {
+            IRestRequest request = new RestRequest(
+               string.Format("/person/addresses/" + id),
+               Method.PATCH
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateUpdateAddressToInactiveRequestBody(request);
+
+            if (_appSettings.RunAsConsole) { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            UpdateAddressResponse updateResponse = JsonConvert.DeserializeObject<UpdateAddressResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.ADDRESS,
+                ChangedValue = "address",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        public bool CheckForOtherActiveAddresses(string personId)
+        {
+            bool otherActiveAddresses = false;
+            IRestRequest request = new RestRequest(
+               string.Format("/person/addresses?person_id=" + personId)
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<PersonAddress> addressResponse = JsonConvert.DeserializeObject<List<PersonAddress>>(response.Content);
+                if (addressResponse != null)
+                {
+                    otherActiveAddresses = addressResponse.HasActiveAddresses();
+                }
+            }
+            return otherActiveAddresses;
+        }
+
+        public List<PersonAddress> GetOtherPersonAddresses(string personId)
+        {
+            List<PersonAddress> personAddresses = new List<PersonAddress>();
+            IRestRequest request = new RestRequest(
+               string.Format("/person/addresses?person_id=" + personId)
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                personAddresses = JsonConvert.DeserializeObject<List<PersonAddress>>(response.Content);
+            }
+            return personAddresses;
+        }
+
+        public ResultsObject AmendCurrentAddress(Address address, ResultsObject ro, string dataapi_addressId)
+        {
+            IRestRequest request = new RestRequest(
+               string.Format("/addresses/" + dataapi_addressId),
+               Method.PATCH
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateUpdateAddressRequestBody(address, request);
+
+            if (_appSettings.RunAsConsole) { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            UpdateAddressResponse updateResponse = JsonConvert.DeserializeObject<UpdateAddressResponse>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                SendRequest = Enums.Enums.SendRequest.ADDRESS,
+                ChangedValue = "address",
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        public string GetExistingAddress(string first_line, string postcode)
+        {
+            string addressId = string.Empty;
+            IRestRequest request = new RestRequest(
+                string.Format("/addresses?postcode={0}&first_line={1}", HttpUtility.UrlEncode(postcode), HttpUtility.UrlEncode(first_line))
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<AddressResponse> addressResponse = JsonConvert.DeserializeObject<List<AddressResponse>>(response.Content);
+                if (addressResponse.Count != 0)
+                {
+                    addressId = addressResponse[0].id;
+                }
+            }
+
+            return addressId;
         }
 
         public ResultsObject SendUpdateCaseOwnerRequest(Enums.Enums.SendRequest ubcaseown, ResultsObject ro, string changedValue)
@@ -177,6 +434,12 @@ namespace RIFTGroup.GCTSC.Core
                     ResponseContent = response.Content
                 });
             }
+            return ro;
+        }
+
+        public ResultsObject SendUpdateDOBRequest(ResultsObject ro, string changedValue)
+        {
+            ro = SendUpdatePersonRequest(Enums.Enums.SendRequest.DOB, ro, changedValue);
             return ro;
         }
 

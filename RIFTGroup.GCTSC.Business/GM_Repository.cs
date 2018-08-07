@@ -7,6 +7,8 @@ using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Core.EntityFramework;
 using RIFTGroup.GCTSC.Business.Helpers;
 using RIFTGroup.GCTSC.Core.Enums;
+using RIFTGroup.GCTSC.Core.Model;
+using RIFTGroup.GCTSC.Core.Helpers;
 
 namespace RIFTGroup.GCTSC.Business
 {
@@ -78,6 +80,16 @@ namespace RIFTGroup.GCTSC.Business
             return secr;
         }
 
+        public string GetKey3(string accountno)
+        {
+            string nino = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                nino = (from c in context.CONTACT1.Where(x => x.ACCOUNTNO == accountno) select c.KEY3).FirstOrDefault();
+            }
+            return nino;
+        }
+
         public bool? GetChangeCommunicationPreference(string accountno, Enums.CommPreferenceType type)
         {
             bool? changedValue = null;
@@ -134,6 +146,30 @@ namespace RIFTGroup.GCTSC.Business
             return changedValue;
         }
 
+        public Address GetAddress(string accountno)
+        {
+            Address address = null;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                CONTACT1 contact1Record = (from c in context.CONTACT1.Where(x => x.ACCOUNTNO == accountno) select c).FirstOrDefault();
+                if(contact1Record!=null)
+                {
+                    address = AddressHelper.ConvertToAddress(contact1Record);
+                }
+            }
+            return address;
+        }
+
+        public string GetKey4(string accountno)
+        {
+            string utr = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                utr = (from c in context.CONTACT1.Where(x => x.ACCOUNTNO == accountno) select c.KEY4).FirstOrDefault();
+            }
+            return utr;
+        }
+
         public string GetTranslatedCaseOwner(string accountno)
         {
             string translatedCaseOwner = string.Empty;
@@ -164,6 +200,20 @@ namespace RIFTGroup.GCTSC.Business
                 contact = (from c in context.CONTACT1.Where(c => c.ACCOUNTNO == accountno) select c.CONTACT).FirstOrDefault();
             }
             return contact;
+        }
+
+        public string GetDOB(string accountno)
+        {
+            string dob = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                DateTime? result = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UDOB).FirstOrDefault();
+                if(result.HasValue)
+                {
+                    dob = result.Value.ToString("yyyy-MM-dd");
+                }
+            }
+            return dob;
         }
 
         public ClientData GetClientData(string referenceNumber)

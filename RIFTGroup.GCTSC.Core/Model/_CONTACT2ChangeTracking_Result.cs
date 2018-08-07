@@ -16,6 +16,7 @@ namespace RIFTGroup.GCTSC.Core
         public bool ucpphone_bool { get { return ucpphoneChanged.Value == 1; } }
         public bool ucpsms_bool { get { return ucpsmsChanged.Value == 1; } }
         public bool ucppost_bool { get { return ucppostChanged.Value == 1; } }
+        public bool udob_bool { get { return UDOB.Value == 1; } }
 
         #region Completed_Dates
         // Completed Dates

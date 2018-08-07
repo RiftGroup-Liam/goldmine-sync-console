@@ -32,15 +32,6 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
         public virtual DbSet<CONTSUPP> CONTSUPPs { get; set; }
         public virtual DbSet<CONTACT2> CONTACT2 { get; set; }
     
-        public virtual ObjectResult<CONTACT1ChangeTracking_Result> CONTACT1ChangeTracking(Nullable<int> lastVersionNumber)
-        {
-            var lastVersionNumberParameter = lastVersionNumber.HasValue ?
-                new ObjectParameter("LastVersionNumber", lastVersionNumber) :
-                new ObjectParameter("LastVersionNumber", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONTACT1ChangeTracking_Result>("CONTACT1ChangeTracking", lastVersionNumberParameter);
-        }
-    
         public virtual ObjectResult<CONTSUPPChangeTracking_Result> CONTSUPPChangeTracking(Nullable<int> lastVersionNumber)
         {
             var lastVersionNumberParameter = lastVersionNumber.HasValue ?
@@ -98,6 +89,15 @@ namespace RIFTGroup.GCTSC.Core.EntityFramework
                 new ObjectParameter("LastVersionNumber", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONTACT2ChangeTracking_Result>("CONTACT2ChangeTracking", lastVersionNumberParameter);
+        }
+    
+        public virtual ObjectResult<CONTACT1ChangeTracking_Result> CONTACT1ChangeTracking(Nullable<int> lastVersionNumber)
+        {
+            var lastVersionNumberParameter = lastVersionNumber.HasValue ?
+                new ObjectParameter("LastVersionNumber", lastVersionNumber) :
+                new ObjectParameter("LastVersionNumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CONTACT1ChangeTracking_Result>("CONTACT1ChangeTracking", lastVersionNumberParameter);
         }
     }
 }

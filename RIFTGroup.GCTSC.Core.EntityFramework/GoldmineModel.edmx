@@ -715,6 +715,7 @@
           <Property Name="UCPEMAIL" Type="varchar" MaxLength="3" />
           <Property Name="UCPSMS" Type="varchar" MaxLength="3" />
           <Property Name="UCPPOST" Type="varchar" MaxLength="3" />
+          <Property Name="UNCREATIVE" Type="varchar" MaxLength="50" />
           <Property Name="recid" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="CONTSUPP">
@@ -771,9 +772,6 @@
         <EntityContainer Name="GoldmineEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="CONTACT1" EntityType="GoldmineModel.CONTACT1" />
           <EntitySet Name="CONTSUPPs" EntityType="GoldmineModel.CONTSUPP" />
-          <FunctionImport Name="CONTACT1ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT1ChangeTracking_Result)">
-          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="CONTSUPPChangeTracking" ReturnType="Collection(GoldmineModel.CONTSUPPChangeTracking_Result)">
           <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -792,6 +790,9 @@
           </FunctionImport>
           <EntitySet Name="CONTACT2" EntityType="GoldmineModel.CONTACT2" />
           <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
+          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CONTACT1ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT1ChangeTracking_Result)">
             <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -884,22 +885,6 @@
           <Property Name="U_ADDRESS1" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
-        <ComplexType Name="CONTACT1ChangeTracking_Result">
-          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
-          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
-          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
-          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
-          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="ACCOUNTNO" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="key5Changed" Nullable="true" />
-          <Property Type="Int32" Name="contactChanged" Nullable="true" />
-          <Property Type="Int32" Name="secrChanged" Nullable="true" />
-          <Property Type="Int32" Name="LastnameChanged" Nullable="true" />
-          <Property Type="Int32" Name="phone1Changed" Nullable="true" />
-          <Property Type="Int32" Name="phone2Changed" Nullable="true" />
-          <Property Type="Int32" Name="phone3Changed" Nullable="true" />
-          <Property Type="String" Name="rectype" Nullable="true" MaxLength="35" />
-        </ComplexType>
         <ComplexType Name="CONTSUPPChangeTracking_Result">
           <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
           <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
@@ -1565,6 +1550,7 @@
           <Property Name="UCPSMS" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="UCPEMAIL" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UNCREATIVE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="CONTACT2ChangeTracking_Result">
           <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
@@ -1592,7 +1578,32 @@
           <Property Type="Int32" Name="UY20COM" Nullable="true" />
           <Property Type="Int32" Name="UY21COM" Nullable="true" />
           <Property Type="Int32" Name="UY22COM" Nullable="true" />
+          <Property Type="Int32" Name="UDOB" Nullable="true" />
           <Property Type="String" Name="RECTYPE" Nullable="true" MaxLength="35" />
+        </ComplexType>
+        <ComplexType Name="CONTACT1ChangeTracking_Result">
+          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
+          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
+          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
+          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
+          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ACCOUNTNO" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="key5Changed" Nullable="true" />
+          <Property Type="Int32" Name="contactChanged" Nullable="true" />
+          <Property Type="Int32" Name="secrChanged" Nullable="true" />
+          <Property Type="Int32" Name="LastnameChanged" Nullable="true" />
+          <Property Type="Int32" Name="phone1Changed" Nullable="true" />
+          <Property Type="Int32" Name="phone2Changed" Nullable="true" />
+          <Property Type="Int32" Name="phone3Changed" Nullable="true" />
+          <Property Type="Int32" Name="key3Changed" Nullable="true" />
+          <Property Type="Int32" Name="key4Changed" Nullable="true" />
+          <Property Type="Int32" Name="address1Changed" Nullable="true" />
+          <Property Type="Int32" Name="address2Changed" Nullable="true" />
+          <Property Type="Int32" Name="cityChanged" Nullable="true" />
+          <Property Type="Int32" Name="countryChanged" Nullable="true" />
+          <Property Type="Int32" Name="stateChanged" Nullable="true" />
+          <Property Type="Int32" Name="zipChanged" Nullable="true" />
+          <Property Type="String" Name="rectype" Nullable="true" MaxLength="35" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1691,26 +1702,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="CONTACT1ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT1ChangeTracking">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT1ChangeTracking_Result">
-                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
-                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
-                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
-                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
-                <ScalarProperty Name="key5Changed" ColumnName="key5Changed" />
-                <ScalarProperty Name="contactChanged" ColumnName="contactChanged" />
-                <ScalarProperty Name="secrChanged" ColumnName="secrChanged" />
-                <ScalarProperty Name="LastnameChanged" ColumnName="LastnameChanged" />
-                <ScalarProperty Name="phone1Changed" ColumnName="phone1Changed" />
-                <ScalarProperty Name="phone2Changed" ColumnName="phone2Changed" />
-                <ScalarProperty Name="phone3Changed" ColumnName="phone3Changed" />
-                <ScalarProperty Name="rectype" ColumnName="rectype" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CONTSUPPChangeTracking" FunctionName="GoldmineModel.Store.CONTSUPPChangeTracking">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GoldmineModel.CONTSUPPChangeTracking_Result">
@@ -1728,6 +1719,7 @@
           <EntitySetMapping Name="CONTACT2">
             <EntityTypeMapping TypeName="GoldmineModel.CONTACT2">
               <MappingFragment StoreEntitySet="CONTACT2">
+                <ScalarProperty Name="UNCREATIVE" ColumnName="UNCREATIVE" />
                 <ScalarProperty Name="recid" ColumnName="recid" />
                 <ScalarProperty Name="UCPEMAIL" ColumnName="UCPEMAIL" />
                 <ScalarProperty Name="UCPSMS" ColumnName="UCPSMS" />
@@ -2410,7 +2402,36 @@
                 <ScalarProperty Name="UY20COM" ColumnName="UY20COM" />
                 <ScalarProperty Name="UY21COM" ColumnName="UY21COM" />
                 <ScalarProperty Name="UY22COM" ColumnName="UY22COM" />
+                <ScalarProperty Name="UDOB" ColumnName="UDOB" />
                 <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CONTACT1ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT1ChangeTracking">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT1ChangeTracking_Result">
+                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
+                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
+                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+                <ScalarProperty Name="key5Changed" ColumnName="key5Changed" />
+                <ScalarProperty Name="contactChanged" ColumnName="contactChanged" />
+                <ScalarProperty Name="secrChanged" ColumnName="secrChanged" />
+                <ScalarProperty Name="LastnameChanged" ColumnName="LastnameChanged" />
+                <ScalarProperty Name="phone1Changed" ColumnName="phone1Changed" />
+                <ScalarProperty Name="phone2Changed" ColumnName="phone2Changed" />
+                <ScalarProperty Name="phone3Changed" ColumnName="phone3Changed" />
+                <ScalarProperty Name="key3Changed" ColumnName="key3Changed" />
+                <ScalarProperty Name="key4Changed" ColumnName="key4Changed" />
+                <ScalarProperty Name="address1Changed" ColumnName="address1Changed" />
+                <ScalarProperty Name="address2Changed" ColumnName="address2Changed" />
+                <ScalarProperty Name="cityChanged" ColumnName="cityChanged" />
+                <ScalarProperty Name="countryChanged" ColumnName="countryChanged" />
+                <ScalarProperty Name="stateChanged" ColumnName="stateChanged" />
+                <ScalarProperty Name="zipChanged" ColumnName="zipChanged" />
+                <ScalarProperty Name="rectype" ColumnName="rectype" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

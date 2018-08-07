@@ -34,7 +34,13 @@ namespace RIFTGroup.GCTSC.Core.Enums
             EMAILPREFERENCE = 14,
             PHONEPREFERENCE = 15,
             POSTPREFERENCE = 16,
-            SMSPREFERENCE = 17
+            SMSPREFERENCE = 17,
+            UTR = 18,
+            NINO = 19,
+            DOB = 20,
+            ADDRESS = 21,
+            CREATEPERSONADDRESS = 22,
+            CREATEADDRESS = 23
         }
 
         public enum PhoneNumberKind

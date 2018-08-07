@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using RIFTGroup.GCTSC.Core;
 using RIFTGroup.GCTSC.Core.Enums;
+using RIFTGroup.GCTSC.Core.Model;
+using RIFTGroup.GCTSC.Core.Helpers;
 
 namespace RIFTGroup.GCTSC.Business
 {
@@ -62,8 +64,82 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetPhone3(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdatePhoneNumberRequest(Enums.SendRequest.PHONE3, ro, changedValue);
             }
+            if (ctResult.key3Changed_bool)
+            {
+                //NINO
+                string changedValue = _gm_repo.GetKey3(ctResult.ACCOUNTNO);
+                ro = _apiClient.SendUpdateNINORequest(ro, changedValue);
+            }
+            if (ctResult.key4Changed_bool)
+            {
+                //UTR
+                string changedValue = _gm_repo.GetKey4(ctResult.ACCOUNTNO);
+                ro = _apiClient.SendUpdateUTRRequest(ro, changedValue);
+            }
+            if (ctResult.address1Changed_bool || ctResult.address2Changed_bool || ctResult.cityChanged_bool
+                || ctResult.countryChanged_bool || ctResult.stateChanged_bool || ctResult.zipChanged_bool)
+            {
+                Address address = _gm_repo.GetAddress(ctResult.ACCOUNTNO);
+                DoAddressUpdate(address, ro, ctResult);
+            }
+
+
+
             _applicationLogging.Log(ro);
             return ro;
+        }
+
+        public ResultsObject DoAddressUpdate(Address address, ResultsObject ro, CONTACT1ChangeTracking_Result ctResult)
+        {
+            string dataapi_addressId = _apiClient.GetExistingAddress(address.first_line, address.postcode);
+            if (!string.IsNullOrEmpty(dataapi_addressId))
+            {
+                bool fullAddressUpdate = AddressHelper.CheckForFullAddressUpdate(ctResult);
+                if (!fullAddressUpdate)
+                {
+                    bool othersLinkedToThisAddress = _apiClient.CheckForOthersLinkedToThisAddress(dataapi_addressId);
+                    if (othersLinkedToThisAddress)
+                    {
+                        CreateAddress(address, ro);
+                    }
+                    else
+                    {
+                        _apiClient.AmendCurrentAddress(address, ro, dataapi_addressId);
+                    }
+                }
+                else
+                {
+                    CreateAddress(address, ro);
+                }
+            }
+            else
+            {
+                CreateAddress(address, ro);
+            }
+            FINISH:
+            return ro;
+        }
+
+        public string CreateAddress(Address address, ResultsObject ro)
+        {
+            string addressId = string.Empty;
+            string personId = _apiClient.GetPersonId(ro.ReferenceNumber);
+            if (!string.IsNullOrEmpty(personId))
+            {
+                bool otherActiveAddresses = _apiClient.CheckForOtherActiveAddresses(personId);
+
+                if (otherActiveAddresses)
+                {
+                    _apiClient.SetOtherAddressesToInactive(ro);
+                }
+
+                addressId = _apiClient.CreateAddress(address, ro);
+                if (!string.IsNullOrEmpty(addressId))
+                {
+                    _apiClient.CreatePersonAddress(addressId, personId, ro);
+                }
+            }
+            return addressId;
         }
 
         public ResultsObject ProcessContact2Requests(CONTACT2ChangeTracking_Result ctResult, ClientData clientData)
@@ -131,6 +207,11 @@ namespace RIFTGroup.GCTSC.Business
                     bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS).Value;
                     ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.SMS, ro, changedValue);
                 }
+            }
+            if (ctResult.udob_bool)
+            {
+                string changedValue = _gm_repo.GetDOB(ctResult.ACCOUNTNO);
+                ro = _apiClient.SendUpdateDOBRequest(ro, changedValue);
             }
             ro = DoCompletedUpdates(ctResult, ro);
             _applicationLogging.Log(ro);
