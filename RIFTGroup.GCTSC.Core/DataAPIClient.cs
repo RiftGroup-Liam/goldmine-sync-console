@@ -141,6 +141,37 @@ namespace RIFTGroup.GCTSC.Core
             return othersLinkedToThisAddress;
         }
 
+        public bool CheckIfImLinkedToAddress(string dataapi_addressId, string personId)
+        {
+            bool imLinkedToAddress = false;
+            IRestRequest request = new RestRequest(
+               string.Format("/person/addresses?address_id=" + dataapi_addressId)
+            );
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                List<PersonAddress> addressResponse = JsonConvert.DeserializeObject<List<PersonAddress>>(response.Content);
+                foreach(PersonAddress personAddress in addressResponse)
+                {
+                    if(personAddress.person_id == personId)
+                    {
+                        imLinkedToAddress = true;
+                    }
+                }
+            }
+            return imLinkedToAddress;
+        }
+
         public string CreateAddress(Address address, ResultsObject ro)
         {
             string newAddressId = string.Empty;

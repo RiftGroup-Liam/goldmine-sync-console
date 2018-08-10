@@ -100,7 +100,12 @@ namespace RIFTGroup.GCTSC.Business
                     bool othersLinkedToThisAddress = _apiClient.CheckForOthersLinkedToThisAddress(dataapi_addressId);
                     if (othersLinkedToThisAddress)
                     {
-                        CreateAddress(address, ro);
+                        string personId = _apiClient.GetPersonId(ro.ReferenceNumber);
+                        bool imLinkedToAddress = _apiClient.CheckIfImLinkedToAddress(dataapi_addressId, personId);
+                        if (!imLinkedToAddress)
+                        {
+                            CreateAddress(address, ro);
+                        }
                     }
                     else
                     {
@@ -109,7 +114,12 @@ namespace RIFTGroup.GCTSC.Business
                 }
                 else
                 {
-                    CreateAddress(address, ro);
+                    string personId = _apiClient.GetPersonId(ro.ReferenceNumber);
+                    bool imLinkedToAddress = _apiClient.CheckIfImLinkedToAddress(dataapi_addressId, personId);
+                    if (!imLinkedToAddress)
+                    {
+                        CreateAddress(address, ro);
+                    }
                 }
             }
             else
