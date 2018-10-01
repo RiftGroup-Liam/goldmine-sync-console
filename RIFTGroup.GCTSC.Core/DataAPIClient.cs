@@ -305,6 +305,127 @@ namespace RIFTGroup.GCTSC.Core
             return otherActiveAddresses;
         }
 
+        public ResultsObject SendRefundUpdateRequest(ResultsObject ro, Refund refund)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            ClaimRefund claimRefund = GetClaimRefundForYear(personId, refund.Year);
+            string caseownerId = GetCaseownerId(refund.TranslatedCaseowner);
+            if(claimRefund!=null)
+            {
+                List<ClaimYearResponse> claimYears = GetPersonsClaims(personId);
+                ClaimYearResponse claimYear = claimYears.Where(x => x.Year == refund.Year.ToString()).FirstOrDefault();
+                if (!string.IsNullOrEmpty(claimYear.Id) && !string.IsNullOrEmpty(caseownerId))
+                {
+                    ro = SendUpdateRefundRequest(ro, claimRefund.id.ToString(), claimYear.Id, caseownerId, refund);
+                }
+            }
+            else
+            {
+                List<ClaimYearResponse> claimYears = GetPersonsClaims(personId);
+                ClaimYearResponse claimYear = claimYears.Where(x => x.Year == refund.Year.ToString()).FirstOrDefault();
+                if (claimYear != null)
+                {
+                    ro = SendCreateRefundRequest(ro, claimYear.Id, caseownerId, refund);
+                }
+            }
+            return ro;
+        }
+
+        private ClaimRefund GetClaimRefundForYear(string personId, int year)
+        {
+            ClaimRefund claimRefund = null;
+            // Get Claim for year
+            List<ClaimYearResponse> claimYears = GetPersonsClaims(personId);
+            ClaimYearResponse claimYear = claimYears.Where(x => x.Year == year.ToString()).FirstOrDefault();
+
+            // Use it's ID to get Claim refund
+            if (claimYear != null)
+            {
+                claimRefund = GetClaimRefundForYear(claimYear.Id);
+            }
+
+            return claimRefund;
+        }
+
+        private ClaimRefund GetClaimRefundForYear(string claimId)
+        {
+            List<ClaimRefund> refund = null;
+            IRestRequest request = new RestRequest(
+               string.Format("claim/refunds?person_claim_id=" + claimId)
+            );
+
+            request.AddHeader("Authentication-Token", _apiToken);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            if (response.Content != "[]" && response.Content != "")
+            {
+                refund = JsonConvert.DeserializeObject<List<ClaimRefund>>(response.Content);
+            }
+            if (refund != null)
+            {
+                return refund[0];
+            }
+            return null;
+        }
+
+        private ResultsObject SendUpdateRefundRequest(ResultsObject ro, string existingRefundId, string claimId, string caseownerId, Refund refund)
+        {
+            IRestRequest request = new RestRequest(string.Format("/claim/refunds/{0}", existingRefundId), Method.PATCH);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.UpdateRefundBody(request, existingRefundId, claimId, caseownerId, refund);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            ClaimRefund updateResponse = JsonConvert.DeserializeObject<ClaimRefund>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
+        private ResultsObject SendCreateRefundRequest(ResultsObject ro, string claimId, string caseownerId, Refund refund)
+        {
+            IRestRequest request = new RestRequest("/claim/refunds", Method.POST);
+            request.AddHeader("Authentication-Token", _apiToken);
+            request = RequestBodyHelper.CreateRefundBody(request, claimId, caseownerId, refund);
+
+            if (_appSettings.RunAsConsole)
+            { Console.WriteLine("Sending: {0}\n", request.Resource); }
+            IRestResponse response = _restClient.Execute(request);
+            if (_appSettings.RunAsConsole)
+            {
+                Console.WriteLine("Response Status: {0}\n", response.StatusCode);
+                Console.WriteLine("Response URL: {0}\n", response.ResponseUri);
+            }
+
+            ClaimRefund updateResponse = JsonConvert.DeserializeObject<ClaimRefund>(response.Content);
+            ro.Responses.Add(new ResponseDetails()
+            {
+                URL = response.ResponseUri.ToString(),
+                SendResponse = ResponseCodeHelper.TranslateResponseCode(response.StatusCode),
+                ResponseContent = response.Content
+            });
+            return ro;
+        }
+
         public List<PersonAddress> GetOtherPersonAddresses(string personId)
         {
             List<PersonAddress> personAddresses = new List<PersonAddress>();

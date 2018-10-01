@@ -182,5 +182,42 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             request.AddParameter("name", type.ToString().ToLower());
             return request;
         }
+
+        public static IRestRequest UpdateRefundBody(IRestRequest request, string existingRefundId, string claimId, string caseownerId, Refund refund)
+        {
+            request.AddParameter("id", existingRefundId);
+            request.AddParameter("person_claim_id", claimId);
+            request.AddParameter("refund_owner_id", caseownerId);
+            request.AddParameter("service_type", refund.ServiceType);
+            request.AddParameter("claim_type", refund.Type);
+            request.AddParameter("expected_refund", refund.ExpectedRefund);
+            request.AddParameter("expected_fee", refund.ExpectedFee);
+            request.AddParameter("actual_refund", refund.ActualRefund);
+            request.AddParameter("actual_fee", refund.ActualFee);
+            request.AddParameter("customer_signed_claim", refund.Signed);
+            if (refund.CompletedAt.HasValue)
+            {
+                request.AddParameter("completed_at", refund.CompletedAt.Value.ToString("yyyy-MM-dd"));
+            }
+            return request;
+        }
+
+        public static IRestRequest CreateRefundBody(IRestRequest request, string claimId, string caseownerId, Refund refund)
+        {
+            request.AddParameter("person_claim_id", claimId);
+            request.AddParameter("refund_owner_id", caseownerId);
+            request.AddParameter("service_type", refund.ServiceType);
+            request.AddParameter("claim_type", refund.Type);
+            request.AddParameter("expected_refund", refund.ExpectedRefund);
+            request.AddParameter("expected_fee", refund.ExpectedFee);
+            request.AddParameter("actual_refund", refund.ActualRefund);
+            request.AddParameter("actual_fee", refund.ActualFee);
+            request.AddParameter("customer_signed_claim", refund.Signed);
+            if (refund.CompletedAt.HasValue)
+            {
+                request.AddParameter("completed_at", refund.CompletedAt.Value.ToString("yyyy-MM-dd"));
+            }
+            return request;
+        }
     }
 }

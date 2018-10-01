@@ -223,6 +223,48 @@ namespace RIFTGroup.GCTSC.Business
                 string changedValue = _gm_repo.GetDOB(ctResult.ACCOUNTNO);
                 ro = _apiClient.SendUpdateDOBRequest(ro, changedValue);
             }
+            if (ctResult.u14servt_bool || ctResult.uy14type_bool || ctResult.uy14expref_bool || ctResult.uy14expfee_bool || ctResult.uy14user_bool
+                || ctResult.uy14feedat_bool || ctResult.uy14signed_bool || ctResult.uy14actfee_bool || ctResult.uy14actref_bool || ctResult.uy14com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("14", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u15servt_bool || ctResult.uy15type_bool || ctResult.uy15expref_bool || ctResult.uy15expfee_bool || ctResult.uy15user_bool
+                || ctResult.uy15feedat_bool || ctResult.uy15signed_bool || ctResult.uy15actfee_bool || ctResult.uy15actref_bool || ctResult.uy15com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("15", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u16servt_bool || ctResult.u16type_bool || ctResult.u16expref_bool || ctResult.u16expfee_bool || ctResult.u16user_bool
+                || ctResult.u16feedat_bool || ctResult.u16signed_bool || ctResult.u16actfee_bool || ctResult.u16actref_bool || ctResult.uy16com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("16", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u17servt_bool || ctResult.u17type_bool || ctResult.u17expref_bool || ctResult.u17expfee_bool || ctResult.u17user_bool
+                || ctResult.u17feedat_bool || ctResult.u17signed_bool || ctResult.u17actfee_bool || ctResult.u17actref_bool || ctResult.uy17com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("17", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u18servt_bool || ctResult.u18type_bool || ctResult.u18expref_bool || ctResult.u18expfee_bool || ctResult.u18user_bool
+                || ctResult.u18feedat_bool || ctResult.u18signed_bool || ctResult.u18actfee_bool || ctResult.u18actref_bool || ctResult.uy18com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("18", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u19servt_bool || ctResult.u19type_bool || ctResult.u19expref_bool || ctResult.u19expfee_bool || ctResult.u19user_bool
+                || ctResult.u19feedat_bool || ctResult.u19signed_bool || ctResult.u19actfee_bool || ctResult.u19actref_bool || ctResult.uy19com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("19", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
+            if (ctResult.u20servt_bool || ctResult.u20type_bool || ctResult.u20expref_bool || ctResult.u20expfee_bool || ctResult.u20user_bool
+                || ctResult.u20feedat_bool || ctResult.u20signed_bool || ctResult.u20actfee_bool || ctResult.u20actref_bool || ctResult.uy20com_bool)
+            {
+                Refund refund = _gm_repo.GetRefundValues("20", ctResult.ACCOUNTNO);
+                ro = _apiClient.SendRefundUpdateRequest(ro, refund);
+            }
             ro = DoCompletedUpdates(ctResult, ro);
             _applicationLogging.Log(ro);
             return ro;

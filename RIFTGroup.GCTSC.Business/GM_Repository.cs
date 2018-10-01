@@ -15,9 +15,11 @@ namespace RIFTGroup.GCTSC.Business
     public class GM_Repository
     {
         ClientDataMappingHelper _clientDataMapping;
+        RefundHelper _refundHelper;
         public GM_Repository()
         {
             _clientDataMapping = new ClientDataMappingHelper();
+            _refundHelper = new RefundHelper();
         }
         public ResultsObject GetReferenceNumberFromRecid(string recid, ResultsObject ro)
         {
@@ -99,7 +101,7 @@ namespace RIFTGroup.GCTSC.Business
                 {
                     case Enums.CommPreferenceType.Email:
                         string emailValue = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UCPEMAIL).FirstOrDefault();
-                        if(emailValue == "Yes")
+                        if (emailValue == "Yes")
                         {
                             changedValue = true;
                         }
@@ -152,7 +154,7 @@ namespace RIFTGroup.GCTSC.Business
             using (GoldmineEntities context = new GoldmineEntities())
             {
                 CONTACT1 contact1Record = (from c in context.CONTACT1.Where(x => x.ACCOUNTNO == accountno) select c).FirstOrDefault();
-                if(contact1Record!=null)
+                if (contact1Record != null)
                 {
                     address = AddressHelper.ConvertToAddress(contact1Record);
                 }
@@ -178,18 +180,35 @@ namespace RIFTGroup.GCTSC.Business
             {
                 goldmineValue = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == accountno) select c.UBCASEOWN).FirstOrDefault();
             }
-            if(!string.IsNullOrEmpty(goldmineValue))
+            if (!string.IsNullOrEmpty(goldmineValue))
             {
                 using (RiftEntities context = new RiftEntities())
                 {
                     string riftValue = (from r in context.WorkFlowUsernameLookups.Where(r => r.GoldMineUsername == goldmineValue) select r.WorkFlowUsername).FirstOrDefault();
-                    if(!string.IsNullOrEmpty(riftValue))
+                    if (!string.IsNullOrEmpty(riftValue))
                     {
                         translatedCaseOwner = riftValue.Split('@')[0];
                     }
                 }
             }
-            return translatedCaseOwner;            
+            return translatedCaseOwner;
+        }
+
+        public string GetTranslatedUser(string user)
+        {
+            string translatedCaseOwner = string.Empty;
+            if (!string.IsNullOrEmpty(user))
+            {
+                using (RiftEntities context = new RiftEntities())
+                {
+                    string riftValue = (from r in context.WorkFlowUsernameLookups.Where(r => r.GoldMineUsername == user) select r.WorkFlowUsername).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(riftValue))
+                    {
+                        translatedCaseOwner = riftValue.Split('@')[0];
+                    }
+                }
+            }
+            return translatedCaseOwner;
         }
 
         public string GetContact(string accountno)
@@ -208,7 +227,7 @@ namespace RIFTGroup.GCTSC.Business
             using (GoldmineEntities context = new GoldmineEntities())
             {
                 DateTime? result = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UDOB).FirstOrDefault();
-                if(result.HasValue)
+                if (result.HasValue)
                 {
                     dob = result.Value.ToString("yyyy-MM-dd");
                 }
@@ -222,7 +241,7 @@ namespace RIFTGroup.GCTSC.Business
             using (GoldmineEntities context = new GoldmineEntities())
             {
                 CONTACT1 c1 = (from c in context.CONTACT1.Where(c => c.KEY5 == referenceNumber) select c).FirstOrDefault();
-                if(c1!=null)
+                if (c1 != null)
                 {
                     CONTACT2 c2 = (from c in context.CONTACT2.Where(c => c.ACCOUNTNO == c1.ACCOUNTNO) select c).FirstOrDefault();
                     clientData = _clientDataMapping.MapClientData(clientData, c1, c2);
@@ -270,6 +289,58 @@ namespace RIFTGroup.GCTSC.Business
                 phone3 = (from c in context.CONTACT1.Where(c => c.ACCOUNTNO == accountno) select c.PHONE3).FirstOrDefault();
             }
             return phone3;
+        }
+
+        public Refund GetRefundValues(string year, string accountno)
+        {
+            Refund refund = null;
+            CONTACT2 contact2 = null;
+
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                contact2 = context.CONTACT2.Where(x => x.ACCOUNTNO == accountno).FirstOrDefault();
+            }
+            if (contact2 != null)
+            {
+                if (year == "14")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U14SERVT, contact2.UY14TYPE, contact2.UY14EXPREF, contact2.UY14EXPFEE, contact2.UY14FEEDAT, contact2.UY14SIGNED,
+                        contact2.UY14ACTFEE, contact2.UY14ACTREF, contact2.UY14COM, contact2.UY14USER, 2012, accountno);
+                }
+                if (year == "15")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U15SERVT, contact2.UY15TYPE, contact2.UY15EXPREF, contact2.UY15EXPFEE, contact2.UY15FEEDAT, contact2.UY15SIGNED,
+                        contact2.UY15ACTFEE, contact2.UY15ACTREF, contact2.UY15COM, contact2.UY15USER, 2013, accountno);
+                }
+                if (year == "16")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U16SERVT, contact2.U16TYPE, contact2.U16EXPREF, contact2.U16EXPFEE, contact2.U16FEEDAT, contact2.U16SIGNED,
+                        contact2.UY16ACTFEE, contact2.UY16ACTREF, contact2.UY16COM, contact2.U16USER, 2014, accountno);
+                }
+                if (year == "17")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U17SERVT, contact2.U17TYPE, contact2.U17EXPREF, contact2.U17EXPFEE, contact2.U17FEEDAT, contact2.U17SIGNED,
+                        contact2.UY17ACTFEE, contact2.UY17ACTREF, contact2.UY17COM, contact2.U17USER, 2015, accountno);
+                }
+                if (year == "18")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U18SERVT, contact2.U18TYPE, contact2.U18EXPREF, contact2.U18EXPFEE, contact2.U18FEEDAT, contact2.U18SIGNED,
+                        contact2.UY18ACTFEE, contact2.UY18ACTREF, contact2.UY18COM, contact2.U18USER, 2016, accountno);
+                }
+                if (year == "19")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U19SERVT, contact2.U19TYPE, contact2.U19EXPREF, contact2.U19EXPFEE, contact2.U19FEEDAT, contact2.U19SIGNED,
+                        contact2.UY19ACTFEE, contact2.UY19ACTREF, contact2.UY19COM, contact2.U19USER, 2017, accountno);
+                }
+                if (year == "20")
+                {
+                    refund = _refundHelper.CreateRefund(contact2.U20SERVT, contact2.U20TYPE, contact2.U20EXPREF, contact2.U20EXPFEE, contact2.U20FEEDAT, contact2.U20SIGNED,
+                        contact2.UY20ACTFEE, contact2.UY20ACTREF, contact2.UY20COM, contact2.U20USER, 2018, accountno);
+                }
+                if (refund != null) { refund.TranslatedCaseowner = GetTranslatedUser(refund.User); }
+            }
+
+            return refund;
         }
 
         public string GetUstage1dat(string accountno)
