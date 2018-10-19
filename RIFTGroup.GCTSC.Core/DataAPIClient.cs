@@ -534,7 +534,7 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
-        public ResultsObject SendUpdateCommunicationPreference(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue)
+        public ResultsObject SendUpdateCommunicationPreference(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool? changedValue)
         {
             string personId = GetPersonId(ro.ReferenceNumber);
             string existingCommunicationPreferenceId = GetCurrentCommunicationPreference(type, personId, ro);
@@ -662,7 +662,7 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
-        private string CreateCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro, bool changedValue)
+        private string CreateCommunicationPreference(Enums.Enums.CommPreferenceType type, string personId, ResultsObject ro, bool? changedValue)
         {
             string newCommunicationPreferenceId = string.Empty;
             IRestRequest request = new RestRequest("/person/communication_preferences", Method.POST);
@@ -972,7 +972,7 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
-        private void SendUpdateCommunicationPreferenceRequest(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool changedValue, string personId, string existingPreferenceId)
+        private void SendUpdateCommunicationPreferenceRequest(Enums.Enums.CommPreferenceType type, ResultsObject ro, bool? changedValue, string personId, string existingPreferenceId)
         {
             IRestRequest request = new RestRequest(string.Format("/person/communication_preferences/{0}", existingPreferenceId), Method.PATCH);
             request.AddHeader("Authentication-Token", _apiToken);

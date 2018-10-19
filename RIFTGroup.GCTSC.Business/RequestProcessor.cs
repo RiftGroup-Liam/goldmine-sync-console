@@ -188,35 +188,23 @@ namespace RIFTGroup.GCTSC.Business
             }
             if (ctResult.ucpphone_bool)
             {
-                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Phone).HasValue)
-                {
-                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Phone).Value;
-                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Phone, ro, changedValue);
-                }
+                bool? changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Phone);
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Phone, ro, changedValue);
             }
             if (ctResult.ucppost_bool)
             {
-                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Post).HasValue)
-                {
-                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Post).Value;
-                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, changedValue);
-                }
+                bool? changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Post);
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Post, ro, changedValue);
             }
             if (ctResult.ucpemail_bool)
             {
-                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Email).HasValue)
-                {
-                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Email).Value;
-                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, changedValue);
-                }
+                bool? changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.Email);
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.Email, ro, changedValue);
             }
             if (ctResult.ucpsms_bool)
             {
-                if (_gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS).HasValue)
-                {
-                    bool changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS).Value;
-                    ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.SMS, ro, changedValue);
-                }
+                bool? changedValue = _gm_repo.GetChangeCommunicationPreference(ctResult.ACCOUNTNO, Enums.CommPreferenceType.SMS);
+                ro = _apiClient.SendUpdateCommunicationPreference(Enums.CommPreferenceType.SMS, ro, changedValue);
             }
             if (ctResult.udob_bool)
             {

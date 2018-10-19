@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 using RestSharp;
-using RIFTGroup.GCTSC.Core.Enums;
 using RIFTGroup.GCTSC.Core.Model;
+using System;
 
 namespace RIFTGroup.GCTSC.Core.Helpers
 {
@@ -25,11 +21,16 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
-        public static IRestRequest CreateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool changedValue, IRestRequest request, string person_id)
+        public static IRestRequest CreateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool? changedValue, IRestRequest request, string person_id)
         {
-            request.AddParameter("person_id", person_id);
-            request.AddParameter("permitted", changedValue.ToString().ToLower());
-            request.AddParameter("name", type.ToString().ToLower());
+            CommunicationRequestBody body = new CommunicationRequestBody()
+            {
+                person_id = person_id,
+                name = type.ToString().ToLower(),
+                permitted = changedValue
+            };
+
+            request.AddJsonBody(body);
             return request;
         }
 
@@ -86,7 +87,7 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
-        public static IRestRequest CreateUpdatePersonRequestBody(Enums.Enums.SendRequest requestType,                                                                                                                                    string changedValue, IRestRequest restRequest)
+        public static IRestRequest CreateUpdatePersonRequestBody(Enums.Enums.SendRequest requestType, string changedValue, IRestRequest restRequest)
         {
             if (requestType == Enums.Enums.SendRequest.CONTACT)
             {
@@ -118,15 +119,15 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 restRequest.AddParameter("case_owner_id", changedValue);
             }
-            if(requestType == Enums.Enums.SendRequest.UTR)
+            if (requestType == Enums.Enums.SendRequest.UTR)
             {
                 restRequest.AddParameter("unique_tax_reference", changedValue);
             }
-            if(requestType == Enums.Enums.SendRequest.NINO)
+            if (requestType == Enums.Enums.SendRequest.NINO)
             {
                 restRequest.AddParameter("national_insurance_number", changedValue);
             }
-            if(requestType == Enums.Enums.SendRequest.DOB)
+            if (requestType == Enums.Enums.SendRequest.DOB)
             {
                 restRequest.AddParameter("date_of_birth", changedValue);
             }
@@ -175,11 +176,16 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             return request;
         }
 
-        public static IRestRequest UpdateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool changedValue, IRestRequest request, string personId, string existingPreferenceId)
+        public static IRestRequest UpdateCommunicationPreferenceBody(Enums.Enums.CommPreferenceType type, bool? changedValue, IRestRequest request, string personId, string existingPreferenceId)
         {
-            request.AddParameter("person_id", personId);
-            request.AddParameter("permitted", changedValue.ToString().ToLower());
-            request.AddParameter("name", type.ToString().ToLower());
+            CommunicationRequestBody body = new CommunicationRequestBody()
+            {
+                person_id = personId,
+                name = type.ToString().ToLower(),
+                permitted = changedValue
+            };
+
+            request.AddJsonBody(body);
             return request;
         }
 
