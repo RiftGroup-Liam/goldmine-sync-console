@@ -33,5 +33,6 @@ namespace RIFTGroup.GCTSC.Core
         public string UconvDate { get; set; }
         public string UEmailAddr { get; set; }
         public string UStage1Dat { get; set; }
+        public string Unsource { get; set; }
     }
 }

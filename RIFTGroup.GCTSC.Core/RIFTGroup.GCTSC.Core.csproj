@@ -68,6 +68,7 @@
     <Compile Include="Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Helpers\RequestBodyHelper.cs" />
     <Compile Include="Helpers\ResponseCodeHelper.cs" />
+    <Compile Include="Helpers\SourceHelper.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CONTACT1.cs">

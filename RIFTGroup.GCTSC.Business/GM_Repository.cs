@@ -344,6 +344,16 @@ namespace RIFTGroup.GCTSC.Business
             return refund;
         }
 
+        public string GetSourceInformation(string accountno)
+        {
+            string source = string.Empty;
+            using (GoldmineEntities context = new GoldmineEntities())
+            {
+                source = (from c in context.CONTACT2.Where(x => x.ACCOUNTNO == accountno) select c.UNSOURCE).FirstOrDefault();
+            }
+            return source;
+        }
+
         public string GetUstage1dat(string accountno)
         {
             DateTime? ustage1dat = null;

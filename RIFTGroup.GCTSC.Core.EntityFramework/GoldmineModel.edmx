@@ -791,10 +791,10 @@
           <FunctionImport Name="CONTACT1ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT1ChangeTracking_Result)">
           <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
-          <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="CONTACT2" EntityType="GoldmineModel.CONTACT2" />
+          <FunctionImport Name="CONTACT2ChangeTracking" ReturnType="Collection(GoldmineModel.CONTACT2ChangeTracking_Result)">
+            <Parameter Name="LastVersionNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="CONTACT1">
           <Key>
@@ -918,100 +918,6 @@
           <Property Type="Int32" Name="stateChanged" Nullable="true" />
           <Property Type="Int32" Name="zipChanged" Nullable="true" />
           <Property Type="String" Name="rectype" Nullable="true" MaxLength="35" />
-        </ComplexType>
-        <ComplexType Name="CONTACT2ChangeTracking_Result">
-          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
-          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
-          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
-          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
-          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="ACCOUNTNO" Nullable="false" MaxLength="20" />
-          <Property Type="Int32" Name="uemailaddrChanged" Nullable="true" />
-          <Property Type="Int32" Name="ustage1datChanged" Nullable="true" />
-          <Property Type="Int32" Name="uconvdatChanged" Nullable="true" />
-          <Property Type="Int32" Name="ucppostChanged" Nullable="true" />
-          <Property Type="Int32" Name="ucpemailChanged" Nullable="true" />
-          <Property Type="Int32" Name="ucpsmsChanged" Nullable="true" />
-          <Property Type="Int32" Name="ucpphoneChanged" Nullable="true" />
-          <Property Type="Int32" Name="ubcaseownChanged" Nullable="true" />
-          <Property Type="Int32" Name="UY12COM" Nullable="true" />
-          <Property Type="Int32" Name="UY13COM" Nullable="true" />
-          <Property Type="Int32" Name="UY14COM" Nullable="true" />
-          <Property Type="Int32" Name="UY15COM" Nullable="true" />
-          <Property Type="Int32" Name="UY16COM" Nullable="true" />
-          <Property Type="Int32" Name="UY17COM" Nullable="true" />
-          <Property Type="Int32" Name="UY18COM" Nullable="true" />
-          <Property Type="Int32" Name="UY19COM" Nullable="true" />
-          <Property Type="Int32" Name="UY20COM" Nullable="true" />
-          <Property Type="Int32" Name="UY21COM" Nullable="true" />
-          <Property Type="Int32" Name="UY22COM" Nullable="true" />
-          <Property Type="Int32" Name="UDOB" Nullable="true" />
-          <Property Type="Int32" Name="U14SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U15SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U16SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U17SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U18SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U19SERVT" Nullable="true" />
-          <Property Type="Int32" Name="U20SERVT" Nullable="true" />
-          <Property Type="Int32" Name="UY14TYPE" Nullable="true" />
-          <Property Type="Int32" Name="UY15TYPE" Nullable="true" />
-          <Property Type="Int32" Name="U16TYPE" Nullable="true" />
-          <Property Type="Int32" Name="U17TYPE" Nullable="true" />
-          <Property Type="Int32" Name="U18TYPE" Nullable="true" />
-          <Property Type="Int32" Name="U19TYPE" Nullable="true" />
-          <Property Type="Int32" Name="U20TYPE" Nullable="true" />
-          <Property Type="Int32" Name="UY14EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="UY15EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="U16EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="U17EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="U18EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="U19EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="U20EXPREF" Nullable="true" />
-          <Property Type="Int32" Name="UY14EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="UY15EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="U16EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="U17EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="U18EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="U19EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="U20EXPFEE" Nullable="true" />
-          <Property Type="Int32" Name="UY14USER" Nullable="true" />
-          <Property Type="Int32" Name="UY15USER" Nullable="true" />
-          <Property Type="Int32" Name="U16USER" Nullable="true" />
-          <Property Type="Int32" Name="U17USER" Nullable="true" />
-          <Property Type="Int32" Name="U18USER" Nullable="true" />
-          <Property Type="Int32" Name="U19USER" Nullable="true" />
-          <Property Type="Int32" Name="U20USER" Nullable="true" />
-          <Property Type="Int32" Name="UY14FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="UY15FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="U16FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="U17FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="U18FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="U19FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="U20FEEDAT" Nullable="true" />
-          <Property Type="Int32" Name="UY14SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="UY15SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="U16SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="U17SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="U18SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="U19SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="U20SIGNED" Nullable="true" />
-          <Property Type="Int32" Name="UY14ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="UY15ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="U16ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="U17ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="U18ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="U19ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="U20ACTREF" Nullable="true" />
-          <Property Type="Int32" Name="UY14ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="UY15ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="U16ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="U17ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="U18ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="U19ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="U20ACTFEE" Nullable="true" />
-          <Property Type="Int32" Name="USERDEF01" Nullable="true" />
-          <Property Type="Int32" Name="USERDEF02" Nullable="true" />
-          <Property Type="String" Name="RECTYPE" Nullable="true" MaxLength="35" />
         </ComplexType>
         <EntityType Name="CONTACT2">
           <Key>
@@ -1670,6 +1576,101 @@
           <Property Name="UNCREATIVE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="recid" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="CONTACT2ChangeTracking_Result">
+          <Property Type="Int64" Name="SYS_CHANGE_VERSION" Nullable="true" />
+          <Property Type="Int64" Name="SYS_CHANGE_CREATION_VERSION" Nullable="true" />
+          <Property Type="String" Name="SYS_CHANGE_OPERATION" Nullable="true" MaxLength="1" />
+          <Property Type="Binary" Name="SYS_CHANGE_COLUMNS" Nullable="true" MaxLength="4100" />
+          <Property Type="Binary" Name="SYS_CHANGE_CONTEXT" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ACCOUNTNO" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="uemailaddrChanged" Nullable="true" />
+          <Property Type="Int32" Name="ustage1datChanged" Nullable="true" />
+          <Property Type="Int32" Name="uconvdatChanged" Nullable="true" />
+          <Property Type="Int32" Name="ucppostChanged" Nullable="true" />
+          <Property Type="Int32" Name="ucpemailChanged" Nullable="true" />
+          <Property Type="Int32" Name="ucpsmsChanged" Nullable="true" />
+          <Property Type="Int32" Name="ucpphoneChanged" Nullable="true" />
+          <Property Type="Int32" Name="ubcaseownChanged" Nullable="true" />
+          <Property Type="Int32" Name="UY12COM" Nullable="true" />
+          <Property Type="Int32" Name="UY13COM" Nullable="true" />
+          <Property Type="Int32" Name="UY14COM" Nullable="true" />
+          <Property Type="Int32" Name="UY15COM" Nullable="true" />
+          <Property Type="Int32" Name="UY16COM" Nullable="true" />
+          <Property Type="Int32" Name="UY17COM" Nullable="true" />
+          <Property Type="Int32" Name="UY18COM" Nullable="true" />
+          <Property Type="Int32" Name="UY19COM" Nullable="true" />
+          <Property Type="Int32" Name="UY20COM" Nullable="true" />
+          <Property Type="Int32" Name="UY21COM" Nullable="true" />
+          <Property Type="Int32" Name="UY22COM" Nullable="true" />
+          <Property Type="Int32" Name="UDOB" Nullable="true" />
+          <Property Type="Int32" Name="U14SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U15SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U16SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U17SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U18SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U19SERVT" Nullable="true" />
+          <Property Type="Int32" Name="U20SERVT" Nullable="true" />
+          <Property Type="Int32" Name="UY14TYPE" Nullable="true" />
+          <Property Type="Int32" Name="UY15TYPE" Nullable="true" />
+          <Property Type="Int32" Name="U16TYPE" Nullable="true" />
+          <Property Type="Int32" Name="U17TYPE" Nullable="true" />
+          <Property Type="Int32" Name="U18TYPE" Nullable="true" />
+          <Property Type="Int32" Name="U19TYPE" Nullable="true" />
+          <Property Type="Int32" Name="U20TYPE" Nullable="true" />
+          <Property Type="Int32" Name="UY14EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="UY15EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="U16EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="U17EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="U18EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="U19EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="U20EXPREF" Nullable="true" />
+          <Property Type="Int32" Name="UY14EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="UY15EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="U16EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="U17EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="U18EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="U19EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="U20EXPFEE" Nullable="true" />
+          <Property Type="Int32" Name="UY14USER" Nullable="true" />
+          <Property Type="Int32" Name="UY15USER" Nullable="true" />
+          <Property Type="Int32" Name="U16USER" Nullable="true" />
+          <Property Type="Int32" Name="U17USER" Nullable="true" />
+          <Property Type="Int32" Name="U18USER" Nullable="true" />
+          <Property Type="Int32" Name="U19USER" Nullable="true" />
+          <Property Type="Int32" Name="U20USER" Nullable="true" />
+          <Property Type="Int32" Name="UY14FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="UY15FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="U16FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="U17FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="U18FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="U19FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="U20FEEDAT" Nullable="true" />
+          <Property Type="Int32" Name="UY14SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="UY15SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="U16SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="U17SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="U18SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="U19SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="U20SIGNED" Nullable="true" />
+          <Property Type="Int32" Name="UY14ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="UY15ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="U16ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="U17ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="U18ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="U19ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="U20ACTREF" Nullable="true" />
+          <Property Type="Int32" Name="UY14ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="UY15ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="U16ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="U17ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="U18ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="U19ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="U20ACTFEE" Nullable="true" />
+          <Property Type="Int32" Name="USERDEF01" Nullable="true" />
+          <Property Type="Int32" Name="USERDEF02" Nullable="true" />
+          <Property Type="Int32" Name="UNSOURCE" Nullable="true" />
+          <Property Type="String" Name="RECTYPE" Nullable="true" MaxLength="35" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1806,104 +1807,6 @@
                 <ScalarProperty Name="stateChanged" ColumnName="stateChanged" />
                 <ScalarProperty Name="zipChanged" ColumnName="zipChanged" />
                 <ScalarProperty Name="rectype" ColumnName="rectype" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CONTACT2ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT2ChangeTracking">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT2ChangeTracking_Result">
-                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
-                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
-                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
-                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
-                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
-                <ScalarProperty Name="uemailaddrChanged" ColumnName="uemailaddrChanged" />
-                <ScalarProperty Name="ustage1datChanged" ColumnName="ustage1datChanged" />
-                <ScalarProperty Name="uconvdatChanged" ColumnName="uconvdatChanged" />
-                <ScalarProperty Name="ucppostChanged" ColumnName="ucppostChanged" />
-                <ScalarProperty Name="ucpemailChanged" ColumnName="ucpemailChanged" />
-                <ScalarProperty Name="ucpsmsChanged" ColumnName="ucpsmsChanged" />
-                <ScalarProperty Name="ucpphoneChanged" ColumnName="ucpphoneChanged" />
-                <ScalarProperty Name="ubcaseownChanged" ColumnName="ubcaseownChanged" />
-                <ScalarProperty Name="UY12COM" ColumnName="UY12COM" />
-                <ScalarProperty Name="UY13COM" ColumnName="UY13COM" />
-                <ScalarProperty Name="UY14COM" ColumnName="UY14COM" />
-                <ScalarProperty Name="UY15COM" ColumnName="UY15COM" />
-                <ScalarProperty Name="UY16COM" ColumnName="UY16COM" />
-                <ScalarProperty Name="UY17COM" ColumnName="UY17COM" />
-                <ScalarProperty Name="UY18COM" ColumnName="UY18COM" />
-                <ScalarProperty Name="UY19COM" ColumnName="UY19COM" />
-                <ScalarProperty Name="UY20COM" ColumnName="UY20COM" />
-                <ScalarProperty Name="UY21COM" ColumnName="UY21COM" />
-                <ScalarProperty Name="UY22COM" ColumnName="UY22COM" />
-                <ScalarProperty Name="UDOB" ColumnName="UDOB" />
-                <ScalarProperty Name="U14SERVT" ColumnName="U14SERVT" />
-                <ScalarProperty Name="U15SERVT" ColumnName="U15SERVT" />
-                <ScalarProperty Name="U16SERVT" ColumnName="U16SERVT" />
-                <ScalarProperty Name="U17SERVT" ColumnName="U17SERVT" />
-                <ScalarProperty Name="U18SERVT" ColumnName="U18SERVT" />
-                <ScalarProperty Name="U19SERVT" ColumnName="U19SERVT" />
-                <ScalarProperty Name="U20SERVT" ColumnName="U20SERVT" />
-                <ScalarProperty Name="UY14TYPE" ColumnName="UY14TYPE" />
-                <ScalarProperty Name="UY15TYPE" ColumnName="UY15TYPE" />
-                <ScalarProperty Name="U16TYPE" ColumnName="U16TYPE" />
-                <ScalarProperty Name="U17TYPE" ColumnName="U17TYPE" />
-                <ScalarProperty Name="U18TYPE" ColumnName="U18TYPE" />
-                <ScalarProperty Name="U19TYPE" ColumnName="U19TYPE" />
-                <ScalarProperty Name="U20TYPE" ColumnName="U20TYPE" />
-                <ScalarProperty Name="UY14EXPREF" ColumnName="UY14EXPREF" />
-                <ScalarProperty Name="UY15EXPREF" ColumnName="UY15EXPREF" />
-                <ScalarProperty Name="U16EXPREF" ColumnName="U16EXPREF" />
-                <ScalarProperty Name="U17EXPREF" ColumnName="U17EXPREF" />
-                <ScalarProperty Name="U18EXPREF" ColumnName="U18EXPREF" />
-                <ScalarProperty Name="U19EXPREF" ColumnName="U19EXPREF" />
-                <ScalarProperty Name="U20EXPREF" ColumnName="U20EXPREF" />
-                <ScalarProperty Name="UY14EXPFEE" ColumnName="UY14EXPFEE" />
-                <ScalarProperty Name="UY15EXPFEE" ColumnName="UY15EXPFEE" />
-                <ScalarProperty Name="U16EXPFEE" ColumnName="U16EXPFEE" />
-                <ScalarProperty Name="U17EXPFEE" ColumnName="U17EXPFEE" />
-                <ScalarProperty Name="U18EXPFEE" ColumnName="U18EXPFEE" />
-                <ScalarProperty Name="U19EXPFEE" ColumnName="U19EXPFEE" />
-                <ScalarProperty Name="U20EXPFEE" ColumnName="U20EXPFEE" />
-                <ScalarProperty Name="UY14USER" ColumnName="UY14USER" />
-                <ScalarProperty Name="UY15USER" ColumnName="UY15USER" />
-                <ScalarProperty Name="U16USER" ColumnName="U16USER" />
-                <ScalarProperty Name="U17USER" ColumnName="U17USER" />
-                <ScalarProperty Name="U18USER" ColumnName="U18USER" />
-                <ScalarProperty Name="U19USER" ColumnName="U19USER" />
-                <ScalarProperty Name="U20USER" ColumnName="U20USER" />
-                <ScalarProperty Name="UY14FEEDAT" ColumnName="UY14FEEDAT" />
-                <ScalarProperty Name="UY15FEEDAT" ColumnName="UY15FEEDAT" />
-                <ScalarProperty Name="U16FEEDAT" ColumnName="U16FEEDAT" />
-                <ScalarProperty Name="U17FEEDAT" ColumnName="U17FEEDAT" />
-                <ScalarProperty Name="U18FEEDAT" ColumnName="U18FEEDAT" />
-                <ScalarProperty Name="U19FEEDAT" ColumnName="U19FEEDAT" />
-                <ScalarProperty Name="U20FEEDAT" ColumnName="U20FEEDAT" />
-                <ScalarProperty Name="UY14SIGNED" ColumnName="UY14SIGNED" />
-                <ScalarProperty Name="UY15SIGNED" ColumnName="UY15SIGNED" />
-                <ScalarProperty Name="U16SIGNED" ColumnName="U16SIGNED" />
-                <ScalarProperty Name="U17SIGNED" ColumnName="U17SIGNED" />
-                <ScalarProperty Name="U18SIGNED" ColumnName="U18SIGNED" />
-                <ScalarProperty Name="U19SIGNED" ColumnName="U19SIGNED" />
-                <ScalarProperty Name="U20SIGNED" ColumnName="U20SIGNED" />
-                <ScalarProperty Name="UY14ACTREF" ColumnName="UY14ACTREF" />
-                <ScalarProperty Name="UY15ACTREF" ColumnName="UY15ACTREF" />
-                <ScalarProperty Name="U16ACTREF" ColumnName="U16ACTREF" />
-                <ScalarProperty Name="U17ACTREF" ColumnName="U17ACTREF" />
-                <ScalarProperty Name="U18ACTREF" ColumnName="U18ACTREF" />
-                <ScalarProperty Name="U19ACTREF" ColumnName="U19ACTREF" />
-                <ScalarProperty Name="U20ACTREF" ColumnName="U20ACTREF" />
-                <ScalarProperty Name="UY14ACTFEE" ColumnName="UY14ACTFEE" />
-                <ScalarProperty Name="UY15ACTFEE" ColumnName="UY15ACTFEE" />
-                <ScalarProperty Name="U16ACTFEE" ColumnName="U16ACTFEE" />
-                <ScalarProperty Name="U17ACTFEE" ColumnName="U17ACTFEE" />
-                <ScalarProperty Name="U18ACTFEE" ColumnName="U18ACTFEE" />
-                <ScalarProperty Name="U19ACTFEE" ColumnName="U19ACTFEE" />
-                <ScalarProperty Name="U20ACTFEE" ColumnName="U20ACTFEE" />
-                <ScalarProperty Name="USERDEF01" ColumnName="USERDEF01" />
-                <ScalarProperty Name="USERDEF02" ColumnName="USERDEF02" />
-                <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2565,6 +2468,105 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CONTACT2ChangeTracking" FunctionName="GoldmineModel.Store.CONTACT2ChangeTracking">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GoldmineModel.CONTACT2ChangeTracking_Result">
+                <ScalarProperty Name="SYS_CHANGE_VERSION" ColumnName="SYS_CHANGE_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_CREATION_VERSION" ColumnName="SYS_CHANGE_CREATION_VERSION" />
+                <ScalarProperty Name="SYS_CHANGE_OPERATION" ColumnName="SYS_CHANGE_OPERATION" />
+                <ScalarProperty Name="SYS_CHANGE_COLUMNS" ColumnName="SYS_CHANGE_COLUMNS" />
+                <ScalarProperty Name="SYS_CHANGE_CONTEXT" ColumnName="SYS_CHANGE_CONTEXT" />
+                <ScalarProperty Name="ACCOUNTNO" ColumnName="ACCOUNTNO" />
+                <ScalarProperty Name="uemailaddrChanged" ColumnName="uemailaddrChanged" />
+                <ScalarProperty Name="ustage1datChanged" ColumnName="ustage1datChanged" />
+                <ScalarProperty Name="uconvdatChanged" ColumnName="uconvdatChanged" />
+                <ScalarProperty Name="ucppostChanged" ColumnName="ucppostChanged" />
+                <ScalarProperty Name="ucpemailChanged" ColumnName="ucpemailChanged" />
+                <ScalarProperty Name="ucpsmsChanged" ColumnName="ucpsmsChanged" />
+                <ScalarProperty Name="ucpphoneChanged" ColumnName="ucpphoneChanged" />
+                <ScalarProperty Name="ubcaseownChanged" ColumnName="ubcaseownChanged" />
+                <ScalarProperty Name="UY12COM" ColumnName="UY12COM" />
+                <ScalarProperty Name="UY13COM" ColumnName="UY13COM" />
+                <ScalarProperty Name="UY14COM" ColumnName="UY14COM" />
+                <ScalarProperty Name="UY15COM" ColumnName="UY15COM" />
+                <ScalarProperty Name="UY16COM" ColumnName="UY16COM" />
+                <ScalarProperty Name="UY17COM" ColumnName="UY17COM" />
+                <ScalarProperty Name="UY18COM" ColumnName="UY18COM" />
+                <ScalarProperty Name="UY19COM" ColumnName="UY19COM" />
+                <ScalarProperty Name="UY20COM" ColumnName="UY20COM" />
+                <ScalarProperty Name="UY21COM" ColumnName="UY21COM" />
+                <ScalarProperty Name="UY22COM" ColumnName="UY22COM" />
+                <ScalarProperty Name="UDOB" ColumnName="UDOB" />
+                <ScalarProperty Name="U14SERVT" ColumnName="U14SERVT" />
+                <ScalarProperty Name="U15SERVT" ColumnName="U15SERVT" />
+                <ScalarProperty Name="U16SERVT" ColumnName="U16SERVT" />
+                <ScalarProperty Name="U17SERVT" ColumnName="U17SERVT" />
+                <ScalarProperty Name="U18SERVT" ColumnName="U18SERVT" />
+                <ScalarProperty Name="U19SERVT" ColumnName="U19SERVT" />
+                <ScalarProperty Name="U20SERVT" ColumnName="U20SERVT" />
+                <ScalarProperty Name="UY14TYPE" ColumnName="UY14TYPE" />
+                <ScalarProperty Name="UY15TYPE" ColumnName="UY15TYPE" />
+                <ScalarProperty Name="U16TYPE" ColumnName="U16TYPE" />
+                <ScalarProperty Name="U17TYPE" ColumnName="U17TYPE" />
+                <ScalarProperty Name="U18TYPE" ColumnName="U18TYPE" />
+                <ScalarProperty Name="U19TYPE" ColumnName="U19TYPE" />
+                <ScalarProperty Name="U20TYPE" ColumnName="U20TYPE" />
+                <ScalarProperty Name="UY14EXPREF" ColumnName="UY14EXPREF" />
+                <ScalarProperty Name="UY15EXPREF" ColumnName="UY15EXPREF" />
+                <ScalarProperty Name="U16EXPREF" ColumnName="U16EXPREF" />
+                <ScalarProperty Name="U17EXPREF" ColumnName="U17EXPREF" />
+                <ScalarProperty Name="U18EXPREF" ColumnName="U18EXPREF" />
+                <ScalarProperty Name="U19EXPREF" ColumnName="U19EXPREF" />
+                <ScalarProperty Name="U20EXPREF" ColumnName="U20EXPREF" />
+                <ScalarProperty Name="UY14EXPFEE" ColumnName="UY14EXPFEE" />
+                <ScalarProperty Name="UY15EXPFEE" ColumnName="UY15EXPFEE" />
+                <ScalarProperty Name="U16EXPFEE" ColumnName="U16EXPFEE" />
+                <ScalarProperty Name="U17EXPFEE" ColumnName="U17EXPFEE" />
+                <ScalarProperty Name="U18EXPFEE" ColumnName="U18EXPFEE" />
+                <ScalarProperty Name="U19EXPFEE" ColumnName="U19EXPFEE" />
+                <ScalarProperty Name="U20EXPFEE" ColumnName="U20EXPFEE" />
+                <ScalarProperty Name="UY14USER" ColumnName="UY14USER" />
+                <ScalarProperty Name="UY15USER" ColumnName="UY15USER" />
+                <ScalarProperty Name="U16USER" ColumnName="U16USER" />
+                <ScalarProperty Name="U17USER" ColumnName="U17USER" />
+                <ScalarProperty Name="U18USER" ColumnName="U18USER" />
+                <ScalarProperty Name="U19USER" ColumnName="U19USER" />
+                <ScalarProperty Name="U20USER" ColumnName="U20USER" />
+                <ScalarProperty Name="UY14FEEDAT" ColumnName="UY14FEEDAT" />
+                <ScalarProperty Name="UY15FEEDAT" ColumnName="UY15FEEDAT" />
+                <ScalarProperty Name="U16FEEDAT" ColumnName="U16FEEDAT" />
+                <ScalarProperty Name="U17FEEDAT" ColumnName="U17FEEDAT" />
+                <ScalarProperty Name="U18FEEDAT" ColumnName="U18FEEDAT" />
+                <ScalarProperty Name="U19FEEDAT" ColumnName="U19FEEDAT" />
+                <ScalarProperty Name="U20FEEDAT" ColumnName="U20FEEDAT" />
+                <ScalarProperty Name="UY14SIGNED" ColumnName="UY14SIGNED" />
+                <ScalarProperty Name="UY15SIGNED" ColumnName="UY15SIGNED" />
+                <ScalarProperty Name="U16SIGNED" ColumnName="U16SIGNED" />
+                <ScalarProperty Name="U17SIGNED" ColumnName="U17SIGNED" />
+                <ScalarProperty Name="U18SIGNED" ColumnName="U18SIGNED" />
+                <ScalarProperty Name="U19SIGNED" ColumnName="U19SIGNED" />
+                <ScalarProperty Name="U20SIGNED" ColumnName="U20SIGNED" />
+                <ScalarProperty Name="UY14ACTREF" ColumnName="UY14ACTREF" />
+                <ScalarProperty Name="UY15ACTREF" ColumnName="UY15ACTREF" />
+                <ScalarProperty Name="U16ACTREF" ColumnName="U16ACTREF" />
+                <ScalarProperty Name="U17ACTREF" ColumnName="U17ACTREF" />
+                <ScalarProperty Name="U18ACTREF" ColumnName="U18ACTREF" />
+                <ScalarProperty Name="U19ACTREF" ColumnName="U19ACTREF" />
+                <ScalarProperty Name="U20ACTREF" ColumnName="U20ACTREF" />
+                <ScalarProperty Name="UY14ACTFEE" ColumnName="UY14ACTFEE" />
+                <ScalarProperty Name="UY15ACTFEE" ColumnName="UY15ACTFEE" />
+                <ScalarProperty Name="U16ACTFEE" ColumnName="U16ACTFEE" />
+                <ScalarProperty Name="U17ACTFEE" ColumnName="U17ACTFEE" />
+                <ScalarProperty Name="U18ACTFEE" ColumnName="U18ACTFEE" />
+                <ScalarProperty Name="U19ACTFEE" ColumnName="U19ACTFEE" />
+                <ScalarProperty Name="U20ACTFEE" ColumnName="U20ACTFEE" />
+                <ScalarProperty Name="USERDEF01" ColumnName="USERDEF01" />
+                <ScalarProperty Name="USERDEF02" ColumnName="USERDEF02" />
+                <ScalarProperty Name="UNSOURCE" ColumnName="UNSOURCE" />
+                <ScalarProperty Name="RECTYPE" ColumnName="RECTYPE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

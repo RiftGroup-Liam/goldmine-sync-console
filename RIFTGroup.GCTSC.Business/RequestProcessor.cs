@@ -253,6 +253,14 @@ namespace RIFTGroup.GCTSC.Business
                 Refund refund = _gm_repo.GetRefundValues("20", ctResult.ACCOUNTNO);
                 ro = _apiClient.SendRefundUpdateRequest(ro, refund);
             }
+            if(ctResult.unsource_bool)
+            {
+                string changedValue = _gm_repo.GetSourceInformation(ctResult.ACCOUNTNO);
+                if(changedValue == SourceHelper.BDTSource)
+                {
+                    ro = _apiClient.SendRepLeadUpdateRequest(ro);
+                }
+            }
             ro = DoCompletedUpdates(ctResult, ro);
             _applicationLogging.Log(ro);
             return ro;

@@ -125,5 +125,7 @@ namespace RIFTGroup.GCTSC.Core
 
         public bool userdef01_bool { get { return USERDEF01.Value == 1; } }
         public bool userdef02_bool { get { return USERDEF02.Value == 1; } }
+
+        public bool unsource_bool {  get { return UNSOURCE.Value == 1; } }
     }
 }

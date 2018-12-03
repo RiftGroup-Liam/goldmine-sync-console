@@ -331,6 +331,16 @@ namespace RIFTGroup.GCTSC.Core
             return ro;
         }
 
+        public ResultsObject SendRepLeadUpdateRequest(ResultsObject ro)
+        {
+            string personId = GetPersonId(ro.ReferenceNumber);
+            if(!string.IsNullOrEmpty(personId))
+            {
+                ro = SendUpdatePersonRequest(Enums.Enums.SendRequest.REPLEAD, ro, "true");
+            }
+            return ro;
+        }
+
         private ClaimRefund GetClaimRefundForYear(string personId, int year)
         {
             ClaimRefund claimRefund = null;

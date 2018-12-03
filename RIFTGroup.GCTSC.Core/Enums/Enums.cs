@@ -40,7 +40,8 @@ namespace RIFTGroup.GCTSC.Core.Enums
             DOB = 20,
             ADDRESS = 21,
             CREATEPERSONADDRESS = 22,
-            CREATEADDRESS = 23
+            CREATEADDRESS = 23,
+            REPLEAD = 24
         }
 
         public enum PhoneNumberKind

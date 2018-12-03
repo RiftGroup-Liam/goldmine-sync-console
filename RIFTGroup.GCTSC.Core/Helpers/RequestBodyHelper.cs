@@ -131,6 +131,10 @@ namespace RIFTGroup.GCTSC.Core.Helpers
             {
                 restRequest.AddParameter("date_of_birth", changedValue);
             }
+            if(requestType == Enums.Enums.SendRequest.REPLEAD)
+            {
+                restRequest.AddParameter("rep_lead", changedValue);
+            }
             return restRequest;
         }
 

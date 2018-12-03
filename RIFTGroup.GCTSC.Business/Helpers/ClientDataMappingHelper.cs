@@ -35,6 +35,7 @@ namespace RIFTGroup.GCTSC.Business.Helpers
             clientData.CompletedDate_2017 = c2.UY20COM;
             clientData.CompletedDate_2018 = c2.UY21COM;
             clientData.CompletedDate_2019 = c2.UY22COM;
+            clientData.Unsource = c2.UNSOURCE;
             return clientData;
         }
     }
